@@ -1,10 +1,6 @@
 export type TabParamList = {
-  Home?: {
-    post: string;
-  };
-  Details: {
-    itemId: number;
-    otherParam?: string;
-  };
-  CreatePost: undefined;
+  Diary: undefined;
+  Recipes: undefined;
+  Articles: undefined;
+  Basket: undefined;
 };
