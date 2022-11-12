@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Text } from 'native-base';
 import WizardLayout from './WizardLayout';
-import { WizardStackParamList } from './WizardScreen';
+import { WizardStackParamList } from '.';
 
 const WelcomeScreen = ({
   navigation,
@@ -9,8 +9,8 @@ const WelcomeScreen = ({
   <WizardLayout
     title="Добро пожаловать!"
     buttonProps={{
-      onPress: () => navigation.navigate('Gender'),
       children: 'Начать',
+      onPress: () => navigation.navigate('Gender'),
     }}
     subButtonProps={{
       children: 'Уже зарегистрированы? Войти',

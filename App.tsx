@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
 // import MainTabsScreen from './screens/MainTabsScreen';
 import { useFonts } from 'expo-font';
-import WizardStack from './screens/WizardScreen/WizardScreen';
+import WizardStack from './screens/WizardStack';
 import theme from './theme';
 
 const App = () => {
