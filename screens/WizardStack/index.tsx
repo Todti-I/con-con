@@ -1,8 +1,10 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ActivityTypeScreen from './ActivityTypeScreen';
 import BirthdayScreen from './BirthdayScreen';
 import DesiredWeightScreen from './DesiredWeightScreen';
 import GenderScreen from './GenderScreen';
 import GrowthScreen from './GrowthScreen';
+import PreferencesScreen from './PreferencesScreen';
 import WeightScreen from './WeightScreen';
 import WelcomeScreen from './WelcomeScreen';
 
@@ -23,6 +25,14 @@ const WizardStack = () => (
     <Stack.Screen
       name={DesiredWeightScreen.screenName}
       component={DesiredWeightScreen}
+    />
+    <Stack.Screen
+      name={ActivityTypeScreen.screenName}
+      component={ActivityTypeScreen}
+    />
+    <Stack.Screen
+      name={PreferencesScreen.screenName}
+      component={PreferencesScreen}
     />
   </Stack.Navigator>
 );
