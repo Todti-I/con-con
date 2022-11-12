@@ -1,15 +1,24 @@
 import { IInputProps, Input, Text } from 'native-base';
 
 type Props = {
+  isFloat?: boolean;
   defaultValue?: number;
   onChange?: (value: number) => void;
   unitName?: string;
 } & Omit<IInputProps, 'onChange'>;
 
-const NumberInput = ({ defaultValue, onChange, unitName, ...props }: Props) => {
+const NumberInput = ({
+  isFloat,
+  defaultValue,
+  onChange,
+  unitName,
+  ...props
+}: Props) => {
   const handleChange = (value: string) => {
-    const number = parseInt(value.replace(/[^0-9\.]+/g, '')) || 0;
-    onChange?.(number);
+    const number = isFloat
+      ? parseFloat(value.replace(/,+/g, '.').replace(/[^0-9\.]+/g, ''))
+      : parseInt(value.replace(/[^0-9\.]+/g, ''));
+    onChange?.(number || 0);
   };
 
   return (
@@ -19,6 +28,7 @@ const NumberInput = ({ defaultValue, onChange, unitName, ...props }: Props) => {
       color="text.900"
       fontSize="4xl"
       fontWeight={500}
+      textAlign="center"
       defaultValue={defaultValue}
       onChangeText={handleChange}
       rightElement={

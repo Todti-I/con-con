@@ -5,21 +5,21 @@ import { useState } from 'react';
 import { WizardStackParamList } from '.';
 import WizardLayout from './WizardLayout';
 
-const GrowthScreen = ({
+const WeightScreen = ({
   navigation,
-}: NativeStackScreenProps<WizardStackParamList, 'Growth'>) => {
-  const [growth, setGrowth] = useState<number | undefined>();
+}: NativeStackScreenProps<WizardStackParamList, 'Weight'>) => {
+  const [weight, setWeight] = useState<number | undefined>();
 
   return (
     <WizardLayout
-      title="Укажите Ваш рост"
-      progressValue={3}
+      title="Укажите Ваш вес"
+      progressValue={4}
       buttonProps={{
-        isDisabled: !growth,
+        isDisabled: !weight,
         rightIcon: <ChevronRightIcon />,
         _icon: { ml: 5 },
         children: 'Далее',
-        onPress: () => navigation.navigate('Weight'),
+        onPress: () => navigation.navigate('DesiredWeight'),
       }}
       subButtonProps={{
         onPress: () => navigation.goBack(),
@@ -31,19 +31,20 @@ const GrowthScreen = ({
         питания и вычислить потребность в калориях.
       </Text>
       <Center mt="50px">
-        <Text fontSize="2xl" fontWeight={500} children="Рост" />
+        <Text fontSize="2xl" fontWeight={500} children="Текущий вес" />
         <NumberInput
-          w="35%"
+          w="45%"
           mt="30px"
-          maxLength={3}
-          onChange={setGrowth}
-          unitName="см"
+          isFloat
+          maxLength={5}
+          onChange={setWeight}
+          unitName="кг"
         />
       </Center>
     </WizardLayout>
   );
 };
 
-GrowthScreen.screenName = 'Growth' as const;
+WeightScreen.screenName = 'Weight' as const;
 
-export default GrowthScreen;
+export default WeightScreen;

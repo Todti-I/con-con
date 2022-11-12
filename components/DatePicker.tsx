@@ -47,6 +47,7 @@ const DatePicker = ({ defaultDate, onChange, ...props }: Props) => {
         color="text.900"
         fontSize="4xl"
         fontWeight={500}
+        textAlign="center"
         value={formatDate(date.get)}
         onPressOut={showDatePicker}
         rightElement={

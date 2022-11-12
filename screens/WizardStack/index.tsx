@@ -1,7 +1,9 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BirthdayScreen from './BirthdayScreen';
+import DesiredWeightScreen from './DesiredWeightScreen';
 import GenderScreen from './GenderScreen';
 import GrowthScreen from './GrowthScreen';
+import WeightScreen from './WeightScreen';
 import WelcomeScreen from './WelcomeScreen';
 
 const Stack = createNativeStackNavigator<WizardStackParamList>();
@@ -17,6 +19,11 @@ const WizardStack = () => (
     <Stack.Screen name={GenderScreen.screenName} component={GenderScreen} />
     <Stack.Screen name={BirthdayScreen.screenName} component={BirthdayScreen} />
     <Stack.Screen name={GrowthScreen.screenName} component={GrowthScreen} />
+    <Stack.Screen name={WeightScreen.screenName} component={WeightScreen} />
+    <Stack.Screen
+      name={DesiredWeightScreen.screenName}
+      component={DesiredWeightScreen}
+    />
   </Stack.Navigator>
 );
 
