@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Progress } from 'native-base';
+import BirthdayScreen from './BirthdayScreen';
 import GenderScreen from './GenderScreen';
 import WelcomeScreen from './WelcomeScreen';
 
@@ -14,6 +14,7 @@ const WizardStack = () => (
   >
     <Stack.Screen name={WelcomeScreen.screenName} component={WelcomeScreen} />
     <Stack.Screen name={GenderScreen.screenName} component={GenderScreen} />
+    <Stack.Screen name={BirthdayScreen.screenName} component={BirthdayScreen} />
   </Stack.Navigator>
 );
 

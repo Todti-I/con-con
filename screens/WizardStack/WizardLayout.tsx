@@ -25,7 +25,7 @@ const WizardLayout = ({
     {progressValue === 0 ? (
       <Box h="20px" />
     ) : (
-      <Progress h="20px" value={progressValue} max={2} />
+      <Progress h="20px" value={progressValue} max={3} />
     )}
     <Heading mt="58px" h="2.5em" mb={5} noOfLines={2} children={title} />
     <Box flex={1} {...props} />
