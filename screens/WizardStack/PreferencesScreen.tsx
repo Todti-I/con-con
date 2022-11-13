@@ -3,7 +3,7 @@ import useValue from 'con-con/hooks/useValue';
 import { Checkbox, ChevronRightIcon, Divider, Text, VStack } from 'native-base';
 import { LogBox } from 'react-native';
 import { WizardStackParamList } from './types';
-import { useUpdateProgress } from './wizard-context';
+import { useDataUpdates, useProgressUpdates } from './wizard-context';
 import WizardLayout from './WizardLayout';
 
 // https://github.com/GeekyAnts/NativeBase/issues/5098
@@ -14,8 +14,8 @@ LogBox.ignoreLogs([
 const PreferencesScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'Preferences'>) => {
-  useUpdateProgress(7);
-  const preferences = useValue<string[]>([]);
+  useProgressUpdates(7);
+  const { data, update } = useDataUpdates();
 
   return (
     <WizardLayout
@@ -35,7 +35,12 @@ const PreferencesScreen = ({
         Пожалуйста, ответьте на вопросы, чтобы персонализировать ваш план
         питания и вычислить потребность в калориях.
       </Text>
-      <Checkbox.Group px={4} mt={5} onChange={preferences.set}>
+      <Checkbox.Group
+        px={4}
+        mt={5}
+        defaultValue={data.get.preferences}
+        onChange={(preferences) => update({ preferences })}
+      >
         <VStack w="full" space={5}>
           <Checkbox size="md" value="Веган" children="Веган" />
           <Checkbox size="md" value="Вегетарианец" children="Вегетарианец" />

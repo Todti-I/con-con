@@ -2,21 +2,24 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ChevronRightIcon, HStack, Text } from 'native-base';
 import { useState } from 'react';
 import { WizardStackParamList } from '../types';
-import { useUpdateProgress } from '../wizard-context';
+import { useDataUpdates, useProgressUpdates } from '../wizard-context';
 import WizardLayout from '../WizardLayout';
 import GenderCard from './GenderCard';
 
 const GenderScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'Gender'>) => {
-  useUpdateProgress(1);
-  const [gender, setGender] = useState('');
+  useProgressUpdates(1);
+  const { data, useUpdate } = useDataUpdates();
+  const [gender, setGender] = useState(data.get.gender);
+
+  useUpdate({ gender }, [gender]);
 
   return (
     <WizardLayout
       title="Укажите Ваш пол"
       buttonProps={{
-        isDisabled: gender === '',
+        isDisabled: !gender,
         rightIcon: <ChevronRightIcon />,
         _icon: { ml: 5 },
         children: 'Далее',

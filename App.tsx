@@ -1,8 +1,8 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { NativeBaseProvider } from 'native-base';
-// import MainTabsScreen from './screens/MainTabsScreen';
 import { useFonts } from 'expo-font';
-import WizardStack from './screens/WizardStack';
+import { AppProvider } from './hooks/useAppContext';
+import Screens from './screens';
 import theme from './theme';
 
 const App = () => {
@@ -20,8 +20,9 @@ const App = () => {
   return (
     <NativeBaseProvider theme={theme}>
       <NavigationContainer>
-        {/* <MainTabsScreen /> */}
-        <WizardStack />
+        <AppProvider>
+          <Screens />
+        </AppProvider>
       </NavigationContainer>
     </NativeBaseProvider>
   );

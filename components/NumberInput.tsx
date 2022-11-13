@@ -1,11 +1,22 @@
 import { IInputProps, Input, Text } from 'native-base';
+import { useState } from 'react';
 
 type Props = {
   isFloat?: boolean;
   defaultValue?: number;
   onChange?: (value: number) => void;
   unitName?: string;
-} & Omit<IInputProps, 'onChange'>;
+} & Omit<IInputProps, 'defaultValue' | 'onChange'>;
+
+const convertToNumber = (value: string, isFloat?: boolean) => {
+  return isFloat
+    ? parseFloat(value.replace(/,+/g, '.').replace(/[^0-9\.]+/g, ''))
+    : parseInt(value.replace(/[^0-9\.]+/g, ''));
+};
+
+const normalizeValue = (value: string) => {
+  return value.replace(/[^0-9\.]+/g, '.');
+};
 
 const NumberInput = ({
   isFloat,
@@ -14,11 +25,11 @@ const NumberInput = ({
   unitName,
   ...props
 }: Props) => {
+  const [value, setValue] = useState((defaultValue || '').toString());
+
   const handleChange = (value: string) => {
-    const number = isFloat
-      ? parseFloat(value.replace(/,+/g, '.').replace(/[^0-9\.]+/g, ''))
-      : parseInt(value.replace(/[^0-9\.]+/g, ''));
-    onChange?.(number || 0);
+    onChange?.(convertToNumber(value, isFloat) || 0);
+    setValue(value);
   };
 
   return (
@@ -29,7 +40,7 @@ const NumberInput = ({
       fontSize="4xl"
       fontWeight={500}
       textAlign="center"
-      defaultValue={defaultValue}
+      value={normalizeValue(value)}
       onChangeText={handleChange}
       rightElement={
         unitName ? (

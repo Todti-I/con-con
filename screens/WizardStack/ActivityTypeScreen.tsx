@@ -1,13 +1,13 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ChevronRightIcon, Text } from 'native-base';
 import { WizardStackParamList } from './types';
-import { useUpdateProgress } from './wizard-context';
+import { useProgressUpdates } from './wizard-context';
 import WizardLayout from './WizardLayout';
 
 const ActivityTypeScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'ActivityType'>) => {
-  useUpdateProgress(6);
+  useProgressUpdates(6);
 
   return (
     <WizardLayout

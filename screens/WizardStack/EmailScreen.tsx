@@ -1,21 +1,34 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import useAppContext from 'con-con/hooks/useAppContext';
 import { Input, Text } from 'native-base';
 import { useState } from 'react';
 import { WizardStackParamList } from './types';
-import { useUpdateProgress } from './wizard-context';
+import { useDataUpdates, useProgressUpdates } from './wizard-context';
 import WizardLayout from './WizardLayout';
 
 const EmailScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'Email'>) => {
-  useUpdateProgress(8);
-  const [email, setEmail] = useState('');
+  const { isWizardComplete, forceUpdate } = useAppContext();
+  const { data, useUpdate } = useDataUpdates();
+  const [email, setEmail] = useState(data.get.email || '');
+
+  useProgressUpdates(8);
+  useUpdate({ email }, [email]);
+
+  const handleComplete = () => {
+    console.log(data.get);
+
+    isWizardComplete.set(true);
+    forceUpdate();
+  };
 
   return (
     <WizardLayout
       title="Введите Вашу электронную почту"
       buttonProps={{
         isDisabled: !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email),
+        onPress: handleComplete,
         children: 'Зарегистрироваться',
       }}
       subButtonProps={{
@@ -34,8 +47,9 @@ const EmailScreen = ({
         placeholder="E-mail"
         variant="underlined"
         fontSize="2xl"
-        onChangeText={setEmail}
         fontWeight={500}
+        onChangeText={setEmail}
+        defaultValue={email}
       />
     </WizardLayout>
   );

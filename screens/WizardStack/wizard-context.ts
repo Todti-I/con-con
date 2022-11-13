@@ -1,7 +1,13 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { UseSubscriptions } from 'con-con/hooks/useSubscriptions';
 import { ValueRef } from 'con-con/hooks/useValue';
-import { createContext, useContext } from 'react';
+import {
+  createContext,
+  DependencyList,
+  useCallback,
+  useContext,
+  useEffect,
+} from 'react';
 import { WizardData } from './types';
 
 type WizardContent = {
@@ -20,7 +26,27 @@ export const WizardProvider = WizardContext.Provider;
 
 export const useWizardContext = () => useContext(WizardContext);
 
-export const useUpdateProgress = (newPageNumber: number) => {
+export const useDataUpdates = () => {
+  const { data } = useWizardContext();
+
+  const update = (newData: Partial<WizardData>) => {
+    data.set({ ...data.get, ...newData });
+  };
+
+  const useUpdate = (newData: Partial<WizardData>, deps: DependencyList) => {
+    return useEffect(() => {
+      update(newData);
+    }, deps);
+  };
+
+  return {
+    data,
+    update,
+    useUpdate,
+  };
+};
+
+export const useProgressUpdates = (newPageNumber: number) => {
   const { pageNumber, subscriptions } = useWizardContext();
 
   useFocusEffect(() => {

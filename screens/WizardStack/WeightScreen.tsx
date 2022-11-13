@@ -3,14 +3,17 @@ import NumberInput from 'con-con/components/NumberInput';
 import { Center, ChevronRightIcon, Text } from 'native-base';
 import { useState } from 'react';
 import { WizardStackParamList } from './types';
-import { useUpdateProgress } from './wizard-context';
+import { useDataUpdates, useProgressUpdates } from './wizard-context';
 import WizardLayout from './WizardLayout';
 
 const WeightScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'Weight'>) => {
-  useUpdateProgress(4);
-  const [weight, setWeight] = useState<number | undefined>();
+  useProgressUpdates(4);
+  const { data, useUpdate } = useDataUpdates();
+  const [weight, setWeight] = useState(data.get.weight);
+
+  useUpdate({ weight }, [weight]);
 
   return (
     <WizardLayout
@@ -40,6 +43,7 @@ const WeightScreen = ({
           maxLength={5}
           onChange={setWeight}
           unitName="кг"
+          defaultValue={weight}
         />
       </Center>
     </WizardLayout>
