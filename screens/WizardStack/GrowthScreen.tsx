@@ -2,18 +2,19 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import NumberInput from 'con-con/components/NumberInput';
 import { Center, ChevronRightIcon, Text } from 'native-base';
 import { useState } from 'react';
-import { WizardStackParamList } from '.';
+import { WizardStackParamList } from './types';
+import { useUpdateProgress } from './wizard-context';
 import WizardLayout from './WizardLayout';
 
 const GrowthScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'Growth'>) => {
+  useUpdateProgress(3);
   const [growth, setGrowth] = useState<number | undefined>();
 
   return (
     <WizardLayout
       title="Укажите Ваш рост"
-      progressValue={3}
       buttonProps={{
         isDisabled: !growth,
         rightIcon: <ChevronRightIcon />,

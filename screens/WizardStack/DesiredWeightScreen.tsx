@@ -2,18 +2,19 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import NumberInput from 'con-con/components/NumberInput';
 import { Center, ChevronRightIcon, Text } from 'native-base';
 import { useState } from 'react';
-import { WizardStackParamList } from '.';
+import { WizardStackParamList } from './types';
+import { useUpdateProgress } from './wizard-context';
 import WizardLayout from './WizardLayout';
 
 const DesiredWeightScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'DesiredWeight'>) => {
+  useUpdateProgress(5);
   const [desiredWeight, setDesiredWeight] = useState<number | undefined>();
 
   return (
     <WizardLayout
       title="Укажите вес, который Вы хотите достичь"
-      progressValue={5}
       buttonProps={{
         isDisabled: !desiredWeight,
         rightIcon: <ChevronRightIcon />,

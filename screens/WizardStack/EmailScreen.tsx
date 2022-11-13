@@ -1,18 +1,19 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Input, Text } from 'native-base';
 import { useState } from 'react';
-import { WizardStackParamList } from '.';
+import { WizardStackParamList } from './types';
+import { useUpdateProgress } from './wizard-context';
 import WizardLayout from './WizardLayout';
 
 const EmailScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'Email'>) => {
+  useUpdateProgress(8);
   const [email, setEmail] = useState('');
 
   return (
     <WizardLayout
       title="Введите Вашу электронную почту"
-      progressValue={8}
       buttonProps={{
         isDisabled: !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email),
         children: 'Зарегистрироваться',

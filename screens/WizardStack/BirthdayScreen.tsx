@@ -2,18 +2,19 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import DatePicker from 'con-con/components/DatePicker';
 import { Center, ChevronRightIcon, Text } from 'native-base';
 import { useState } from 'react';
-import { WizardStackParamList } from '.';
+import { WizardStackParamList } from './types';
+import { useUpdateProgress } from './wizard-context';
 import WizardLayout from './WizardLayout';
 
 const BirthdayScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'Birthday'>) => {
+  useUpdateProgress(2);
   const [birthday, setBirthday] = useState<Date | undefined>();
 
   return (
     <WizardLayout
       title="Укажите Вашу дату рождения"
-      progressValue={2}
       buttonProps={{
         isDisabled: birthday === undefined,
         rightIcon: <ChevronRightIcon />,

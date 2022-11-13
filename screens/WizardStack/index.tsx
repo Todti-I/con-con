@@ -1,6 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import useSubscriptions from 'con-con/hooks/useSubscriptions';
+import useValue from 'con-con/hooks/useValue';
 import { KeyboardAvoidingView } from 'native-base';
-import { Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { useMemo } from 'react';
 import ActivityTypeScreen from './ActivityTypeScreen';
 import BirthdayScreen from './BirthdayScreen';
 import DesiredWeightScreen from './DesiredWeightScreen';
@@ -8,59 +10,72 @@ import EmailScreen from './EmailScreen';
 import GenderScreen from './GenderScreen';
 import GrowthScreen from './GrowthScreen';
 import PreferencesScreen from './PreferencesScreen';
+import { WizardData, WizardStackParamList } from './types';
 import WeightScreen from './WeightScreen';
 import WelcomeScreen from './WelcomeScreen';
+import { WizardProvider } from './wizard-context';
+import WizardProgress from './WizardProgress';
 
 const Stack = createNativeStackNavigator<WizardStackParamList>();
 
-const WizardStack = () => (
-  <KeyboardAvoidingView key="keyboardAvoidingView" flex={1} behavior="height">
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-          animation: 'slide_from_right',
-        }}
-      >
-        <Stack.Screen
-          name={WelcomeScreen.screenName}
-          component={WelcomeScreen}
-        />
-        <Stack.Screen name={GenderScreen.screenName} component={GenderScreen} />
-        <Stack.Screen
-          name={BirthdayScreen.screenName}
-          component={BirthdayScreen}
-        />
-        <Stack.Screen name={GrowthScreen.screenName} component={GrowthScreen} />
-        <Stack.Screen name={WeightScreen.screenName} component={WeightScreen} />
-        <Stack.Screen
-          name={DesiredWeightScreen.screenName}
-          component={DesiredWeightScreen}
-        />
-        <Stack.Screen
-          name={ActivityTypeScreen.screenName}
-          component={ActivityTypeScreen}
-        />
-        <Stack.Screen
-          name={PreferencesScreen.screenName}
-          component={PreferencesScreen}
-        />
-        <Stack.Screen name={EmailScreen.screenName} component={EmailScreen} />
-      </Stack.Navigator>
-    </TouchableWithoutFeedback>
-  </KeyboardAvoidingView>
-);
+const WizardStack = () => {
+  const pageNumber = useValue(0);
+  const data = useValue<Partial<WizardData>>({});
+  const subscriptions = useSubscriptions();
 
-export type WizardStackParamList = {
-  Welcome: undefined;
-  Gender: undefined;
-  Birthday: undefined;
-  Growth: undefined;
-  Weight: undefined;
-  DesiredWeight: undefined;
-  ActivityType: undefined;
-  Preferences: undefined;
-  Email: undefined;
+  return (
+    <WizardProvider
+      value={useMemo(() => ({ pageNumber, data, subscriptions }), [])}
+    >
+      <KeyboardAvoidingView
+        key="keyboardAvoidingView"
+        flex={1}
+        behavior="height"
+      >
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+            animation: 'slide_from_right',
+          }}
+        >
+          <Stack.Screen
+            name={WelcomeScreen.screenName}
+            component={WelcomeScreen}
+          />
+          <Stack.Screen
+            name={GenderScreen.screenName}
+            component={GenderScreen}
+          />
+          <Stack.Screen
+            name={BirthdayScreen.screenName}
+            component={BirthdayScreen}
+          />
+          <Stack.Screen
+            name={GrowthScreen.screenName}
+            component={GrowthScreen}
+          />
+          <Stack.Screen
+            name={WeightScreen.screenName}
+            component={WeightScreen}
+          />
+          <Stack.Screen
+            name={DesiredWeightScreen.screenName}
+            component={DesiredWeightScreen}
+          />
+          <Stack.Screen
+            name={ActivityTypeScreen.screenName}
+            component={ActivityTypeScreen}
+          />
+          <Stack.Screen
+            name={PreferencesScreen.screenName}
+            component={PreferencesScreen}
+          />
+          <Stack.Screen name={EmailScreen.screenName} component={EmailScreen} />
+        </Stack.Navigator>
+        <WizardProgress />
+      </KeyboardAvoidingView>
+    </WizardProvider>
+  );
 };
 
 export default WizardStack;

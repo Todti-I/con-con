@@ -2,7 +2,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import useValue from 'con-con/hooks/useValue';
 import { Checkbox, ChevronRightIcon, Divider, Text, VStack } from 'native-base';
 import { LogBox } from 'react-native';
-import { WizardStackParamList } from '.';
+import { WizardStackParamList } from './types';
+import { useUpdateProgress } from './wizard-context';
 import WizardLayout from './WizardLayout';
 
 // https://github.com/GeekyAnts/NativeBase/issues/5098
@@ -13,12 +14,12 @@ LogBox.ignoreLogs([
 const PreferencesScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'Preferences'>) => {
+  useUpdateProgress(7);
   const preferences = useValue<string[]>([]);
 
   return (
     <WizardLayout
       title="Укажите Ваши предпочтения в кухне"
-      progressValue={7}
       buttonProps={{
         rightIcon: <ChevronRightIcon />,
         _icon: { ml: 5 },
