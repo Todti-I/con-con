@@ -11,11 +11,17 @@ type Props = {
 const convertToNumber = (value: string, isFloat?: boolean) => {
   return isFloat
     ? parseFloat(value.replace(/,+/g, '.').replace(/[^0-9\.]+/g, ''))
-    : parseInt(value.replace(/[^0-9\.]+/g, ''));
+    : parseInt(value.replace(/[^0-9]+/g, ''));
 };
 
-const normalizeValue = (value: string) => {
-  return value.replace(/[^0-9\.]+/g, '.');
+const normalizeValue = (value: string, isFloat?: boolean) => {
+  if (!isFloat) return value.replace(/[^0-9]+/g, '');
+
+  return value
+    .replace(/[^0-9\.]+/g, '.')
+    .replace(/^\.+/g, '')
+    .split('.')
+    .reduce((result, current, i) => result + (i == 1 ? '.' : '') + current, '');
 };
 
 const NumberInput = ({
@@ -40,7 +46,7 @@ const NumberInput = ({
       fontSize="4xl"
       fontWeight={500}
       textAlign="center"
-      value={normalizeValue(value)}
+      value={normalizeValue(value, isFloat)}
       onChangeText={handleChange}
       rightElement={
         unitName ? (
