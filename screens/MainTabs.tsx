@@ -17,7 +17,7 @@ const MainTabs = ({
       initialRouteName="Diary"
       screenOptions={{
         headerStyle: {
-          backgroundColor: '#DDDDDD',
+          backgroundColor: 'white',
         },
         tabBarStyle: {
           paddingHorizontal: 10,
@@ -69,7 +69,7 @@ const MainTabs = ({
       />
     </Tab.Navigator>
     <Button
-      top="40px"
+      top="8px"
       right="10px"
       position="absolute"
       onPress={() => navigation.replace('Wizard')}

@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { NativeBaseProvider } from 'native-base';
 import { useFonts } from 'expo-font';
+import { NativeBaseProvider, StatusBar } from 'native-base';
 import { AppProvider } from './hooks/useAppContext';
 import Screens from './screens';
 import theme from './theme';
@@ -21,6 +21,7 @@ const App = () => {
     <NativeBaseProvider theme={theme}>
       <NavigationContainer>
         <AppProvider>
+          <StatusBar backgroundColor="white" />
           <Screens />
         </AppProvider>
       </NavigationContainer>

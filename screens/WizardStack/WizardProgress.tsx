@@ -18,7 +18,7 @@ const WizardProgress = () => {
   return (
     <Box
       left={0}
-      top="54px"
+      top="30px"
       position="absolute"
       px={4}
       w="full"
