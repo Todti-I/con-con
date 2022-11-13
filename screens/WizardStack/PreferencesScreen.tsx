@@ -38,7 +38,7 @@ const PreferencesScreen = ({
       <Checkbox.Group
         px={4}
         mt={5}
-        defaultValue={data.get.preferences}
+        defaultValue={data.preferences}
         onChange={(preferences) => update({ preferences })}
       >
         <VStack w="full" space={5}>

@@ -11,7 +11,7 @@ const DesiredWeightScreen = ({
 }: NativeStackScreenProps<WizardStackParamList, 'DesiredWeight'>) => {
   useProgressUpdates(5);
   const { data, useUpdate } = useDataUpdates();
-  const [desiredWeight, setDesiredWeight] = useState(data.get.desiredWeight);
+  const [desiredWeight, setDesiredWeight] = useState(data.desiredWeight);
 
   useUpdate({ desiredWeight }, [desiredWeight]);
 

@@ -1,13 +1,14 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Text } from 'native-base';
 import { WizardStackParamList } from './types';
-import { useProgressUpdates } from './wizard-context';
+import { useProgressUpdates, useWizardContext } from './wizard-context';
 import WizardLayout from './WizardLayout';
 
 const WelcomeScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'Welcome'>) => {
   useProgressUpdates(0);
+  const { onComplete } = useWizardContext();
 
   return (
     <WizardLayout
@@ -17,6 +18,7 @@ const WelcomeScreen = ({
         onPress: () => navigation.navigate('Gender'),
       }}
       subButtonProps={{
+        onPress: onComplete,
         children: 'Уже зарегистрированы? Войти',
       }}
     >

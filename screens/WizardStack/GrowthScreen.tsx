@@ -11,7 +11,7 @@ const GrowthScreen = ({
 }: NativeStackScreenProps<WizardStackParamList, 'Growth'>) => {
   useProgressUpdates(3);
   const { data, useUpdate } = useDataUpdates();
-  const [growth, setGrowth] = useState(data.get.growth);
+  const [growth, setGrowth] = useState(data.growth);
 
   useUpdate({ growth }, [growth]);
 

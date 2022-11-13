@@ -11,7 +11,7 @@ const BirthdayScreen = ({
 }: NativeStackScreenProps<WizardStackParamList, 'Birthday'>) => {
   useProgressUpdates(2);
   const { data, useUpdate } = useDataUpdates();
-  const [birthday, setBirthday] = useState(data.get.birthday);
+  const [birthday, setBirthday] = useState(data.birthday);
 
   useUpdate({ birthday }, [birthday]);
 

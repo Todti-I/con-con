@@ -1,32 +1,42 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import useAppContext from 'con-con/hooks/useAppContext';
 import { Input, Text } from 'native-base';
 import { useState } from 'react';
 import { WizardStackParamList } from './types';
-import { useDataUpdates, useProgressUpdates } from './wizard-context';
+import {
+  useDataUpdates,
+  useProgressUpdates,
+  useWizardContext,
+} from './wizard-context';
 import WizardLayout from './WizardLayout';
 
 const EmailScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'Email'>) => {
-  const { isWizardComplete, forceUpdate } = useAppContext();
-  const { data, useUpdate } = useDataUpdates();
+  const { data, onComplete } = useWizardContext();
+  const { useUpdate } = useDataUpdates();
   const [email, setEmail] = useState(data.get.email || '');
+  const [isLoading, setIsLoading] = useState(false);
 
   useProgressUpdates(8);
   useUpdate({ email }, [email]);
 
-  const handleComplete = () => {
-    console.log(data.get);
-
-    isWizardComplete.set(true);
-    forceUpdate();
+  const handleComplete = async () => {
+    try {
+      setIsLoading(true);
+      await AsyncStorage.setItem('wizard-data', JSON.stringify(data.get));
+      onComplete();
+    } catch (error) {
+      console.error(error);
+      setIsLoading(false);
+    }
   };
 
   return (
     <WizardLayout
       title="Введите Вашу электронную почту"
       buttonProps={{
+        isLoading,
         isDisabled: !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(email),
         onPress: handleComplete,
         children: 'Зарегистрироваться',

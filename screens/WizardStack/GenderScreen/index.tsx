@@ -11,7 +11,7 @@ const GenderScreen = ({
 }: NativeStackScreenProps<WizardStackParamList, 'Gender'>) => {
   useProgressUpdates(1);
   const { data, useUpdate } = useDataUpdates();
-  const [gender, setGender] = useState(data.get.gender);
+  const [gender, setGender] = useState(data.gender);
 
   useUpdate({ gender }, [gender]);
 

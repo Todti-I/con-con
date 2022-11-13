@@ -1,15 +1,15 @@
-import useAppContext from 'con-con/hooks/useAppContext';
-import MainTabsScreen from './MainTabsScreen';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import MainTabs from './MainTabs';
+import { RootStackParamList } from './types';
 import WizardStack from './WizardStack';
 
-const Screens = () => {
-  const { isWizardComplete } = useAppContext();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
-  if (isWizardComplete.get) {
-    return <MainTabsScreen />;
-  }
-
-  return <WizardStack />;
-};
+const Screens = () => (
+  <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Screen name={WizardStack.screenName} component={WizardStack} />
+    <Stack.Screen name={MainTabs.screenName} component={MainTabs} />
+  </Stack.Navigator>
+);
 
 export default Screens;

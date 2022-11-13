@@ -14,12 +14,14 @@ type WizardContent = {
   pageNumber: ValueRef<number>;
   data: ValueRef<Partial<WizardData>>;
   subscriptions: UseSubscriptions;
+  onComplete: () => void;
 };
 
 const WizardContext = createContext<WizardContent>({
   pageNumber: { get: 0, set: () => {} },
   data: { get: {}, set: () => {} },
   subscriptions: { subscribe: () => '', unsubscribe: () => {}, ping: () => {} },
+  onComplete: () => {},
 });
 
 export const WizardProvider = WizardContext.Provider;
@@ -40,7 +42,7 @@ export const useDataUpdates = () => {
   };
 
   return {
-    data,
+    data: data.get,
     update,
     useUpdate,
   };
