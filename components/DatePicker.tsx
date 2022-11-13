@@ -29,12 +29,10 @@ const DatePicker = ({ defaultDate, onChange, ...props }: Props) => {
   const showDatePicker = () => setIsShow(true);
 
   const handleChange = (event: DateTimePickerEvent, newDate?: Date) => {
-    if (event.type === 'set') {
-      onChange?.(newDate);
-      date.set(newDate);
-    }
+    event.type === 'set' && date.set(newDate);
     input.current?.blur();
     setIsShow(false);
+    event.type === 'set' && onChange?.(newDate);
   };
 
   return (
