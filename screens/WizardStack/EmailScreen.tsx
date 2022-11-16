@@ -25,6 +25,7 @@ const EmailScreen = ({
     try {
       setIsLoading(true);
       await AsyncStorage.setItem('wizard-data', JSON.stringify(data.get));
+      console.log(data.get);
       onComplete();
     } catch (error) {
       console.error(error);
