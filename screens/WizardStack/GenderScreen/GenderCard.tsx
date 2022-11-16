@@ -1,11 +1,11 @@
-import { Box, Image, Text } from 'native-base';
-import { ImageSourcePropType, TouchableOpacity } from 'react-native';
+import { Box, IIconProps, Text } from 'native-base';
+import { TouchableOpacity } from 'react-native';
 
 type Props = {
   color: string;
   activeColor: string;
   text: string;
-  image: ImageSourcePropType;
+  Icon: (props: IIconProps) => JSX.Element;
   isActive?: boolean;
   onPress?: () => void;
 };
@@ -14,7 +14,7 @@ const GenderCard = ({
   color,
   activeColor,
   text,
-  image,
+  Icon,
   isActive,
   onPress,
 }: Props) => (
@@ -28,7 +28,7 @@ const GenderCard = ({
       borderRadius={8}
       alignItems="center"
     >
-      <Image boxSize="100px" source={image} alt={text} />
+      <Icon color="text.900" size="100px" />
       <Text fontSize="2xl" children={text} />
     </Box>
   </TouchableOpacity>

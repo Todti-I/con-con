@@ -1,5 +1,4 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import useValue from 'con-con/hooks/useValue';
 import { Checkbox, ChevronRightIcon, Divider, Text, VStack } from 'native-base';
 import { LogBox } from 'react-native';
 import { WizardStackParamList } from './types';

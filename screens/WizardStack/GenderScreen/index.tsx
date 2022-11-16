@@ -1,4 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import FemaleIcon from 'con-con/icons/FemaleIcon';
+import MaleIcon from 'con-con/icons/MaleIcon';
 import { ChevronRightIcon, HStack, Text } from 'native-base';
 import { useState } from 'react';
 import { WizardStackParamList } from '../types';
@@ -40,7 +42,7 @@ const GenderScreen = ({
           color="rgba(8, 145, 178, 0.2)"
           activeColor="rgba(8, 145, 178, 0.6)"
           text="Мужской"
-          image={require('con-con/assets/images/male.png')}
+          Icon={MaleIcon}
           onPress={() => setGender('male')}
         />
         <GenderCard
@@ -48,7 +50,7 @@ const GenderScreen = ({
           color="rgba(219, 39, 119, 0.2)"
           activeColor="rgba(219, 39, 119, 0.6)"
           text="Женский"
-          image={require('con-con/assets/images/female.png')}
+          Icon={FemaleIcon}
           onPress={() => setGender('female')}
         />
       </HStack>
