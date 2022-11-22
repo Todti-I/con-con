@@ -2,17 +2,18 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Box, Button } from 'native-base';
 import ArticlesScreen from './ArticlesScreen';
-import BasketScreen from './BasketScreen';
+import { RootStackParamList } from '../types';
+import { MainTabParamList } from './types';
 import DiaryScreen from './DiaryScreen';
 import RecipesScreen from './RecipesScreen';
-import { RootStackParamList, TabParamList } from './types';
+import BasketScreen from './BasketScreen';
 
-const Tab = createBottomTabNavigator<TabParamList>();
+const Tab = createBottomTabNavigator<MainTabParamList>();
 
 const MainTabs = ({
   navigation,
-}: NativeStackScreenProps<RootStackParamList, 'Tabs'>) => (
-  <Box flex={1}>
+}: NativeStackScreenProps<RootStackParamList, 'MainTabs'>) => (
+  <Box flex={1} bg="red.500">
     <Tab.Navigator
       initialRouteName="Diary"
       screenOptions={{
@@ -69,6 +70,7 @@ const MainTabs = ({
       />
     </Tab.Navigator>
     <Button
+      // display="none"
       top="8px"
       right="10px"
       position="absolute"
@@ -78,6 +80,6 @@ const MainTabs = ({
   </Box>
 );
 
-MainTabs.screenName = 'Tabs' as const;
+MainTabs.screenName = 'MainTabs' as const;
 
 export default MainTabs;

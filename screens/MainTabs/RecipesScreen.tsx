@@ -1,16 +1,11 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { Box, Text } from 'native-base';
-import { TabParamList } from './types';
+import { MainTabParamList } from './types';
 
 const RecipesScreen = (
-  props: BottomTabScreenProps<TabParamList, 'Recipes'>
+  props: BottomTabScreenProps<MainTabParamList, 'Recipes'>
 ) => (
-  <Box
-    flex={1}
-    backgroundColor="#fff"
-    alignItems="center"
-    justifyContent="center"
-  >
+  <Box flex={1} bg="#F7F7F7" alignItems="center" justifyContent="center">
     <Text>RecipesScreen</Text>
   </Box>
 );

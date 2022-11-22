@@ -23,7 +23,7 @@ const WizardLayout = ({
     px={4}
     pt="50px"
     pb="66px"
-    bg="white"
+    bg="#F6F6F6"
     flex={1}
     justifyContent="space-between"
   >
