@@ -1,4 +1,5 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import DiaryIcon from 'con-con/icons/DiaryIcon';
 import { Box, Text } from 'native-base';
 import { MainTabParamList } from './types';
 
@@ -12,5 +13,6 @@ const DiaryScreen = (
 
 DiaryScreen.screenName = 'Diary' as const;
 DiaryScreen.title = 'Дневник';
+DiaryScreen.Icon = DiaryIcon;
 
 export default DiaryScreen;

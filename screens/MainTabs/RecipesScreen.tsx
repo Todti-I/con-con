@@ -1,4 +1,5 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import RecipesIcon from 'con-con/icons/RecipesIcon';
 import { Box, Text } from 'native-base';
 import { MainTabParamList } from './types';
 
@@ -12,5 +13,6 @@ const RecipesScreen = (
 
 RecipesScreen.screenName = 'Recipes' as const;
 RecipesScreen.title = 'Рецепты';
+RecipesScreen.Icon = RecipesIcon;
 
 export default RecipesScreen;

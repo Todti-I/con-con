@@ -1,14 +1,34 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  BottomTabNavigationOptions,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Box, Button } from 'native-base';
-import ArticlesScreen from './ArticlesScreen';
 import { RootStackParamList } from '../types';
-import { MainTabParamList } from './types';
+import ArticlesScreen from './ArticlesScreen';
 import DiaryScreen from './DiaryScreen';
+import ProfileScreen from './ProfileScreen';
 import RecipesScreen from './RecipesScreen';
-import BasketScreen from './BasketScreen';
+import { MainTabParamList } from './types';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
+
+const tabBarOptions: BottomTabNavigationOptions = {
+  tabBarInactiveTintColor: '#5F6368',
+  tabBarActiveTintColor: '#1A73E8',
+  tabBarStyle: {
+    height: 56,
+    backgroundColor: 'white',
+  },
+  tabBarItemStyle: {
+    paddingVertical: 8,
+  },
+  tabBarLabelStyle: {
+    fontWeight: '500',
+    fontSize: 12,
+    lineHeight: 16,
+  },
+};
 
 const MainTabs = ({
   navigation,
@@ -20,20 +40,7 @@ const MainTabs = ({
         headerStyle: {
           backgroundColor: 'white',
         },
-        tabBarStyle: {
-          paddingHorizontal: 10,
-          height: 40,
-        },
-        tabBarActiveBackgroundColor: '#95BCF2',
-        tabBarLabelPosition: 'beside-icon',
-        tabBarLabelStyle: {
-          color: 'black',
-          fontWeight: '700',
-          fontSize: 15,
-          marginLeft: 0,
-          marginTop: 0,
-        },
-        tabBarIconStyle: { display: 'none' },
+        ...tabBarOptions,
       }}
     >
       <Tab.Screen
@@ -42,6 +49,7 @@ const MainTabs = ({
         options={{
           headerTitle: DiaryScreen.title,
           tabBarLabel: DiaryScreen.title,
+          tabBarIcon: DiaryScreen.Icon,
         }}
       />
       <Tab.Screen
@@ -50,6 +58,7 @@ const MainTabs = ({
         options={{
           headerTitle: RecipesScreen.title,
           tabBarLabel: RecipesScreen.title,
+          tabBarIcon: RecipesScreen.Icon,
         }}
       />
       <Tab.Screen
@@ -58,14 +67,16 @@ const MainTabs = ({
         options={{
           headerTitle: ArticlesScreen.title,
           tabBarLabel: ArticlesScreen.title,
+          tabBarIcon: ArticlesScreen.Icon,
         }}
       />
       <Tab.Screen
-        name={BasketScreen.screenName}
-        component={BasketScreen}
+        name={ProfileScreen.screenName}
+        component={ProfileScreen}
         options={{
-          headerTitle: BasketScreen.title,
-          tabBarLabel: BasketScreen.title,
+          headerTitle: ProfileScreen.title,
+          tabBarLabel: ProfileScreen.title,
+          tabBarIcon: ProfileScreen.Icon,
         }}
       />
     </Tab.Navigator>

@@ -1,4 +1,5 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import ArticlesIcon from 'con-con/icons/ArticlesIcon';
 import { Box, Text } from 'native-base';
 import { MainTabParamList } from './types';
 
@@ -12,5 +13,6 @@ const ArticlesScreen = (
 
 ArticlesScreen.screenName = 'Articles' as const;
 ArticlesScreen.title = 'Статьи';
+ArticlesScreen.Icon = ArticlesIcon;
 
 export default ArticlesScreen;
