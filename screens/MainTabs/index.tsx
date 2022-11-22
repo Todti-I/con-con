@@ -2,44 +2,31 @@ import {
   BottomTabNavigationOptions,
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
+import { RouteProp } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Box, Button } from 'native-base';
+import BasketIcon from 'con-con/icons/BasketIcon';
+import { Box, Button, IconButton } from 'native-base';
 import { RootStackParamList } from '../types';
 import ArticlesScreen from './ArticlesScreen';
 import DiaryScreen from './DiaryScreen';
+import { headerOptions, tabBarOptions } from './options';
 import ProfileScreen from './ProfileScreen';
 import RecipesScreen from './RecipesScreen';
 import { MainTabParamList } from './types';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
-const tabBarOptions: BottomTabNavigationOptions = {
-  tabBarInactiveTintColor: '#5F6368',
-  tabBarActiveTintColor: '#1A73E8',
-  tabBarStyle: {
-    height: 56,
-    backgroundColor: 'white',
-  },
-  tabBarItemStyle: {
-    paddingVertical: 8,
-  },
-  tabBarLabelStyle: {
-    fontWeight: '500',
-    fontSize: 12,
-    lineHeight: 16,
-  },
-};
-
 const MainTabs = ({
   navigation,
 }: NativeStackScreenProps<RootStackParamList, 'MainTabs'>) => (
-  <Box flex={1} bg="red.500">
+  <Box flex={1}>
     <Tab.Navigator
       initialRouteName="Diary"
       screenOptions={{
-        headerStyle: {
-          backgroundColor: 'white',
-        },
+        ...headerOptions({
+          goToBasket: () => navigation.navigate('Basket'),
+          goToWizard: () => navigation.replace('Wizard'),
+        }),
         ...tabBarOptions,
       }}
     >
@@ -81,7 +68,7 @@ const MainTabs = ({
       />
     </Tab.Navigator>
     <Button
-      // display="none"
+      display="none"
       top="8px"
       right="10px"
       position="absolute"
