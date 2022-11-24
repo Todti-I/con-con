@@ -31,7 +31,7 @@ const WizardStack = ({
 
   const contextValue = useMemo(() => {
     const onComplete = () => {
-      navigation.replace('Tabs');
+      navigation.replace('MainTabs');
     };
 
     return { pageNumber, data, subscriptions, onComplete };

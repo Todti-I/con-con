@@ -1,19 +1,22 @@
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import {
+  NativeStackNavigationOptions,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import { Box, Text } from 'native-base';
-import { TabParamList } from './types';
+import { RootStackParamList } from './types';
 
-const BasketScreen = (props: BottomTabScreenProps<TabParamList, 'Basket'>) => (
-  <Box
-    flex={1}
-    backgroundColor="#fff"
-    alignItems="center"
-    justifyContent="center"
-  >
+const BasketScreen = (
+  props: NativeStackScreenProps<RootStackParamList, 'Basket'>
+) => (
+  <Box flex={1} bg="#F7F7F7" alignItems="center" justifyContent="center">
     <Text>BasketScreen</Text>
   </Box>
 );
 
 BasketScreen.screenName = 'Basket' as const;
-BasketScreen.title = 'Корзина';
+BasketScreen.screenOptions = {
+  headerShown: true,
+  headerTitle: 'Список покупок',
+} as NativeStackNavigationOptions;
 
 export default BasketScreen;

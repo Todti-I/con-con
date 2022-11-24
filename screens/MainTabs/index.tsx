@@ -1,38 +1,33 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  BottomTabNavigationOptions,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
+import { RouteProp } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Box, Button } from 'native-base';
+import BasketIcon from 'con-con/icons/BasketIcon';
+import { Box, Button, IconButton } from 'native-base';
+import { RootStackParamList } from '../types';
 import ArticlesScreen from './ArticlesScreen';
-import BasketScreen from './BasketScreen';
 import DiaryScreen from './DiaryScreen';
+import { headerOptions, tabBarOptions } from './options';
+import ProfileScreen from './ProfileScreen';
 import RecipesScreen from './RecipesScreen';
-import { RootStackParamList, TabParamList } from './types';
+import { MainTabParamList } from './types';
 
-const Tab = createBottomTabNavigator<TabParamList>();
+const Tab = createBottomTabNavigator<MainTabParamList>();
 
 const MainTabs = ({
   navigation,
-}: NativeStackScreenProps<RootStackParamList, 'Tabs'>) => (
+}: NativeStackScreenProps<RootStackParamList, 'MainTabs'>) => (
   <Box flex={1}>
     <Tab.Navigator
       initialRouteName="Diary"
       screenOptions={{
-        headerStyle: {
-          backgroundColor: 'white',
-        },
-        tabBarStyle: {
-          paddingHorizontal: 10,
-          height: 40,
-        },
-        tabBarActiveBackgroundColor: '#95BCF2',
-        tabBarLabelPosition: 'beside-icon',
-        tabBarLabelStyle: {
-          color: 'black',
-          fontWeight: '700',
-          fontSize: 15,
-          marginLeft: 0,
-          marginTop: 0,
-        },
-        tabBarIconStyle: { display: 'none' },
+        ...headerOptions({
+          goToBasket: () => navigation.navigate('Basket'),
+          goToWizard: () => navigation.replace('Wizard'),
+        }),
+        ...tabBarOptions,
       }}
     >
       <Tab.Screen
@@ -41,6 +36,7 @@ const MainTabs = ({
         options={{
           headerTitle: DiaryScreen.title,
           tabBarLabel: DiaryScreen.title,
+          tabBarIcon: DiaryScreen.Icon,
         }}
       />
       <Tab.Screen
@@ -49,6 +45,7 @@ const MainTabs = ({
         options={{
           headerTitle: RecipesScreen.title,
           tabBarLabel: RecipesScreen.title,
+          tabBarIcon: RecipesScreen.Icon,
         }}
       />
       <Tab.Screen
@@ -57,18 +54,21 @@ const MainTabs = ({
         options={{
           headerTitle: ArticlesScreen.title,
           tabBarLabel: ArticlesScreen.title,
+          tabBarIcon: ArticlesScreen.Icon,
         }}
       />
       <Tab.Screen
-        name={BasketScreen.screenName}
-        component={BasketScreen}
+        name={ProfileScreen.screenName}
+        component={ProfileScreen}
         options={{
-          headerTitle: BasketScreen.title,
-          tabBarLabel: BasketScreen.title,
+          headerTitle: ProfileScreen.title,
+          tabBarLabel: ProfileScreen.title,
+          tabBarIcon: ProfileScreen.Icon,
         }}
       />
     </Tab.Navigator>
     <Button
+      display="none"
       top="8px"
       right="10px"
       position="absolute"
@@ -78,6 +78,6 @@ const MainTabs = ({
   </Box>
 );
 
-MainTabs.screenName = 'Tabs' as const;
+MainTabs.screenName = 'MainTabs' as const;
 
 export default MainTabs;

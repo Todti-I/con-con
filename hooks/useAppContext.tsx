@@ -1,4 +1,4 @@
-import { createContext, FC, ProviderProps, useContext } from 'react';
+import { createContext, ProviderProps, useContext } from 'react';
 import useForceUpdate from './useForceUpdate';
 import useValue, { ValueRef } from './useValue';
 
