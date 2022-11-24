@@ -1,12 +1,14 @@
-import { IInputProps, Input, Text } from 'native-base';
+import { ITextProps, Text } from 'native-base';
 import { useState } from 'react';
+import Input, { InputProps } from './Input';
 
 type Props = {
   isFloat?: boolean;
   defaultValue?: number;
   onChange?: (value: number) => void;
   unitName?: string;
-} & Omit<IInputProps, 'defaultValue' | 'onChange'>;
+  unitProps?: ITextProps;
+} & Omit<InputProps, 'defaultValue' | 'onChange'>;
 
 const convertToNumber = (value: string, isFloat?: boolean) => {
   return isFloat
@@ -29,6 +31,7 @@ const NumberInput = ({
   defaultValue,
   onChange,
   unitName,
+  unitProps,
   ...props
 }: Props) => {
   const [value, setValue] = useState((defaultValue || '').toString());
@@ -56,6 +59,7 @@ const NumberInput = ({
             fontWeight={500}
             textTransform="uppercase"
             children={unitName}
+            {...unitProps}
           />
         ) : undefined
       }

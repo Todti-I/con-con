@@ -6,6 +6,7 @@ import useValue from 'con-con/hooks/useValue';
 import { Box, FlatList } from 'native-base';
 import { ListRenderItemInfo } from 'react-native';
 import { RootStackParamList } from '../types';
+import AddProductButton from './AddProductButton';
 import BasketEmpty from './BasketEmpty';
 import BasketHeader from './BasketHeader';
 import ProductCard from './ProductCard';
@@ -43,7 +44,7 @@ const BasketScreen = (
   );
 
   return (
-    <Box flex={1} bg="#F7F7F7">
+    <Box flex={1} position="relative" bg="#F7F7F7">
       <FlatList
         px={4}
         data={[]}
@@ -53,6 +54,7 @@ const BasketScreen = (
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
       />
+      <AddProductButton />
     </Box>
   );
 };
