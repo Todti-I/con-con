@@ -2,12 +2,14 @@ import {
   NativeStackNavigationOptions,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
-import useDebounce from 'con-con/hooks/useDebounce';
-import useForceUpdate from 'con-con/hooks/useForceUpdate';
-import useLoadingState from 'con-con/hooks/useLoadingState';
-import useValue from 'con-con/hooks/useValue';
+import {
+  useDebounce,
+  useForceUpdate,
+  useLoadingState,
+  useValue,
+} from 'con-con/hooks';
 import storage from 'con-con/utils/storage';
-import { Box, FlatList } from 'native-base';
+import { Box, FlatList, Skeleton } from 'native-base';
 import { useEffect, useRef } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { RootStackParamList } from '../types';
@@ -18,9 +20,15 @@ import ProductCard from './ProductCard';
 import { ProductData } from './types';
 
 const keyStorage = 'basket';
+const skeletonData = [...Array(10)].map<ProductData>((_, id) => ({
+  id,
+  name: '',
+  grams: 0,
+  isChecked: false,
+}));
 
 const BasketScreen = (
-  props: NativeStackScreenProps<RootStackParamList, 'Basket'>
+  _: NativeStackScreenProps<RootStackParamList, 'Basket'>
 ) => {
   const generateId = useRef(0);
   const forceUpdate = useForceUpdate();
@@ -36,10 +44,6 @@ const BasketScreen = (
       );
     });
   }, []);
-
-  if (isLoading) {
-    return null;
-  }
 
   const handleAdd = async (product: ProductData) => {
     const newData = [...data.get, { ...product, id: generateId.current++ }];
@@ -66,16 +70,27 @@ const BasketScreen = (
     <ProductCard item={item} onCheck={handleCheck} onRemove={handleRemove} />
   );
 
+  const renderSkeletonItem = () => (
+    <Skeleton
+      mb={2}
+      flex={1}
+      h="64px"
+      borderRadius={8}
+      startColor="text.300"
+      endColor="text.200"
+    />
+  );
+
   return (
     <Box flex={1} position="relative" bg="#F7F7F7">
       <FlatList
         px={4}
-        data={data.get}
+        data={isLoading ? skeletonData : data.get}
         ListEmptyComponent={BasketEmpty}
         ListHeaderComponent={BasketHeader}
         ListHeaderComponentStyle={{ marginVertical: 16, alignItems: 'center' }}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={renderItem}
+        renderItem={isLoading ? renderSkeletonItem : renderItem}
       />
       <AddProductButton onAdd={handleAdd} />
     </Box>

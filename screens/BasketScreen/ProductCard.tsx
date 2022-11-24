@@ -1,4 +1,4 @@
-import useValue from 'con-con/hooks/useValue';
+import { useValue } from 'con-con/hooks';
 import BasketPlusIcon from 'con-con/icons/BasketPlusIcon';
 import TrashIcon from 'con-con/icons/TrashIcon';
 import {

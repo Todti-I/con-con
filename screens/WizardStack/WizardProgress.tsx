@@ -1,4 +1,4 @@
-import useForceUpdate from 'con-con/hooks/useForceUpdate';
+import { useForceUpdate } from 'con-con/hooks';
 import { Box, Progress } from 'native-base';
 import { memo, useEffect } from 'react';
 import { useWizardContext } from './wizard-context';

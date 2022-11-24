@@ -1,7 +1,7 @@
 import Input from 'con-con/components/Input';
 import NumberInput from 'con-con/components/NumberInput';
 import Window, { WindowProps } from 'con-con/components/Window';
-import useLoadingState from 'con-con/hooks/useLoadingState';
+import { useLoadingState } from 'con-con/hooks';
 import { useState } from 'react';
 import { ProductData } from '../types';
 
