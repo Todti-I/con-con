@@ -1,5 +1,5 @@
 import useValue from 'con-con/hooks/useValue';
-import BasketIcon from 'con-con/icons/BasketIcon';
+import BasketPlusIcon from 'con-con/icons/BasketPlusIcon';
 import TrashIcon from 'con-con/icons/TrashIcon';
 import {
   Box,
@@ -109,7 +109,7 @@ const ProductCard = ({ item, onCheck, onRemove }: Props) => {
             boxSize={12}
             colorScheme="violet"
             _pressed={{ bg: 'transparent' }}
-            icon={<BasketIcon size={6} />}
+            icon={<BasketPlusIcon size={6} />}
             onPress={handleCheck}
           />
         </HStack>

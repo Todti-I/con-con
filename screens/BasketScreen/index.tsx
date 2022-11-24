@@ -4,9 +4,10 @@ import {
 } from '@react-navigation/native-stack';
 import useValue from 'con-con/hooks/useValue';
 import { Box, FlatList } from 'native-base';
-import { useState } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { RootStackParamList } from '../types';
+import BasketEmpty from './BasketEmpty';
+import BasketHeader from './BasketHeader';
 import ProductCard from './ProductCard';
 import { ProductData } from './types';
 
@@ -16,6 +17,12 @@ const lists: ProductData[] = [
   { id: 3, name: 'Моцарелла', grams: 40, isChecked: false },
   { id: 4, name: 'Соевый соус', grams: 54, isChecked: true },
   { id: 5, name: 'Соль', grams: 0, isChecked: false },
+  ...[...Array(20)].map((_, id) => ({
+    id: id + 6,
+    name: 'Соль',
+    grams: 0,
+    isChecked: false,
+  })),
 ];
 
 const BasketScreen = (
@@ -36,10 +43,13 @@ const BasketScreen = (
   );
 
   return (
-    <Box px={4} py={10} flex={1} bg="#F7F7F7">
+    <Box flex={1} bg="#F7F7F7">
       <FlatList
-        data={lists}
-        // ItemSeparatorComponent={() => <Box h="8px" />}
+        px={4}
+        data={[]}
+        ListEmptyComponent={BasketEmpty}
+        ListHeaderComponent={BasketHeader}
+        ListHeaderComponentStyle={{ marginVertical: 16, alignItems: 'center' }}
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
       />
