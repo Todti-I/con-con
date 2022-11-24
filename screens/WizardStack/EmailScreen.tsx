@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import storage from 'con-con/utils/storage';
 import { Input, Text } from 'native-base';
 import { useState } from 'react';
 import { WizardStackParamList } from './types';
@@ -24,7 +24,7 @@ const EmailScreen = ({
   const handleComplete = async () => {
     try {
       setIsLoading(true);
-      await AsyncStorage.setItem('wizard-data', JSON.stringify(data.get));
+      await storage.setItem('wizard-data', data.get);
       console.log(data.get);
       onComplete();
     } catch (error) {

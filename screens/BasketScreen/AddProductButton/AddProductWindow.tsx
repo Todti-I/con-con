@@ -10,13 +10,13 @@ type Props = {
 };
 
 const AddProductWindow = ({ isOpen, onClose, onAdd }: WindowProps<Props>) => {
+  const { isLoading, trackLoading } = useLoadingState(false);
   const [data, setData] = useState<ProductData>({
     id: 0,
     name: '',
     grams: 0,
     isChecked: false,
   });
-  const { isLoading, trackLoading } = useLoadingState(false);
 
   const handleAdd = () =>
     trackLoading(async () => {
@@ -35,6 +35,7 @@ const AddProductWindow = ({ isOpen, onClose, onAdd }: WindowProps<Props>) => {
       heading="Добавить продукт"
       submitProps={{
         isLoading,
+        isLoadingText: 'Добавляем',
         isDisabled: data.name.trim().length === 0,
         onPress: handleAdd,
         children: 'Добавить',

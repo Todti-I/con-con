@@ -1,5 +1,5 @@
 import { AddIcon, IconButton } from 'native-base';
-import { useState } from 'react';
+import { memo, useRef, useState } from 'react';
 import { ProductData } from '../types';
 import AddProductWindow from './AddProductWindow';
 
@@ -8,6 +8,7 @@ type Props = {
 };
 
 const AddProductButton = ({ onAdd }: Props) => {
+  const windowKey = useRef(0);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -19,10 +20,14 @@ const AddProductButton = ({ onAdd }: Props) => {
         boxSize="56px"
         variant="solid"
         borderRadius="full"
-        onPress={() => setIsOpen(true)}
+        onPress={() => {
+          windowKey.current++;
+          setIsOpen(true);
+        }}
         icon={<AddIcon size={6} />}
       />
       <AddProductWindow
+        key={windowKey.current}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         onAdd={onAdd}
@@ -31,4 +36,4 @@ const AddProductButton = ({ onAdd }: Props) => {
   );
 };
 
-export default AddProductButton;
+export default memo(AddProductButton, () => true);
