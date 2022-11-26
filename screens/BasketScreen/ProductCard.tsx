@@ -1,18 +1,13 @@
 import { useValue } from 'con-con/hooks';
 import BasketPlusIcon from 'con-con/icons/BasketPlusIcon';
 import TrashIcon from 'con-con/icons/TrashIcon';
-import {
-  Box,
-  Center,
-  CheckIcon,
-  HStack,
-  IconButton,
-  Text,
-  VStack,
-} from 'native-base';
+import { Box, Center, CheckIcon, HStack, Text, VStack } from 'native-base';
 import { memo, useState } from 'react';
 import { Animated, Easing } from 'react-native';
-import { Swipeable } from 'react-native-gesture-handler';
+import {
+  Swipeable,
+  TouchableNativeFeedback,
+} from 'react-native-gesture-handler';
 import { ProductData } from './types';
 
 type Props = {
@@ -73,46 +68,45 @@ const ProductCard = ({ item, onCheck, onRemove }: Props) => {
         renderRightActions={renderLeftActions}
         onSwipeableWillOpen={handleRemove}
       >
-        <HStack
-          px={3}
-          h="full"
-          space={2}
-          bg="white"
-          alignItems="center"
-          borderRadius={8}
+        <TouchableNativeFeedback
+          background={TouchableNativeFeedback.Ripple('#C4B5FD', true)}
+          onPress={handleCheck}
         >
-          <Center
-            mx="15px"
-            boxSize="18px"
-            bg={isChecked ? 'violet.600' : 'white'}
-            borderWidth={isChecked ? '0' : '1px'}
-            borderStyle="solid"
-            borderColor="text.500"
-            borderRadius={2}
-            children={<CheckIcon color="white" />}
-          />
-          <VStack flex={1}>
-            <Text
-              color="text.900"
-              fontWeight={500}
-              fontSize="md"
-              children={item.name}
+          <HStack
+            px={3}
+            h="full"
+            space={2}
+            bg="white"
+            alignItems="center"
+            borderRadius={8}
+          >
+            <Center
+              mx="15px"
+              boxSize="18px"
+              bg={isChecked ? 'violet.600' : 'white'}
+              borderWidth={isChecked ? '0' : '1px'}
+              borderStyle="solid"
+              borderColor="text.500"
+              borderRadius={2}
+              children={<CheckIcon color="white" />}
             />
-            <Text
-              color="text.500"
-              fontWeight={500}
-              fontSize="sm"
-              children={item.grams > 0 ? `${item.grams} г` : ''}
-            />
-          </VStack>
-          <IconButton
-            boxSize={12}
-            colorScheme="violet"
-            _pressed={{ bg: 'transparent' }}
-            icon={<BasketPlusIcon size={6} />}
-            onPress={handleCheck}
-          />
-        </HStack>
+            <VStack flex={1}>
+              <Text
+                color="text.900"
+                fontWeight={500}
+                fontSize="md"
+                children={item.name}
+              />
+              <Text
+                color="text.500"
+                fontWeight={500}
+                fontSize="sm"
+                children={item.grams > 0 ? `${item.grams} г` : ''}
+              />
+            </VStack>
+            <BasketPlusIcon m={3} size={6} color="violet.600" />
+          </HStack>
+        </TouchableNativeFeedback>
       </Swipeable>
     </Animated.View>
   );

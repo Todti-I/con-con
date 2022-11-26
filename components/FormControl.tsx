@@ -1,9 +1,4 @@
-import {
-  Collapse,
-  FormControl as BaseFormControl,
-  IFormControlProps,
-} from 'native-base';
-import { forwardRef } from 'react';
+import { FormControl as BaseFormControl, IFormControlProps } from 'native-base';
 
 export type FormControlProps = {
   label?: string;
@@ -11,17 +6,7 @@ export type FormControlProps = {
 
 const FormControl = ({ label, children, ...props }: FormControlProps) => (
   <BaseFormControl {...props}>
-    {label && (
-      <BaseFormControl.Label
-        // mb={1}
-        // noOfLines={1}
-        // color="neutral.5"
-        // lineHeight="140%"
-        // fontWeight="normal"
-        // fontSize="small"
-        children={label}
-      />
-    )}
+    {label && <BaseFormControl.Label mb={1} children={label} />}
     {children}
   </BaseFormControl>
 );
