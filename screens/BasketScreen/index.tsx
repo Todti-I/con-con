@@ -64,6 +64,7 @@ const BasketScreen = (
     const newData = data.get.filter((d) => d.id !== id);
     data.set(newData);
     debounce.set(() => storage.setItem(keyStorage, newData));
+    newData.length === 0 && forceUpdate();
   };
 
   const renderItem = ({ item }: ListRenderItemInfo<ProductData>) => (
