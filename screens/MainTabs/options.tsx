@@ -2,6 +2,7 @@ import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import BasketIcon from 'con-con/icons/BasketIcon';
 import MediumActivityIcon from 'con-con/icons/MediumActivityIcon';
 import { HStack, IconButton } from 'native-base';
+import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
 type NavigateMethods = {
   goToBasket: () => void;
@@ -47,6 +48,13 @@ export const headerOptions = ({
 export const tabBarOptions: BottomTabNavigationOptions = {
   tabBarInactiveTintColor: '#5F6368',
   tabBarActiveTintColor: '#1A73E8',
+  tabBarButton: (props) => (
+    <TouchableNativeFeedback
+      {...props}
+      background={TouchableNativeFeedback.Ripple('#BFDBFE', false, 40)}
+      style={[...(props.style as any), { width: 100 }]}
+    />
+  ),
   tabBarStyle: {
     height: 56,
     backgroundColor: 'white',
