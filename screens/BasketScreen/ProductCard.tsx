@@ -1,4 +1,5 @@
 import { useValue } from 'con-con/hooks';
+import BasketMinusIcon from 'con-con/icons/BasketMinusIcon';
 import BasketPlusIcon from 'con-con/icons/BasketPlusIcon';
 import TrashIcon from 'con-con/icons/TrashIcon';
 import { Box, Center, CheckIcon, HStack, Text, VStack } from 'native-base';
@@ -104,7 +105,11 @@ const ProductCard = ({ item, onCheck, onRemove }: Props) => {
                 children={item.grams > 0 ? `${item.grams} г` : ''}
               />
             </VStack>
-            <BasketPlusIcon m={3} size={6} color="violet.600" />
+            {isChecked ? (
+              <BasketMinusIcon m={3} size={6} color="violet.600" />
+            ) : (
+              <BasketPlusIcon m={3} size={6} color="violet.600" />
+            )}
           </HStack>
         </TouchableNativeFeedback>
       </Swipeable>
