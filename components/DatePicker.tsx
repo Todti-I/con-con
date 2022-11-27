@@ -1,7 +1,7 @@
 import RNDateTimePicker, {
   DateTimePickerEvent,
 } from '@react-native-community/datetimepicker';
-import useValue from 'con-con/hooks/useValue';
+import { useValue } from 'con-con/hooks';
 import EmptyCalendar from 'con-con/icons/EmptyCalendarIcon';
 import { IInputProps, Input } from 'native-base';
 import { useRef, useState } from 'react';

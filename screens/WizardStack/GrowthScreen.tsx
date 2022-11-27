@@ -37,12 +37,11 @@ const GrowthScreen = ({
       <Center mt="50px">
         <Text fontSize="2xl" fontWeight={500} children="Рост" />
         <NumberInput
-          w="35%"
-          mt="30px"
           maxLength={3}
           onChange={setGrowth}
           unitName="см"
           defaultValue={growth}
+          formControlProps={{ mt: '30px', w: '35%' }}
         />
       </Center>
     </WizardLayout>

@@ -1,13 +1,7 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { UseSubscriptions } from 'con-con/hooks/useSubscriptions';
 import { ValueRef } from 'con-con/hooks/useValue';
-import {
-  createContext,
-  DependencyList,
-  useCallback,
-  useContext,
-  useEffect,
-} from 'react';
+import { createContext, DependencyList, useContext, useEffect } from 'react';
 import { WizardData } from './types';
 
 type WizardContent = {

@@ -37,13 +37,12 @@ const WeightScreen = ({
       <Center mt="50px">
         <Text fontSize="2xl" fontWeight={500} children="Текущий вес" />
         <NumberInput
-          w="45%"
-          mt="30px"
           isFloat
           maxLength={5}
           onChange={setWeight}
           unitName="кг"
           defaultValue={weight}
+          formControlProps={{ mt: '30px', w: '45%' }}
         />
       </Center>
     </WizardLayout>

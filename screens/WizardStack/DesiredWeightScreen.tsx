@@ -37,13 +37,12 @@ const DesiredWeightScreen = ({
       <Center mt="50px">
         <Text fontSize="2xl" fontWeight={500} children="Желаемый вес" />
         <NumberInput
-          w="45%"
-          mt="30px"
           isFloat
           maxLength={5}
           onChange={setDesiredWeight}
           unitName="кг"
           defaultValue={desiredWeight}
+          formControlProps={{ mt: '30px', w: '45%' }}
         />
       </Center>
     </WizardLayout>
