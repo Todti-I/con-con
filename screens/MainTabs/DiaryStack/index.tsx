@@ -4,7 +4,7 @@ import BasketIcon from 'con-con/icons/BasketIcon';
 import DiaryIcon from 'con-con/icons/DiaryIcon';
 import { Box, IconButton } from 'native-base';
 import { MainTabParamList } from '../types';
-import AddMealScreen from './AddMealScreen';
+import AddMealTabs from './AddMealTabs';
 import { DiaryProvider } from './context';
 import MealScreen from './MealScreen';
 import MealsScreen from './MealsScreen';
@@ -35,9 +35,9 @@ const DiaryStack = ({
       />
       <Stack.Screen name={MealScreen.screenName} component={MealScreen} />
       <Stack.Screen
-        name={AddMealScreen.screenName}
-        component={AddMealScreen}
-        options={AddMealScreen.screenOptions}
+        name={AddMealTabs.screenName}
+        component={AddMealTabs}
+        options={AddMealTabs.screenOptions}
       />
     </Stack.Navigator>
   </DiaryProvider>
