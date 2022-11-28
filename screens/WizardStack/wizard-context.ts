@@ -14,7 +14,7 @@ type WizardContent = {
 const WizardContext = createContext<WizardContent>({
   pageNumber: { get: 0, set: () => {} },
   data: { get: {}, set: () => {} },
-  subscriptions: { subscribe: () => '', unsubscribe: () => {}, ping: () => {} },
+  subscriptions: { subscribe: () => () => {}, ping: () => {} },
   onComplete: () => {},
 });
 

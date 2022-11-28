@@ -8,11 +8,9 @@ const WizardProgress = () => {
   const { pageNumber, subscriptions } = useWizardContext();
 
   useEffect(() => {
-    const key = subscriptions.subscribe('progress', forceUpdate);
+    const unsubscribe = subscriptions.subscribe('progress', forceUpdate);
 
-    return () => {
-      subscriptions.unsubscribe(key);
-    };
+    return () => unsubscribe();
   }, []);
 
   return (

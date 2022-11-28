@@ -2,6 +2,7 @@ import {
   NativeStackNavigationOptions,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
+import DateRow from 'con-con/components/DateRow';
 import {
   useDebounce,
   useForceUpdate,
@@ -15,7 +16,6 @@ import { ListRenderItemInfo } from 'react-native';
 import { RootStackParamList } from '../types';
 import AddProductButton from './AddProductButton';
 import BasketEmpty from './BasketEmpty';
-import BasketHeader from './BasketHeader';
 import ProductCard from './ProductCard';
 import { ProductData } from './types';
 
@@ -88,7 +88,7 @@ const BasketScreen = (
         px={4}
         data={isLoading ? skeletonData : data.get}
         ListEmptyComponent={BasketEmpty}
-        ListHeaderComponent={BasketHeader}
+        ListHeaderComponent={DateRow}
         ListHeaderComponentStyle={{ marginVertical: 16, alignItems: 'center' }}
         keyExtractor={(item) => item.id.toString()}
         renderItem={isLoading ? renderSkeletonItem : renderItem}

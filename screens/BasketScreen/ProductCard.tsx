@@ -70,7 +70,7 @@ const ProductCard = ({ item, onCheck, onRemove }: Props) => {
         onSwipeableWillOpen={handleRemove}
       >
         <TouchableNativeFeedback
-          background={TouchableNativeFeedback.Ripple('#C4B5FD', true)}
+          background={TouchableNativeFeedback.Ripple('#C4B5FD', false)}
           onPress={handleCheck}
         >
           <HStack
