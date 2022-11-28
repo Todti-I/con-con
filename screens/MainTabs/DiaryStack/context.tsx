@@ -38,8 +38,8 @@ export const DiaryProvider = ({ children }: DiaryProviderProps) => {
   );
 };
 
-const recipe: Recipe = {
-  id: '8abb597b-3a2a-4d7f-85db-009082276394',
+const recipe = (id: string): Recipe => ({
+  id: id,
   title: 'Пирог с капустой',
   carbohydrate: 55,
   protein: 23,
@@ -47,11 +47,11 @@ const recipe: Recipe = {
   kilocalories: 351,
   cookingTime: 15,
   mealType: 'lunch',
-};
+});
 
 const defaultMeals = new Map<MealType, Recipe[]>([
-  ['breakfast', [recipe]],
-  ['dinner', [recipe]],
-  ['lunch', [recipe]],
-  ['supper', [recipe]],
+  ['breakfast', [recipe('1')]],
+  ['dinner', [recipe('2')]],
+  ['lunch', [recipe('3')]],
+  ['supper', [recipe('4')]],
 ]);

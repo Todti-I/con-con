@@ -1,13 +1,10 @@
 import { useForceUpdate } from 'con-con/hooks';
-import BreakfastIcon from 'con-con/icons/BreakfastIcon';
-import DinnerIcon from 'con-con/icons/DinnerIcon';
-import LunchIcon from 'con-con/icons/LunchIcon';
 import SolidPlusIcon from 'con-con/icons/SolidPlusIcon';
-import SupperIcon from 'con-con/icons/SupperIcon';
 import { Box, HStack, IconButton, Text } from 'native-base';
 import { memo, useEffect } from 'react';
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 import { useDiaryContext } from '../context';
+import mealTypeData from '../meal-type-data';
 import { MealType } from '../types';
 
 type Props = {
@@ -50,7 +47,9 @@ const MealCard = ({ mealType, goToMealScreen, goToAddMealScreen }: Props) => {
               color="text.500"
               fontSize="xs"
               fontWeight="500"
-              children={recipes.map((r) => r.title).join('\n')}
+              children={
+                recipes.map((r) => r.title).join('\n') || 'Не выбраны рецепты'
+              }
             />
           </Box>
         </HStack>
@@ -73,25 +72,6 @@ const MealCard = ({ mealType, goToMealScreen, goToAddMealScreen }: Props) => {
       />
     </Box>
   );
-};
-
-const mealTypeData = {
-  breakfast: {
-    name: 'Завтрак',
-    Icon: BreakfastIcon,
-  },
-  dinner: {
-    name: 'Обед',
-    Icon: DinnerIcon,
-  },
-  lunch: {
-    name: 'Ужин',
-    Icon: LunchIcon,
-  },
-  supper: {
-    name: 'Перекус',
-    Icon: SupperIcon,
-  },
 };
 
 export default memo(MealCard, (prevProps, nextProps) => {

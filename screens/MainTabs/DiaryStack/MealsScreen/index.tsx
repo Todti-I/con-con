@@ -1,6 +1,9 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import {
+  NativeStackNavigationOptions,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import DateRow from 'con-con/components/DateRow';
-import { ScrollView, VStack } from 'native-base';
+import { Box, ScrollView, VStack } from 'native-base';
 import DiaryWidget from '../DiaryWidget';
 import { DiaryStackParamList, MealType } from '../types';
 import MealCard from './MealCard';
@@ -27,5 +30,9 @@ const MealsScreen = ({
 );
 
 MealsScreen.screenName = 'Meals' as const;
+MealsScreen.screenOption = {
+  headerLeft: () => <Box w="16px" />,
+  headerTitle: 'Дневник',
+} as NativeStackNavigationOptions;
 
 export default MealsScreen;
