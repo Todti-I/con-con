@@ -102,6 +102,10 @@ BasketScreen.screenName = 'Basket' as const;
 BasketScreen.screenOptions = {
   headerShown: true,
   headerTitle: 'Список покупок',
+  headerTitleStyle: {
+    fontWeight: '600',
+    fontFamily: 'Montserrat-SemiBold',
+  },
 } as NativeStackNavigationOptions;
 
 export default BasketScreen;

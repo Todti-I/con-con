@@ -12,7 +12,12 @@ const TotalKilocalories = ({ current, max }: Props) => {
     <>
       <HStack space={1} alignItems="flex-end">
         <Text fontSize="2xl" fontWeight="500" children={current} />
-        <Text fontSize="sm" lineHeight="28px" children="набрано" />
+        <Text
+          fontSize="sm"
+          fontWeight="500"
+          lineHeight="28px"
+          children="ккал"
+        />
         <Spacer />
         <Text
           fontSize="2xl"
@@ -21,6 +26,7 @@ const TotalKilocalories = ({ current, max }: Props) => {
         />
         <Text
           fontSize="sm"
+          fontWeight="500"
           lineHeight="28px"
           children={isExceeded ? 'превышено' : 'осталось'}
         />

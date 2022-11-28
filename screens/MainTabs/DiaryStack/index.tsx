@@ -19,6 +19,10 @@ const DiaryStack = ({
     <Stack.Navigator
       screenOptions={{
         animation: 'none',
+        headerTitleStyle: {
+          fontWeight: '600',
+          fontFamily: 'Montserrat-SemiBold',
+        },
         headerRight: () => (
           <IconButton
             colorScheme="light"

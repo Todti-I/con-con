@@ -5,6 +5,7 @@ export const tabBarOptions: MaterialTopTabNavigationOptions = {
     textTransform: 'capitalize',
     fontSize: 14,
     fontWeight: '500',
+    fontFamily: 'Montserrat-Medium',
   },
   tabBarActiveTintColor: '#0891B2',
   tabBarInactiveTintColor: '#737373',
