@@ -3,11 +3,11 @@ import SolidPlusIcon from 'con-con/icons/SolidPlusIcon';
 import { Box, IconButton, Text } from 'native-base';
 import { memo } from 'react';
 import { Animated, Easing, TouchableNativeFeedback } from 'react-native';
-import { Recipe } from '../types';
+import { RecipeData } from '../types';
 
 type Props = {
-  recipe: Recipe;
-  onRemove?: (recipeId: string) => void;
+  recipe: RecipeData;
+  onRemove?: (recipeId: number) => void;
 };
 
 const RecipeCard = ({ recipe, onRemove }: Props) => {

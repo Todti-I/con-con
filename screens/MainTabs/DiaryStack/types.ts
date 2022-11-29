@@ -10,13 +10,23 @@ export type DiaryStackParamList = {
   };
 };
 
-export type Recipe = {
-  id: string;
+export type RecipeData = {
+  id: number;
   title: string;
   protein: number;
   fat: number;
   carbohydrate: number;
   kilocalories: number;
+  process: {
+    step: number;
+    description: string;
+  }[];
+  ingridients: {
+    id: string;
+    value: string;
+  }[];
   cookingTime: number;
-  mealType: MealType;
+  mealType: number;
+  vegeterian: number;
+  mass: number;
 };

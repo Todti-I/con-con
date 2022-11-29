@@ -5,7 +5,7 @@ import { ListRenderItemInfo } from 'react-native';
 import { useDiaryContext } from '../context';
 import DiaryWidget from '../DiaryWidget';
 import mealTypeData from '../meal-type-data';
-import { DiaryStackParamList, Recipe } from '../types';
+import { DiaryStackParamList, RecipeData } from '../types';
 import AddMealButton from './AddMealButton';
 import RecipeCard from './RecipeCard';
 
@@ -23,7 +23,7 @@ const MealScreen = ({
     };
   }, []);
 
-  const handleRemove = (id: string) => {
+  const handleRemove = (id: number) => {
     const newRecipes = meals.get.get(mealType)?.filter((r) => r.id !== id);
     meals.get.set(mealType, newRecipes || []);
     subscriptions.ping('diary-widget');
@@ -40,7 +40,7 @@ const MealScreen = ({
     </>
   );
 
-  const renderItem = ({ item }: ListRenderItemInfo<Recipe>) => (
+  const renderItem = ({ item }: ListRenderItemInfo<RecipeData>) => (
     <RecipeCard recipe={item} onRemove={handleRemove} />
   );
 
@@ -52,7 +52,7 @@ const MealScreen = ({
       renderItem={renderItem}
       ListHeaderComponent={Header}
       data={meals.get.get(mealType)}
-      keyExtractor={(recipe) => recipe.id.toString()}
+      keyExtractor={(_, i) => i.toString()}
     />
   );
 };

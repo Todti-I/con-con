@@ -3,10 +3,11 @@ import useSubscriptions, {
 } from 'con-con/hooks/useSubscriptions';
 import useValue, { ValueRef } from 'con-con/hooks/useValue';
 import { createContext, ReactNode, useContext, useMemo } from 'react';
-import { MealType, Recipe } from './types';
+import { diet } from './mock-data';
+import { MealType, RecipeData } from './types';
 
 type DiaryContent = {
-  meals: ValueRef<Map<MealType, Recipe[]>>;
+  meals: ValueRef<Map<MealType, RecipeData[]>>;
   subscriptions: UseSubscriptions;
 };
 
@@ -38,20 +39,9 @@ export const DiaryProvider = ({ children }: DiaryProviderProps) => {
   );
 };
 
-const recipe = (id: string): Recipe => ({
-  id: id,
-  title: 'Пирог с капустой',
-  carbohydrate: 55,
-  protein: 23,
-  fat: 12,
-  kilocalories: 351,
-  cookingTime: 15,
-  mealType: 'lunch',
-});
-
-const defaultMeals = new Map<MealType, Recipe[]>([
-  ['breakfast', [recipe('1')]],
-  ['dinner', [recipe('2')]],
-  ['lunch', [recipe('3')]],
-  ['supper', [recipe('4')]],
+const defaultMeals = new Map<MealType, RecipeData[]>([
+  ['breakfast', [diet[0]]],
+  ['dinner', [diet[2]]],
+  ['lunch', [diet[4]]],
+  ['supper', [diet[1], diet[3]]],
 ]);
