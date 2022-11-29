@@ -2,9 +2,10 @@ import useSubscriptions, {
   UseSubscriptions,
 } from 'con-con/hooks/useSubscriptions';
 import useValue, { ValueRef } from 'con-con/hooks/useValue';
+import RecipeData from 'con-con/types/recipe-data';
 import { createContext, ReactNode, useContext, useMemo } from 'react';
 import { diet } from './mock-data';
-import { MealType, RecipeData } from './types';
+import { MealType } from './types';
 
 type DiaryContent = {
   meals: ValueRef<Map<MealType, RecipeData[]>>;

@@ -7,10 +7,10 @@ import { recipes } from '../../mock-data';
 import { AddMealTabParamList } from '../types';
 import RecipeCard from './RecipeCard';
 
-const AllRecipesScreen = ({
+const FavoriteRecipesScreen = ({
   navigation,
   route,
-}: MaterialTopTabScreenProps<AddMealTabParamList, 'AllRecipes'>) => {
+}: MaterialTopTabScreenProps<AddMealTabParamList, 'FavoriteRecipes'>) => {
   const { meals, subscriptions } = useDiaryContext();
   const mealType = route.params.mealType;
 
@@ -25,6 +25,7 @@ const AllRecipesScreen = ({
   const renderItem = ({ item }: ListRenderItemInfo<RecipeData>) => (
     <RecipeCard
       mb={4}
+      flex={0.48}
       recipe={item}
       onAdd={handleAdd(item)}
       goToRecipe={console.log}
@@ -33,7 +34,9 @@ const AllRecipesScreen = ({
 
   return (
     <FlatList
+      numColumns={2}
       contentContainerStyle={{ padding: 16 }}
+      columnWrapperStyle={{ flex: 1, justifyContent: 'space-between' }}
       data={recipes}
       renderItem={renderItem}
       // onEndReached={console.log}
@@ -42,7 +45,7 @@ const AllRecipesScreen = ({
   );
 };
 
-AllRecipesScreen.screenName = 'AllRecipes' as const;
-AllRecipesScreen.title = 'Рецепты';
+FavoriteRecipesScreen.screenName = 'FavoriteRecipes' as const;
+FavoriteRecipesScreen.title = 'Избранное';
 
-export default AllRecipesScreen;
+export default FavoriteRecipesScreen;

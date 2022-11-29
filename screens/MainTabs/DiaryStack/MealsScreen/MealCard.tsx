@@ -1,5 +1,5 @@
 import { useForceUpdate } from 'con-con/hooks';
-import SolidPlusIcon from 'con-con/icons/SolidPlusIcon';
+import SolidPlusIcon from 'con-con/icons/SolidHeartPlusIcon';
 import { Box, HStack, IconButton, Text } from 'native-base';
 import { memo, useEffect } from 'react';
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';

@@ -1,4 +1,4 @@
-import { RecipeData } from './types';
+import RecipeData from 'con-con/types/recipe-data';
 
 export const diet: RecipeData[] = [
   {

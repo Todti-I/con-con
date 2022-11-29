@@ -1,9 +1,9 @@
 import { useValue } from 'con-con/hooks';
-import SolidPlusIcon from 'con-con/icons/SolidPlusIcon';
+import SolidPlusIcon from 'con-con/icons/SolidHeartPlusIcon';
+import RecipeData from 'con-con/types/recipe-data';
 import { Box, IconButton, Text } from 'native-base';
 import { memo } from 'react';
 import { Animated, Easing, TouchableNativeFeedback } from 'react-native';
-import { RecipeData } from '../types';
 
 type Props = {
   recipe: RecipeData;

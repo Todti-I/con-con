@@ -1,3 +1,4 @@
+import HeartButton from 'con-con/components/HeartButton';
 import RecipeData from 'con-con/types/recipe-data';
 import { Box, IBoxProps, Image, Text } from 'native-base';
 import { memo } from 'react';
@@ -21,28 +22,25 @@ const RecipeCard = ({ recipe, onAdd, goToRecipe, ...props }: Props) => (
     <TouchableNativeFeedback
       onPress={onAdd}
       onLongPress={goToRecipe}
-      style={{ display: 'flex', flexDirection: 'row' }}
+      style={{ height: '100%' }}
     >
-      <Box p={4} flex={1} justifyContent="space-between">
-        <Text
-          numberOfLines={1}
-          fontSize="md"
-          fontWeight="500"
-          children={recipe.title}
-        />
-        <Text
-          numberOfLines={2}
-          children={recipe.ingridients.map((i) => i.value).join(', ')}
-        />
-        <Text numberOfLines={1} children={`${recipe.kilocalories} ккал`} />
-      </Box>
       <Image
-        boxSize="128px"
+        h="156px"
         resizeMode="cover"
         source={{ uri: 'https://wallpaperaccess.com/full/317501.jpg' }}
         alt={recipe.title || 'карточка рецепта'}
       />
+      <Box px={2} py={4} flex={1} justifyContent="space-between">
+        <Text
+          numberOfLines={2}
+          fontSize="sm"
+          fontWeight="500"
+          children={recipe.title}
+        />
+        <Text numberOfLines={1} children={`${recipe.kilocalories} ккал`} />
+      </Box>
     </TouchableNativeFeedback>
+    <HeartButton position="absolute" right={1} top={1} />
   </Box>
 );
 

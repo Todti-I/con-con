@@ -1,7 +1,7 @@
 import ClockIcon from 'con-con/icons/ClockIcon';
+import RecipeData from 'con-con/types/recipe-data';
 import { Box, Heading, HStack, Image, Text } from 'native-base';
 import { memo } from 'react';
-import { RecipeData } from '../../types';
 
 type Props = {
   recipe: RecipeData;

@@ -17,7 +17,12 @@ const setItem = async <T>(key: string, item: T): Promise<void> => {
   await AsyncStorage.setItem(key, jsonItem);
 };
 
+const removeItem = async (key: string): Promise<void> => {
+  await AsyncStorage.removeItem(key);
+};
+
 export default {
   getItem,
   setItem,
+  removeItem,
 };

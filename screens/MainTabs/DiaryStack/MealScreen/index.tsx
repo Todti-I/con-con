@@ -1,11 +1,12 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import RecipeData from 'con-con/types/recipe-data';
 import { FlatList } from 'native-base';
 import { useEffect } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { useDiaryContext } from '../context';
 import DiaryWidget from '../DiaryWidget';
 import mealTypeData from '../meal-type-data';
-import { DiaryStackParamList, RecipeData } from '../types';
+import { DiaryStackParamList } from '../types';
 import AddMealButton from './AddMealButton';
 import RecipeCard from './RecipeCard';
 
