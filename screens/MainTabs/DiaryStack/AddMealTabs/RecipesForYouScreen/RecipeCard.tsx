@@ -1,5 +1,6 @@
 import ClockIcon from 'con-con/icons/ClockIcon';
 import { Box, Heading, HStack, Image, Text } from 'native-base';
+import { memo } from 'react';
 import { RecipeData } from '../../types';
 
 type Props = {
@@ -13,12 +14,13 @@ const RecipeCard = ({ recipe }: Props) => (
     borderRadius={15}
     position="relative"
     overflow="hidden"
+    shadow="0"
   >
     <Image
       flex={1}
       resizeMode="cover"
       source={{ uri: 'https://wallpaperaccess.com/full/317501.jpg' }}
-      alt={recipe.title}
+      alt={recipe.title || 'карточка рецепта'}
     />
     <Box
       px={4}
@@ -37,21 +39,25 @@ const RecipeCard = ({ recipe }: Props) => (
       />
       <Text color="text.200" children={`${recipe.kilocalories} ккал`} />
     </Box>
-    <HStack
-      px={2}
-      py={1.5}
-      position="absolute"
-      left={4}
-      top={4}
-      space={2}
-      bg="rgba(133, 133, 133, 0.5)"
-      alignItems="center"
-      borderRadius={8}
-    >
-      <ClockIcon color="text.50" size={4} />
-      <Text color="text.50" children={`${recipe.cookingTime} минут`} />
-    </HStack>
+    {recipe.cookingTime > 0 && (
+      <HStack
+        px={2}
+        py={1.5}
+        position="absolute"
+        left={4}
+        top={4}
+        space={2}
+        bg="rgba(133, 133, 133, 0.5)"
+        alignItems="center"
+        borderRadius={8}
+      >
+        <ClockIcon color="text.50" size={4} />
+        <Text color="text.50" children={`${recipe.cookingTime} минут`} />
+      </HStack>
+    )}
   </Box>
 );
 
-export default RecipeCard;
+export default memo(RecipeCard, (prevProps, nextProps) => {
+  return prevProps.recipe.id === nextProps.recipe.id;
+});

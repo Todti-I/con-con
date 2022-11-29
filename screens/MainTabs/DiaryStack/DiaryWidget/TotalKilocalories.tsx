@@ -11,7 +11,7 @@ const TotalKilocalories = ({ current, max }: Props) => {
   return (
     <>
       <HStack space={1} alignItems="flex-end">
-        <Text fontSize="2xl" fontWeight="500" children={current} />
+        <Text fontSize="2xl" fontWeight="500" children={Math.round(current)} />
         <Text
           fontSize="sm"
           fontWeight="500"
@@ -22,7 +22,7 @@ const TotalKilocalories = ({ current, max }: Props) => {
         <Text
           fontSize="2xl"
           fontWeight="500"
-          children={Math.abs(max - current)}
+          children={Math.round(Math.abs(max - current))}
         />
         <Text
           fontSize="sm"
