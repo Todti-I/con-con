@@ -1,21 +1,20 @@
-import { useForceUpdate } from 'con-con/hooks';
+import { useAppContext, useForceUpdate } from 'con-con/hooks';
 import { Box, HStack } from 'native-base';
 import { memo, useEffect } from 'react';
-import { useDiaryContext } from '../context';
 import BJUProgress from './BJUProgress';
 import TotalKilocalories from './TotalKilocalories';
 
 const DiaryWidget = () => {
-  const { meals, subscriptions } = useDiaryContext();
   const forceUpdate = useForceUpdate();
+  const { mealsData, subscriptions } = useAppContext();
 
   useEffect(() => {
-    const unsubscribe = subscriptions.subscribe('diary-widget', forceUpdate);
+    const unsubscribe = subscriptions.subscribe('meals-data', forceUpdate);
 
     return () => unsubscribe();
   }, []);
 
-  const allRecipes = [...meals.get.values()].flatMap((r) => r);
+  const allRecipes = Object.values(mealsData.get.meals).flatMap((r) => r);
 
   const [totalKilocalories, totalCarbohydrate, totalProtein, totalFat] =
     allRecipes.reduce(

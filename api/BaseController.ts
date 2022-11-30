@@ -21,7 +21,7 @@ export default abstract class BaseController {
       return res.data;
     } catch (err) {
       const error = err as AxiosError;
-      isDev && console.log(`GET ${url}`, error.response); // LOG
+      isDev && console.error(`GET ${url}`, error.response); // LOG
       throw error.response;
     }
   }
@@ -37,7 +37,7 @@ export default abstract class BaseController {
       return res.data;
     } catch (err) {
       const error = err as AxiosError;
-      isDev && console.log(`POST ${url}`, error.response); // LOG
+      isDev && console.error(`POST ${url}`, error.response); // LOG
       throw error.response;
     }
   }
@@ -49,7 +49,7 @@ export default abstract class BaseController {
       return res.data;
     } catch (err) {
       const error = err as AxiosError;
-      isDev && console.log(`PUT ${url}`, error.response); // LOG
+      isDev && console.error(`PUT ${url}`, error.response); // LOG
       throw error.response;
     }
   }
@@ -61,7 +61,7 @@ export default abstract class BaseController {
       return res.data;
     } catch (err) {
       const error = err as AxiosError;
-      isDev && console.log(`DELETE ${url}`, error.response); // LOG
+      isDev && console.error(`DELETE ${url}`, error.response); // LOG
       throw error.response;
     }
   }

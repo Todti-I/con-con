@@ -1,11 +1,11 @@
-import { useForceUpdate } from 'con-con/hooks';
+import { useAppContext, useForceUpdate } from 'con-con/hooks';
 import SolidPlusIcon from 'con-con/icons/SolidHeartPlusIcon';
+import { MealType } from 'con-con/types/recipes';
 import { Box, HStack, IconButton, Text } from 'native-base';
 import { memo, useEffect } from 'react';
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 import { useDiaryContext } from '../context';
 import mealTypeData from '../meal-type-data';
-import { MealType } from '../types';
 
 type Props = {
   mealType: MealType;
@@ -14,7 +14,8 @@ type Props = {
 };
 
 const MealCard = ({ mealType, goToMealScreen, goToAddMealScreen }: Props) => {
-  const { meals, subscriptions } = useDiaryContext();
+  const { mealsData } = useAppContext();
+  const { subscriptions } = useDiaryContext();
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
@@ -26,10 +27,10 @@ const MealCard = ({ mealType, goToMealScreen, goToAddMealScreen }: Props) => {
     return () => unsubscribe();
   }, []);
 
-  const recipes = meals.get.get(mealType) || [];
+  const recipes = mealsData.get.meals[mealType];
   const { name, Icon } = mealTypeData[mealType];
   const totalKilocalories = recipes.reduce(
-    (result, r) => (result += r.kilocalories),
+    (result, r) => (result += r.kilocalories * (r.mass / 100)),
     0
   );
 
@@ -58,7 +59,7 @@ const MealCard = ({ mealType, goToMealScreen, goToAddMealScreen }: Props) => {
           my={1}
           fontWeight="500"
           textAlign="center"
-          children={`${totalKilocalories} ккал`}
+          children={`${Math.round(totalKilocalories)} ккал`}
         />
       </TouchableNativeFeedback>
       <IconButton

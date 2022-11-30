@@ -1,5 +1,5 @@
 import FavoriteRecipesButton from 'con-con/components/FavoriteRecipesButton';
-import RecipeData from 'con-con/types/recipe-data';
+import { RecipeData } from 'con-con/types/recipes';
 import { Box, IBoxProps, Image, Text } from 'native-base';
 import { memo } from 'react';
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';

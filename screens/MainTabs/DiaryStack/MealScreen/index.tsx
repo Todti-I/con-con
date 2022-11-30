@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import RecipeData from 'con-con/types/recipe-data';
+import { useAppContext } from 'con-con/hooks';
+import { RecipeData } from 'con-con/types/recipes';
 import { FlatList } from 'native-base';
 import { useEffect } from 'react';
 import { ListRenderItemInfo } from 'react-native';
@@ -14,7 +15,8 @@ const MealScreen = ({
   navigation,
   route,
 }: NativeStackScreenProps<DiaryStackParamList, 'Meal'>) => {
-  const { meals, subscriptions } = useDiaryContext();
+  const { mealsData } = useAppContext();
+  const { subscriptions } = useDiaryContext();
   const mealType = route.params.mealType;
 
   useEffect(() => {
@@ -25,9 +27,12 @@ const MealScreen = ({
   }, []);
 
   const handleRemove = (id: number) => {
-    const newRecipes = meals.get.get(mealType)?.filter((r) => r.id !== id);
-    meals.get.set(mealType, newRecipes || []);
-    subscriptions.ping('diary-widget');
+    const newRecipes = mealsData.get.meals[mealType].filter((r) => r.id !== id);
+    const newMealsData = {
+      ...mealsData.get,
+      meals: { ...mealsData.get.meals, [mealType]: newRecipes },
+    };
+    mealsData.set(newMealsData);
   };
 
   const Header = (
@@ -52,7 +57,7 @@ const MealScreen = ({
       contentContainerStyle={{ padding: 16 }}
       renderItem={renderItem}
       ListHeaderComponent={Header}
-      data={meals.get.get(mealType)}
+      data={mealsData.get.meals[mealType]}
       keyExtractor={(_, i) => i.toString()}
     />
   );

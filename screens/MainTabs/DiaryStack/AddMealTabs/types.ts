@@ -1,4 +1,5 @@
-import { DiaryStackParamList, MealType } from '../types';
+import { MealType } from 'con-con/types/recipes';
+import { DiaryStackParamList } from '../types';
 
 export type AddMealTabParamList = {
   RecipesForYou: {

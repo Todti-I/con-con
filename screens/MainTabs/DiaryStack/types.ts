@@ -1,4 +1,4 @@
-export type MealType = 'breakfast' | 'lunch' | 'dinner' | 'supper';
+import { MealType } from 'con-con/types/recipes';
 
 export type DiaryStackParamList = {
   Meals: undefined;

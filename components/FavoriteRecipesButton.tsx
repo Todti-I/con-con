@@ -1,7 +1,7 @@
 import { useAppContext } from 'con-con/hooks';
 import OutlineHeartIcon from 'con-con/icons/OutlineHeartIcon';
 import SolidHeartIcon from 'con-con/icons/SolidHeartIcon';
-import RecipeData from 'con-con/types/recipe-data';
+import { RecipeData } from 'con-con/types/recipes';
 import { IconButton, IIconButtonProps, IIconProps } from 'native-base';
 import { memo, useState } from 'react';
 

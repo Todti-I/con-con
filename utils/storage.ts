@@ -1,11 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BasketProductData from 'con-con/types/basket-product-data';
-import RecipeData from 'con-con/types/recipe-data';
+import { MealsData, RecipeData } from 'con-con/types/recipes';
 
 type StorageData = {
   'wizard-data': unknown;
   'basket-products': BasketProductData[];
   'favorite-recipes': RecipeData[];
+  'meals-data': MealsData;
 };
 
 const getItem = async <T extends keyof StorageData>(

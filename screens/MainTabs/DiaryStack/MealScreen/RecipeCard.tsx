@@ -1,6 +1,6 @@
 import { useValue } from 'con-con/hooks';
 import SolidPlusIcon from 'con-con/icons/SolidHeartPlusIcon';
-import RecipeData from 'con-con/types/recipe-data';
+import { RecipeData } from 'con-con/types/recipes';
 import { Box, IconButton, Text } from 'native-base';
 import { memo } from 'react';
 import { Animated, Easing, TouchableNativeFeedback } from 'react-native';

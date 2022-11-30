@@ -1,6 +1,5 @@
 import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import { useAppContext } from 'con-con/hooks';
-import RecipeData from 'con-con/types/recipe-data';
 import { Box } from 'native-base';
 import { useState } from 'react';
 import { Animated } from 'react-native';
@@ -15,7 +14,8 @@ const RecipesForYouScreen = ({
   navigation,
   route,
 }: MaterialTopTabScreenProps<AddMealTabParamList, 'RecipesForYou'>) => {
-  const { meals, subscriptions } = useDiaryContext();
+  const { mealsData } = useAppContext();
+  const { subscriptions } = useDiaryContext();
   const [pos, setPos] = useState(0);
 
   const {
@@ -31,9 +31,12 @@ const RecipesForYouScreen = ({
 
   const handleAdd = () => {
     if (lockControl.get) return;
-    const newRecipes = [...(meals.get.get(mealType) || []), currentRecipe];
-    meals.get.set(mealType, newRecipes);
-    subscriptions.ping('diary-widget');
+    const newRecipes = [...mealsData.get.meals[mealType], currentRecipe];
+    const newMealsData = {
+      ...mealsData.get,
+      meals: { ...mealsData.get.meals, [mealType]: newRecipes },
+    };
+    mealsData.set(newMealsData);
     subscriptions.ping(`meal-card-${mealType}`);
     navigation.navigate('Meals');
   };

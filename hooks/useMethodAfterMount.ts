@@ -1,8 +1,8 @@
-import { DependencyList, useEffect } from "react";
+import { DependencyList, useEffect } from 'react';
 
 type Options<TResult, TError> = {
   deps?: DependencyList;
-  next?: (result: TResult) => void;
+  next?: (result: TResult) => Promise<void> | void;
   onStartLoading?: () => void;
   onEndLoading?: () => void;
   onError?: (error: TError) => void;
@@ -31,7 +31,7 @@ const useMethodAfterMount = <TResult, TError>(
         try {
           onStartLoading?.();
           const result = await method();
-          !isCancel && next?.(result);
+          !isCancel && (await next?.(result));
         } catch (err) {
           !isCancel && onError?.(err as TError);
         } finally {

@@ -1,5 +1,5 @@
 import ClockIcon from 'con-con/icons/ClockIcon';
-import RecipeData from 'con-con/types/recipe-data';
+import { RecipeData } from 'con-con/types/recipes';
 import { Box, Heading, HStack, Image, Text } from 'native-base';
 import { memo } from 'react';
 

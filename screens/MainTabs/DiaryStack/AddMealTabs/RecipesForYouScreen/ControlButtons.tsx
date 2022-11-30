@@ -1,6 +1,6 @@
 import FavoriteRecipesButton from 'con-con/components/FavoriteRecipesButton';
 import ThumbUpIcon from 'con-con/icons/ThumbUpIcon';
-import RecipeData from 'con-con/types/recipe-data';
+import { RecipeData } from 'con-con/types/recipes';
 import { AddIcon, HStack, IconButton } from 'native-base';
 
 type Props = {

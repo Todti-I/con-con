@@ -3,9 +3,10 @@ import {
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 import DateRow from 'con-con/components/DateRow';
+import { MealType } from 'con-con/types/recipes';
 import { Box, ScrollView, VStack } from 'native-base';
 import DiaryWidget from '../DiaryWidget';
-import { DiaryStackParamList, MealType } from '../types';
+import { DiaryStackParamList } from '../types';
 import MealCard from './MealCard';
 
 const mealTypes: MealType[] = ['breakfast', 'dinner', 'lunch', 'supper'];

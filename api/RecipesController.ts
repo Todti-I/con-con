@@ -1,4 +1,4 @@
-import RecipeData from 'con-con/types/recipe-data';
+import { RecipeData } from 'con-con/types/recipes';
 import BaseController from './BaseController';
 
 export default class RecipesController extends BaseController {
