@@ -26,7 +26,7 @@ const MealScreen = ({
     };
   }, []);
 
-  const handleRemove = (id: number) => {
+  const handleRemove = (id: string) => {
     const newRecipes = mealsData.get.meals[mealType].filter((r) => r.id !== id);
     const newMealsData = {
       ...mealsData.get,

@@ -7,7 +7,7 @@ import { Animated, Easing, TouchableNativeFeedback } from 'react-native';
 
 type Props = {
   recipe: RecipeData;
-  onRemove?: (recipeId: number) => void;
+  onRemove?: (recipeId: string) => void;
 };
 
 const RecipeCard = ({ recipe, onRemove }: Props) => {

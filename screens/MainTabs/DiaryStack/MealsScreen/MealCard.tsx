@@ -34,6 +34,8 @@ const MealCard = ({ mealType, goToMealScreen, goToAddMealScreen }: Props) => {
     0
   );
 
+  const hasRecipes = recipes.length > 0;
+
   return (
     <Box borderRadius={8} bg="white" position="relative" overflow="hidden">
       <TouchableNativeFeedback
@@ -45,22 +47,24 @@ const MealCard = ({ mealType, goToMealScreen, goToAddMealScreen }: Props) => {
           <Box pr={12} flex={1} alignSelf="center">
             <Text fontWeight="500" fontSize="md" children={name} />
             <Text
-              color="text.500"
+              color={hasRecipes ? 'text.500' : 'text.400'}
               fontSize="xs"
               fontWeight="500"
               children={
-                recipes.map((r) => r.title).join('\n') || 'Не выбраны рецепты'
+                recipes.map((r) => r.title).join('\n') || 'Ничего не выбрано'
               }
             />
           </Box>
         </HStack>
-        <Box mx={6} h="1px" bg="muted.300" />
-        <Text
-          my={1}
-          fontWeight="500"
-          textAlign="center"
-          children={`${Math.round(totalKilocalories)} ккал`}
-        />
+        {hasRecipes && <Box mx={6} h="1px" bg="muted.300" />}
+        {hasRecipes && (
+          <Text
+            my={1}
+            fontWeight="500"
+            textAlign="center"
+            children={`${Math.round(totalKilocalories)} ккал`}
+          />
+        )}
       </TouchableNativeFeedback>
       <IconButton
         top={3}

@@ -70,7 +70,7 @@ const updateMealsIfNeeded = async (
           breakfast: [diets[0]].filter(isDefined),
           dinner: [diets[2]].filter(isDefined),
           lunch: [diets[4]].filter(isDefined),
-          supper: [diets[1], diets[4]].filter(isDefined),
+          supper: [diets[1], diets[3]].filter(isDefined),
         },
       } as MealsData,
     };

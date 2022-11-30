@@ -27,7 +27,7 @@ const RecipeCard = ({ recipe, onAdd, goToRecipe, ...props }: Props) => (
       <Image
         h="156px"
         resizeMode="cover"
-        source={{ uri: 'https://wallpaperaccess.com/full/317501.jpg' }}
+        source={{ uri: recipe.cover }}
         alt={recipe.title || 'карточка рецепта'}
       />
       <Box px={2} py={4} flex={1} justifyContent="space-between">

@@ -85,8 +85,8 @@ const RecipesForYouScreen = ({
         isLoaded={!isLoading}
         borderRadius={15}
         h="80%"
-        startColor="text.100"
-        endColor="text.200"
+        startColor="text.200"
+        endColor="text.300"
       >
         <Animated.View
           style={{
