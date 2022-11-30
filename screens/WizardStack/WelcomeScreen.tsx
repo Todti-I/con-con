@@ -12,6 +12,7 @@ const WelcomeScreen = ({
 
   return (
     <WizardLayout
+      withLogo
       title="Добро пожаловать!"
       buttonProps={{
         children: 'Начать',

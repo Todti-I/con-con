@@ -6,7 +6,7 @@ type Props = {
 };
 
 const TotalKilocalories = ({ current, max }: Props) => {
-  const isExceeded = max - current < 0;
+  const isExceeded = max - Math.round(current) < 0;
 
   return (
     <>

@@ -1,3 +1,4 @@
+import Logo from 'con-con/components/Logo';
 import {
   Box,
   Button,
@@ -9,12 +10,14 @@ import {
 
 type Props = {
   title: string;
+  withLogo?: boolean;
   buttonProps?: IButtonProps;
   subButtonProps?: IButtonProps;
 } & IBoxProps;
 
 const WizardLayout = ({
   title,
+  withLogo,
   buttonProps,
   subButtonProps,
   ...props
@@ -28,6 +31,7 @@ const WizardLayout = ({
     justifyContent="space-between"
   >
     <Box>
+      {withLogo && <Logo style={{ alignSelf: 'center' }} />}
       <Heading mt="58px" mb={5} h="2.5em" noOfLines={2} children={title} />
       <Box {...props} />
     </Box>
