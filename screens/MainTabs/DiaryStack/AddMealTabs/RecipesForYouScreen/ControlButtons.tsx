@@ -1,13 +1,15 @@
-import HeartPlusIcon from 'con-con/icons/HeartPlusIcon';
+import FavoriteRecipesButton from 'con-con/components/FavoriteRecipesButton';
 import ThumbUpIcon from 'con-con/icons/ThumbUpIcon';
+import RecipeData from 'con-con/types/recipe-data';
 import { AddIcon, HStack, IconButton } from 'native-base';
 
 type Props = {
+  recipe: RecipeData;
   onAdd?: () => void;
   onNext?: () => void;
 };
 
-const ControlButtons = ({ onAdd, onNext }: Props) => (
+const ControlButtons = ({ recipe, onAdd, onNext }: Props) => (
   <HStack mt={4} space={5} justifyContent="center" alignItems="center">
     <IconButton
       shadow="0"
@@ -34,14 +36,17 @@ const ControlButtons = ({ onAdd, onNext }: Props) => (
       onPress={onAdd}
       icon={<AddIcon size="45px" />}
     />
-    <IconButton
+    <FavoriteRecipesButton
+      key={recipe.id}
+      recipe={recipe}
       shadow="0"
-      bg="text.50"
       boxSize="60px"
       variant="solid"
       borderRadius="full"
+      colorScheme="fuchsia"
+      bg="text.50"
       _pressed={{ bg: 'text.200' }}
-      icon={<HeartPlusIcon size="28px" color="fuchsia.500" />}
+      iconProps={{ size: '28px', color: 'fuchsia.500' }}
     />
   </HStack>
 );

@@ -1,19 +1,20 @@
-import { useCallback } from "react";
-import useValue from "./useValue";
+import { useCallback } from 'react';
+import useValue from './useValue';
 
 function useDebounce(debounceTime: number) {
-  const timeout = useValue<NodeJS.Timeout | undefined>(undefined);
+  const timeoutMap = useValue<Map<string, NodeJS.Timeout>>(new Map());
 
-  const reset = useCallback(() => {
-    if (timeout.get) {
-      clearTimeout(timeout.get);
-      timeout.set(undefined);
+  const reset = useCallback((key = 'default') => {
+    const timeout = timeoutMap.get.get(key);
+    if (timeout) {
+      clearTimeout(timeout);
+      timeoutMap.get.delete(key);
     }
   }, []);
 
-  const set = useCallback((callback: () => void) => {
-    reset();
-    timeout.set(setTimeout(callback, debounceTime));
+  const set = useCallback((callback: () => void, key = 'default') => {
+    reset(key);
+    timeoutMap.get.set(key, setTimeout(callback, debounceTime));
   }, []);
 
   return {

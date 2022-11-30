@@ -1,3 +1,4 @@
+import FavoriteRecipesButton from 'con-con/components/FavoriteRecipesButton';
 import RecipeData from 'con-con/types/recipe-data';
 import { Box, IBoxProps, Image, Text } from 'native-base';
 import { memo } from 'react';
@@ -43,6 +44,12 @@ const RecipeCard = ({ recipe, onAdd, goToRecipe, ...props }: Props) => (
         alt={recipe.title || 'карточка рецепта'}
       />
     </TouchableNativeFeedback>
+    <FavoriteRecipesButton
+      position="absolute"
+      top={0}
+      right={0}
+      recipe={recipe}
+    />
   </Box>
 );
 

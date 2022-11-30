@@ -1,4 +1,6 @@
 import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
+import { useAppContext } from 'con-con/hooks';
+import RecipeData from 'con-con/types/recipe-data';
 import { Box } from 'native-base';
 import { useState } from 'react';
 import { Animated } from 'react-native';
@@ -62,7 +64,11 @@ const RecipesForYouScreen = ({
         }}
         children={<RecipeCard recipe={currentRecipe} />}
       />
-      <ControlButtons onAdd={handleAdd} onNext={handleNext} />
+      <ControlButtons
+        recipe={currentRecipe}
+        onAdd={handleAdd}
+        onNext={handleNext}
+      />
     </Box>
   );
 };

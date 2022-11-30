@@ -1,4 +1,4 @@
-import HeartButton from 'con-con/components/HeartButton';
+import FavoriteRecipesButton from 'con-con/components/FavoriteRecipesButton';
 import RecipeData from 'con-con/types/recipe-data';
 import { Box, IBoxProps, Image, Text } from 'native-base';
 import { memo } from 'react';
@@ -40,7 +40,14 @@ const RecipeCard = ({ recipe, onAdd, goToRecipe, ...props }: Props) => (
         <Text numberOfLines={1} children={`${recipe.kilocalories} ккал`} />
       </Box>
     </TouchableNativeFeedback>
-    <HeartButton position="absolute" right={1} top={1} />
+    <FavoriteRecipesButton
+      position="absolute"
+      right={1}
+      top={1}
+      defaultIsChecked
+      silentUpdate
+      recipe={recipe}
+    />
   </Box>
 );
 

@@ -1,11 +1,11 @@
 import { useMemo, useRef } from 'react';
 
-const useSubscriptions = () => {
+const useSubscriptions = <TKey = string>(): UseSubscriptions<TKey> => {
   const generateId = useRef(0);
-  const subscriptions = useRef(new Map<string, Map<number, () => void>>());
+  const subscriptions = useRef(new Map<TKey, Map<number, () => void>>());
 
   return useMemo(() => {
-    const subscribe = (key: string, action: () => void) => {
+    const subscribe = (key: TKey, action: () => void) => {
       if (!subscriptions.current.has(key)) {
         subscriptions.current.set(key, new Map());
       }
@@ -17,7 +17,7 @@ const useSubscriptions = () => {
       };
     };
 
-    const ping = (key: string) => {
+    const ping = (key: TKey) => {
       subscriptions.current.get(key)?.forEach((action) => action());
     };
 
@@ -28,6 +28,9 @@ const useSubscriptions = () => {
   }, []);
 };
 
-export type UseSubscriptions = ReturnType<typeof useSubscriptions>;
+export type UseSubscriptions<TKey = string> = {
+  subscribe: (key: TKey, action: () => void) => () => void;
+  ping: (key: TKey) => void;
+};
 
 export default useSubscriptions;
