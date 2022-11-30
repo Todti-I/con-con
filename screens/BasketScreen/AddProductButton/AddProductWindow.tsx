@@ -2,17 +2,18 @@ import Input from 'con-con/components/Input';
 import NumberInput from 'con-con/components/NumberInput';
 import Window, { WindowProps } from 'con-con/components/Window';
 import { useLoadingState } from 'con-con/hooks';
+import BasketProductData from 'con-con/types/basket-product-data';
 import { useState } from 'react';
-import { ProductData } from '../types';
+import uuid from 'react-native-uuid';
 
 type Props = {
-  onAdd?: (product: ProductData) => Promise<void>;
+  onAdd?: (product: BasketProductData) => Promise<void>;
 };
 
 const AddProductWindow = ({ isOpen, onClose, onAdd }: WindowProps<Props>) => {
   const { isLoading, trackLoading } = useLoadingState(false);
-  const [data, setData] = useState<ProductData>({
-    id: 0,
+  const [data, setData] = useState<BasketProductData>({
+    id: '',
     name: '',
     grams: 0,
     isChecked: false,
@@ -20,11 +21,11 @@ const AddProductWindow = ({ isOpen, onClose, onAdd }: WindowProps<Props>) => {
 
   const handleAdd = () =>
     trackLoading(async () => {
-      await onAdd?.(data);
+      await onAdd?.({ ...data, id: uuid.v4().toString() });
       onClose();
     });
 
-  const handleChange = (partProduct: Partial<ProductData>) => {
+  const handleChange = (partProduct: Partial<BasketProductData>) => {
     setData((data) => ({ ...data, ...partProduct }));
   };
 

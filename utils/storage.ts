@@ -1,8 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import BasketProductData from 'con-con/types/basket-product-data';
 import RecipeData from 'con-con/types/recipe-data';
 
 type StorageData = {
   'wizard-data': unknown;
+  'basket-products': BasketProductData[];
   'favorite-recipes': RecipeData[];
 };
 
