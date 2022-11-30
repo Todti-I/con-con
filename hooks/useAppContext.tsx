@@ -1,12 +1,12 @@
 import api from 'con-con/api';
+import LoadingScreen from 'con-con/screens/LoadingScreen';
 import BasketProductData from 'con-con/types/basket-product-data';
 import { defaultMealsData, MealsData, RecipeData } from 'con-con/types/recipes';
 import { defaultUserData, UserData } from 'con-con/types/user';
 import isDefined from 'con-con/utils/is-defined';
 import storage from 'con-con/utils/storage';
 import dayjs from 'dayjs';
-import { Box } from 'native-base';
-import { createContext, ProviderProps, useContext, useMemo } from 'react';
+import { createContext, ReactNode, useContext, useMemo } from 'react';
 import useDebounce from './useDebounce';
 import useLoadingState from './useLoadingState';
 import useMethodAfterMount from './useMethodAfterMount';
@@ -22,6 +22,10 @@ type AppContent = {
   favoriteRecipes: ValueRef<RecipeData[]>;
   mealsData: ValueRef<MealsData>;
   userData: ValueRef<UserData>;
+};
+
+type AppProviderProps = {
+  children: ReactNode;
 };
 
 const AppContext = createContext<AppContent>({
@@ -79,9 +83,7 @@ const updateMealsIfNeeded = async (
   return { isUpdated: false, data: mealsData };
 };
 
-export const AppProvider = (
-  props: Omit<ProviderProps<AppContent>, 'value'>
-) => {
+export const AppProvider = ({ children }: AppProviderProps) => {
   const debounce = useDebounce(300);
   const { isLoading, setIsLoading } = useLoadingState(true);
   const subscriptions = useSubscriptions<SubscribeKey>();
@@ -133,9 +135,7 @@ export const AppProvider = (
 
   return (
     <AppContext.Provider
-      {...props}
-      // TODO добавить экран загрузки
-      children={isLoading ? <Box /> : props.children}
+      children={isLoading ? <LoadingScreen /> : children}
       value={useMemo(() => {
         return {
           subscriptions,
