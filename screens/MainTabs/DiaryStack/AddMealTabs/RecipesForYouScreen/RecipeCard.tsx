@@ -14,12 +14,11 @@ const RecipeCard = ({ recipe }: Props) => (
     borderRadius={15}
     position="relative"
     overflow="hidden"
-    shadow="0"
   >
     <Image
       flex={1}
       resizeMode="cover"
-      source={{ uri: 'https://wallpaperaccess.com/full/317501.jpg' }}
+      source={{ uri: recipe.cover }}
       alt={recipe.title || 'карточка рецепта'}
     />
     <Box

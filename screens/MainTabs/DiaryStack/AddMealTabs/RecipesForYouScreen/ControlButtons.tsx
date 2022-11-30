@@ -4,12 +4,13 @@ import { RecipeData } from 'con-con/types/recipes';
 import { AddIcon, HStack, IconButton } from 'native-base';
 
 type Props = {
+  isDisabled?: boolean;
   recipe: RecipeData;
   onAdd?: () => void;
   onNext?: () => void;
 };
 
-const ControlButtons = ({ recipe, onAdd, onNext }: Props) => (
+const ControlButtons = ({ isDisabled, recipe, onAdd, onNext }: Props) => (
   <HStack mt={4} space={5} justifyContent="center" alignItems="center">
     <IconButton
       shadow="0"
@@ -18,6 +19,7 @@ const ControlButtons = ({ recipe, onAdd, onNext }: Props) => (
       variant="solid"
       borderRadius="full"
       _pressed={{ bg: 'text.200' }}
+      isDisabled={isDisabled}
       onPress={onNext}
       icon={
         <ThumbUpIcon
@@ -34,10 +36,11 @@ const ControlButtons = ({ recipe, onAdd, onNext }: Props) => (
       borderRadius="full"
       colorScheme="violet"
       onPress={onAdd}
+      isDisabled={isDisabled}
       icon={<AddIcon size="45px" />}
     />
     <FavoriteRecipesButton
-      key={recipe.id}
+      key={recipe?.id}
       recipe={recipe}
       shadow="0"
       boxSize="60px"
@@ -45,6 +48,7 @@ const ControlButtons = ({ recipe, onAdd, onNext }: Props) => (
       borderRadius="full"
       colorScheme="fuchsia"
       bg="text.50"
+      isDisabled={isDisabled}
       _pressed={{ bg: 'text.200' }}
       iconProps={{ size: '28px', color: 'fuchsia.500' }}
     />

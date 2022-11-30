@@ -33,7 +33,7 @@ const RecipeCard = ({ recipe, onAdd, goToRecipe, ...props }: Props) => (
         />
         <Text
           numberOfLines={2}
-          children={recipe.ingridients.map((i) => i.value).join(', ')}
+          children={recipe.ingredients.map((i) => i.name).join(', ')}
         />
         <Text
           numberOfLines={1}

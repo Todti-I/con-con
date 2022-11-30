@@ -17,7 +17,6 @@ export default abstract class BaseController {
   protected async get<T>(url: string, params?: object): Promise<T> {
     try {
       const res = await axios.get<T>(url, { params });
-      isDev && console.log(`GET ${url}`, res.data); // LOG
       return res.data;
     } catch (err) {
       const error = err as AxiosError;
@@ -33,7 +32,6 @@ export default abstract class BaseController {
   ): Promise<T> {
     try {
       const res = await axios.post<K, AxiosResponse<T>>(url, data, { params });
-      isDev && console.log(`POST ${url}`, res.data); // LOG
       return res.data;
     } catch (err) {
       const error = err as AxiosError;
@@ -45,7 +43,6 @@ export default abstract class BaseController {
   protected async put<T, K>(url: string, data?: K): Promise<T> {
     try {
       const res = await axios.put<K, AxiosResponse<T>>(url, data);
-      isDev && console.log(`PUT ${url}`, res.data); // LOG
       return res.data;
     } catch (err) {
       const error = err as AxiosError;
@@ -57,7 +54,6 @@ export default abstract class BaseController {
   protected async delete<T>(url: string, params?: object): Promise<T> {
     try {
       const res = await axios.delete<T>(url, { params });
-      isDev && console.log(`DELETE ${url}`, res.data); // LOG
       return res.data;
     } catch (err) {
       const error = err as AxiosError;

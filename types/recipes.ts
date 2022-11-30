@@ -1,8 +1,9 @@
 export type MealType = 'breakfast' | 'lunch' | 'dinner' | 'supper';
 
 export type RecipeData = {
-  id: number;
+  id: string;
   title: string;
+  cover: string;
   protein: number;
   fat: number;
   carbohydrate: number;
@@ -11,9 +12,10 @@ export type RecipeData = {
     step: number;
     description: string;
   }[];
-  ingridients: {
+  ingredients: {
     id: string;
-    value: string;
+    name: string;
+    mass: number;
   }[];
   cookingTime: number;
   mealType: number;

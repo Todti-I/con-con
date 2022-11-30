@@ -26,7 +26,7 @@ const FavoriteRecipesButton = ({
   const [isChecked, setIsChecked] = useState(() => {
     return (
       defaultIsChecked ||
-      Boolean(favoriteRecipes.get.find((r) => r.id === recipe.id)) ||
+      Boolean(favoriteRecipes.get.find((r) => r.id === recipe?.id)) ||
       false
     );
   });

@@ -30,7 +30,7 @@ export const diet: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -86,7 +86,7 @@ export const diet: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -142,7 +142,7 @@ export const diet: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -198,7 +198,7 @@ export const diet: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -254,7 +254,7 @@ export const diet: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -313,7 +313,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -369,7 +369,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -425,7 +425,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -481,7 +481,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -537,7 +537,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -593,7 +593,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -649,7 +649,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -705,7 +705,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -761,7 +761,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -817,7 +817,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -873,7 +873,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -929,7 +929,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -985,7 +985,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1041,7 +1041,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1097,7 +1097,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1153,7 +1153,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1209,7 +1209,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1265,7 +1265,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1321,7 +1321,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1377,7 +1377,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1433,7 +1433,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1489,7 +1489,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1545,7 +1545,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1601,7 +1601,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1657,7 +1657,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1713,7 +1713,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1769,7 +1769,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1825,7 +1825,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1881,7 +1881,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1937,7 +1937,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -1993,7 +1993,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2049,7 +2049,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2105,7 +2105,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2161,7 +2161,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2217,7 +2217,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2273,7 +2273,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2329,7 +2329,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2385,7 +2385,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2441,7 +2441,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2497,7 +2497,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2553,7 +2553,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2609,7 +2609,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2665,7 +2665,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2721,7 +2721,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2777,7 +2777,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
@@ -2833,7 +2833,7 @@ export const recipes: RecipeData[] = [
         description: 'step #4',
       },
     ],
-    ingridients: [
+    ingredients: [
       {
         id: '8b784850-02d2-45f9-9479-d0c45908ab60',
         value: '0 ingredient',
