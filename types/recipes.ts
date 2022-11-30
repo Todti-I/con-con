@@ -25,6 +25,7 @@ export type MealsData = {
   date: string;
   meals: Record<MealType, RecipeData[]>;
 };
+
 export const defaultMealsData = (): MealsData => ({
   date: '',
   meals: {

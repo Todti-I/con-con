@@ -37,7 +37,10 @@ const RecipeCard = ({ recipe }: Props) => (
         numberOfLines={2}
         children={recipe.title}
       />
-      <Text color="text.200" children={`${recipe.kilocalories} ккал`} />
+      <Text
+        color="text.200"
+        children={`${Math.round(recipe.kilocalories)} ккал`}
+      />
     </Box>
     {recipe.cookingTime > 0 && (
       <HStack

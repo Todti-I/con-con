@@ -6,7 +6,7 @@ import TotalKilocalories from './TotalKilocalories';
 
 const DiaryWidget = () => {
   const forceUpdate = useForceUpdate();
-  const { mealsData, subscriptions } = useAppContext();
+  const { mealsData, userData, subscriptions } = useAppContext();
 
   useEffect(() => {
     const unsubscribe = subscriptions.subscribe('meals-data', forceUpdate);
@@ -19,21 +19,32 @@ const DiaryWidget = () => {
   const [totalKilocalories, totalCarbohydrate, totalProtein, totalFat] =
     allRecipes.reduce(
       ([kilocalories, carbohydrate, protein, fat], r) => [
-        (kilocalories += r.kilocalories),
-        (carbohydrate += r.carbohydrate),
-        (protein += r.protein),
-        (fat += r.fat),
+        (kilocalories += r.kilocalories * (r.mass / 100)),
+        (carbohydrate += r.carbohydrate * (r.mass / 100)),
+        (protein += r.protein * (r.mass / 100)),
+        (fat += r.fat * (r.mass / 100)),
       ],
       [0, 0, 0, 0]
     );
 
   return (
     <Box px={3} py={4} bg="white" borderRadius={12}>
-      <TotalKilocalories current={totalKilocalories} max={2400} />
+      <TotalKilocalories
+        current={totalKilocalories}
+        max={userData.get.kilocalories}
+      />
       <HStack mt={4} space={8}>
-        <BJUProgress name="Углеводы" current={totalCarbohydrate} max={274} />
-        <BJUProgress name="Белки" current={totalProtein} max={110} />
-        <BJUProgress name="Жиры" current={totalFat} max={73} />
+        <BJUProgress
+          name="Углеводы"
+          current={totalCarbohydrate}
+          max={userData.get.carbohydrate}
+        />
+        <BJUProgress
+          name="Белки"
+          current={totalProtein}
+          max={userData.get.protein}
+        />
+        <BJUProgress name="Жиры" current={totalFat} max={userData.get.fat} />
       </HStack>
     </Box>
   );

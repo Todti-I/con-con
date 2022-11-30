@@ -1,6 +1,7 @@
 import api from 'con-con/api';
 import BasketProductData from 'con-con/types/basket-product-data';
 import { defaultMealsData, MealsData, RecipeData } from 'con-con/types/recipes';
+import { defaultUserData, UserData } from 'con-con/types/user';
 import isDefined from 'con-con/utils/is-defined';
 import storage from 'con-con/utils/storage';
 import dayjs from 'dayjs';
@@ -20,6 +21,7 @@ type AppContent = {
   basketProducts: ValueRef<BasketProductData[]>;
   favoriteRecipes: ValueRef<RecipeData[]>;
   mealsData: ValueRef<MealsData>;
+  userData: ValueRef<UserData>;
 };
 
 const AppContext = createContext<AppContent>({
@@ -28,10 +30,11 @@ const AppContext = createContext<AppContent>({
   basketProducts: { get: [], set: () => {} },
   favoriteRecipes: { get: [], set: () => {} },
   mealsData: { get: defaultMealsData(), set: () => {} },
+  userData: { get: defaultUserData(), set: () => {} },
 });
 
 const fetchData = async () => {
-  let [
+  const [
     wizardData,
     basketProducts = [],
     favoriteRecipes = [],
@@ -46,7 +49,10 @@ const fetchData = async () => {
   return { wizardData, basketProducts, favoriteRecipes, mealsData };
 };
 
-const updateMealsIfNeeded = async (mealsData: MealsData) => {
+const updateMealsIfNeeded = async (
+  mealsData: MealsData,
+  kilocalories: number
+) => {
   const currentDay = dayjs().startOf('day');
 
   if (
@@ -54,7 +60,7 @@ const updateMealsIfNeeded = async (mealsData: MealsData) => {
     dayjs(mealsData.date).startOf('day').isBefore(currentDay)
   ) {
     console.warn('Update meals');
-    const diets = await api.diet.getDiet(1800);
+    const diets = await api.diet.getDiet(kilocalories);
 
     return {
       isUpdated: true,
@@ -101,12 +107,23 @@ export const AppProvider = (
       subscriptions.ping(key);
     },
   });
+  const userData = useValue(defaultUserData());
 
   useMethodAfterMount(fetchData, {
     onStartLoading: () => setIsLoading(true),
     onEndLoading: () => setIsLoading(false),
     next: async (data) => {
-      const updatedMeals = await updateMealsIfNeeded(data.mealsData);
+      userData.set({
+        kilocalories: 2000,
+        carbohydrate: 274,
+        protein: 110,
+        fat: 73,
+      });
+
+      const updatedMeals = await updateMealsIfNeeded(
+        data.mealsData,
+        userData.get.kilocalories
+      );
       isWizardComplete.set(Boolean(data.wizardData));
       basketProducts.set(data.basketProducts, true);
       favoriteRecipes.set(data.favoriteRecipes, true);
@@ -126,6 +143,7 @@ export const AppProvider = (
           basketProducts,
           favoriteRecipes,
           mealsData,
+          userData,
         };
       }, [isLoading])}
     />

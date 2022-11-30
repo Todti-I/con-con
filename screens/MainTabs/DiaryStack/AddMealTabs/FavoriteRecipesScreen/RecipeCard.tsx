@@ -37,7 +37,10 @@ const RecipeCard = ({ recipe, onAdd, goToRecipe, ...props }: Props) => (
           fontWeight="500"
           children={recipe.title}
         />
-        <Text numberOfLines={1} children={`${recipe.kilocalories} ккал`} />
+        <Text
+          numberOfLines={1}
+          children={`${Math.round(recipe.kilocalories)} ккал`}
+        />
       </Box>
     </TouchableNativeFeedback>
     <FavoriteRecipesButton

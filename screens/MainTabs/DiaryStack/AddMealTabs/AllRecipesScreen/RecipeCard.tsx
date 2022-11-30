@@ -35,7 +35,10 @@ const RecipeCard = ({ recipe, onAdd, goToRecipe, ...props }: Props) => (
           numberOfLines={2}
           children={recipe.ingridients.map((i) => i.value).join(', ')}
         />
-        <Text numberOfLines={1} children={`${recipe.kilocalories} ккал`} />
+        <Text
+          numberOfLines={1}
+          children={`${Math.round(recipe.kilocalories)} ккал`}
+        />
       </Box>
       <Image
         boxSize="128px"

@@ -12,17 +12,20 @@ type Props = {
 
 const RecipeCard = ({ recipe, onRemove }: Props) => {
   const removalAnimation = useValue(new Animated.Value(0));
+  const totalKilocalories = Math.round(
+    recipe.kilocalories * (recipe.mass / 100)
+  );
 
   const handleRemove = () => {
-    onRemove?.(recipe.id);
-
     Animated.timing(removalAnimation.get, {
       toValue: 1,
-      duration: 100,
+      duration: 200,
       easing: Easing.ease,
       useNativeDriver: false,
-      delay: 200,
+      delay: 50,
     }).start();
+
+    setTimeout(() => onRemove?.(recipe.id), 300);
   };
 
   const maxHeightAnimation = removalAnimation.get.interpolate({
@@ -60,7 +63,7 @@ const RecipeCard = ({ recipe, onRemove }: Props) => {
               color="text.500"
               fontSize="sm"
               fontWeight="500"
-              children={`${recipe.kilocalories} ккал`}
+              children={`${totalKilocalories} ккал`}
             />
           </Box>
         </TouchableNativeFeedback>
