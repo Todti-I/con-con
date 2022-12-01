@@ -46,7 +46,9 @@ const RecipeCard = ({
             numberOfLines={2}
             fontSize="sm"
             fontWeight="500"
-            children={recipe.title}
+            children={`${recipe.title[0].toUpperCase()}${recipe.title.slice(
+              1
+            )}`}
           />
           <Text
             numberOfLines={1}
@@ -59,7 +61,6 @@ const RecipeCard = ({
         right={1}
         top={1}
         defaultIsChecked
-        silentUpdate
         recipe={recipe}
       />
       <AddMealWindow

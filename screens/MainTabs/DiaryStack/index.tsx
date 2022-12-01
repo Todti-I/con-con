@@ -1,5 +1,6 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import BasketButton from 'con-con/components/BasketButton';
 import BasketIcon from 'con-con/icons/BasketIcon';
 import DiaryIcon from 'con-con/icons/DiaryIcon';
 import { Box, IconButton } from 'native-base';
@@ -24,18 +25,14 @@ const DiaryStack = ({
           fontFamily: 'Montserrat-SemiBold',
         },
         headerRight: () => (
-          <IconButton
-            colorScheme="light"
-            icon={<BasketIcon />}
-            onPress={() => navigation.navigate('Basket')}
-          />
+          <BasketButton navigateToBasket={navigation.navigate} />
         ),
       }}
     >
       <Stack.Screen
         name={MealsScreen.screenName}
         component={MealsScreen}
-        options={MealsScreen.screenOption}
+        options={MealsScreen.screenOptions}
       />
       <Stack.Screen name={MealScreen.screenName} component={MealScreen} />
       <Stack.Screen

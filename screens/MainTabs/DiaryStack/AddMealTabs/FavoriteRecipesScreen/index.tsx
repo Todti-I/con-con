@@ -13,22 +13,9 @@ const FavoriteRecipesScreen = ({
   navigation,
   route,
 }: MaterialTopTabScreenProps<AddMealTabParamList, 'FavoriteRecipes'>) => {
-  const forceUpdate = useForceUpdate();
-  const {
-    favoriteRecipes,
-    mealsData,
-    subscriptions: appSubscriptions,
-  } = useAppContext();
+  const { favoriteRecipes, mealsData } = useAppContext();
   const { subscriptions } = useDiaryContext();
   const mealType = route.params.mealType;
-
-  useEffect(() => {
-    const unsubscribe = appSubscriptions.subscribe(
-      'favorite-recipes',
-      forceUpdate
-    );
-    return () => unsubscribe();
-  }, []);
 
   const handleAdd = (recipe: RecipeData) => (mass: number) => {
     const newRecipes = [...mealsData.get.meals[mealType], { ...recipe, mass }];
@@ -60,7 +47,7 @@ const FavoriteRecipesScreen = ({
       ListEmptyComponent={FavoriteEmpty}
       data={favoriteRecipes.get}
       renderItem={renderItem}
-      keyExtractor={(r) => r.id.toString()}
+      keyExtractor={(r) => r.id}
     />
   );
 };

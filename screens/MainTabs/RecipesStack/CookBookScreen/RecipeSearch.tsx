@@ -14,6 +14,7 @@ const RecipeSearch = ({ onSearch, ...props }: Props) => {
 
   return (
     <Input
+      h="40px"
       bg="text.50"
       leftElement={<SearchIcon ml={4} size={4} />}
       borderRadius="full"

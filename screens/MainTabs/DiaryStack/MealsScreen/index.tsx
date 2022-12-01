@@ -31,7 +31,7 @@ const MealsScreen = ({
 );
 
 MealsScreen.screenName = 'Meals' as const;
-MealsScreen.screenOption = {
+MealsScreen.screenOptions = {
   headerLeft: () => <Box w="16px" />,
   headerTitle: 'Дневник',
 } as NativeStackNavigationOptions;

@@ -5,7 +5,7 @@ import ArticlesScreen from './ArticlesScreen';
 import DiaryStack from './DiaryStack';
 import { headerOptions, tabBarOptions } from './options';
 import ProfileScreen from './ProfileScreen';
-import RecipesScreen from './RecipesScreen';
+import RecipesStack from './RecipesStack';
 import { MainTabParamList } from './types';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -33,12 +33,13 @@ const MainTabs = ({
       }}
     />
     <Tab.Screen
-      name={RecipesScreen.screenName}
-      component={RecipesScreen}
+      name={RecipesStack.screenName}
+      component={RecipesStack}
       options={{
-        headerTitle: RecipesScreen.title,
-        tabBarLabel: RecipesScreen.title,
-        tabBarIcon: RecipesScreen.Icon,
+        headerShown: false,
+        headerTitle: RecipesStack.title,
+        tabBarLabel: RecipesStack.title,
+        tabBarIcon: RecipesStack.Icon,
       }}
     />
     <Tab.Screen
