@@ -1,7 +1,8 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import storage from 'con-con/utils/storage';
+import { useAppContext } from 'con-con/hooks';
+import { WizardData } from 'con-con/types/wizard-data';
 import { Input, Text } from 'native-base';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { WizardStackParamList } from './types';
 import {
   useDataUpdates,
@@ -13,6 +14,7 @@ import WizardLayout from './WizardLayout';
 const EmailScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'Email'>) => {
+  const { wizardData, subscriptions } = useAppContext();
   const { data, onComplete } = useWizardContext();
   const { useUpdate } = useDataUpdates();
   const [email, setEmail] = useState(data.get.email || '');
@@ -21,16 +23,15 @@ const EmailScreen = ({
   useProgressUpdates(8);
   useUpdate({ email }, [email]);
 
+  useEffect(() => {
+    const unsubscribe = subscriptions.subscribe('wizard-data', onComplete);
+
+    return () => unsubscribe();
+  }, []);
+
   const handleComplete = async () => {
-    try {
-      setIsLoading(true);
-      await storage.setItem('wizard-data', data.get);
-      console.log(data.get);
-      onComplete();
-    } catch (error) {
-      console.error(error);
-      setIsLoading(false);
-    }
+    setIsLoading(true);
+    wizardData.set(data.get as WizardData);
   };
 
   return (

@@ -8,11 +8,11 @@ import WizardStack from './WizardStack';
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const Screens = () => {
-  const { isWizardComplete } = useAppContext();
+  const { wizardData } = useAppContext();
 
   return (
     <Stack.Navigator
-      initialRouteName={isWizardComplete.get ? 'MainTabs' : 'Wizard'}
+      initialRouteName={wizardData.get ? 'MainTabs' : 'Wizard'}
       screenOptions={{ headerShown: false }}
     >
       <Stack.Screen name={WizardStack.screenName} component={WizardStack} />

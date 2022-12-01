@@ -3,6 +3,8 @@ import LoadingScreen from 'con-con/screens/LoadingScreen';
 import BasketProductData from 'con-con/types/basket-product-data';
 import { defaultMealsData, MealsData, RecipeData } from 'con-con/types/recipes';
 import { defaultUserData, UserData } from 'con-con/types/user';
+import { WizardData } from 'con-con/types/wizard-data';
+import calculateUserParams from 'con-con/utils/calculate-user-params';
 import isDefined from 'con-con/utils/is-defined';
 import storage from 'con-con/utils/storage';
 import dayjs from 'dayjs';
@@ -13,11 +15,11 @@ import useMethodAfterMount from './useMethodAfterMount';
 import useSubscriptions, { UseSubscriptions } from './useSubscriptions';
 import useValue, { ValueRef } from './useValue';
 
-type SubscribeKey = 'favorite-recipes' | 'meals-data';
+type SubscribeKey = 'favorite-recipes' | 'meals-data' | 'wizard-data';
 
 type AppContent = {
   subscriptions: UseSubscriptions<SubscribeKey>;
-  isWizardComplete: ValueRef<boolean>;
+  wizardData: ValueRef<WizardData | undefined>;
   basketProducts: ValueRef<BasketProductData[]>;
   favoriteRecipes: ValueRef<RecipeData[]>;
   mealsData: ValueRef<MealsData>;
@@ -30,7 +32,7 @@ type AppProviderProps = {
 
 const AppContext = createContext<AppContent>({
   subscriptions: { subscribe: () => () => {}, ping: () => {} },
-  isWizardComplete: { get: false, set: () => {} },
+  wizardData: { get: undefined, set: () => {} },
   basketProducts: { get: [], set: () => {} },
   favoriteRecipes: { get: [], set: () => {} },
   mealsData: { get: defaultMealsData(), set: () => {} },
@@ -63,7 +65,7 @@ const updateMealsIfNeeded = async (
     !mealsData.date ||
     dayjs(mealsData.date).startOf('day').isBefore(currentDay)
   ) {
-    console.warn('Update meals');
+    console.warn('Update meals' + mealsData.date);
     const diets = await api.diet.getDiet(kilocalories);
 
     return {
@@ -88,13 +90,32 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   const { isLoading, setIsLoading } = useLoadingState(true);
   const subscriptions = useSubscriptions<SubscribeKey>();
 
-  const isWizardComplete = useValue(false);
+  const wizardData = useValue<WizardData | undefined>(undefined, {
+    onUpdate: (newValue) => {
+      const key = 'wizard-data';
+      if (newValue) {
+        storage.setItem(key, newValue);
+        userData.set(calculateUserParams(newValue));
+        updateMealsIfNeeded(mealsData.get, userData.get.kilocalories).then(
+          (updatedMeals) => {
+            mealsData.set(updatedMeals.data, !updatedMeals.isUpdated);
+            subscriptions.ping(key);
+          }
+        );
+      } else {
+        storage.removeItem(key);
+        subscriptions.ping(key);
+      }
+    },
+  });
+
   const basketProducts = useValue<BasketProductData[]>([], {
     onUpdate: (newValue) => {
       const key = 'basket-products';
       debounce.set(() => storage.setItem(key, newValue), key);
     },
   });
+
   const favoriteRecipes = useValue<RecipeData[]>([], {
     onUpdate: (newValue) => {
       const key = 'favorite-recipes';
@@ -102,6 +123,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       subscriptions.ping(key);
     },
   });
+
   const mealsData = useValue(defaultMealsData(), {
     onUpdate: (newValue) => {
       const key = 'meals-data';
@@ -109,27 +131,26 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       subscriptions.ping(key);
     },
   });
+
   const userData = useValue(defaultUserData());
 
   useMethodAfterMount(fetchData, {
     onStartLoading: () => setIsLoading(true),
     onEndLoading: () => setIsLoading(false),
     next: async (data) => {
-      userData.set({
-        kilocalories: 2000,
-        carbohydrate: 274,
-        protein: 110,
-        fat: 73,
-      });
+      wizardData.set(data.wizardData, true);
 
-      const updatedMeals = await updateMealsIfNeeded(
-        data.mealsData,
-        userData.get.kilocalories
-      );
-      isWizardComplete.set(Boolean(data.wizardData));
-      basketProducts.set(data.basketProducts, true);
-      favoriteRecipes.set(data.favoriteRecipes, true);
-      mealsData.set(updatedMeals.data, !updatedMeals.isUpdated);
+      if (data.wizardData) {
+        userData.set(calculateUserParams(data.wizardData));
+
+        const updatedMeals = await updateMealsIfNeeded(
+          data.mealsData,
+          userData.get.kilocalories
+        );
+        basketProducts.set(data.basketProducts, true);
+        favoriteRecipes.set(data.favoriteRecipes, true);
+        mealsData.set(updatedMeals.data, !updatedMeals.isUpdated);
+      }
     },
   });
 
@@ -139,7 +160,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
       value={useMemo(() => {
         return {
           subscriptions,
-          isWizardComplete,
+          wizardData,
           basketProducts,
           favoriteRecipes,
           mealsData,
