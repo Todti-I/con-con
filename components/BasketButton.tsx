@@ -8,6 +8,7 @@ type Props = {
 const BasketButton = ({ navigateToBasket }: Props) => (
   <IconButton
     colorScheme="light"
+    borderRadius="full"
     icon={<BasketIcon />}
     onPress={() => navigateToBasket('Basket')}
   />

@@ -6,7 +6,7 @@ export default class CookBookController extends BaseController {
     return this.get('/cookbook', { offset, limit });
   }
 
-  async getRecipe(recipeId: number): Promise<RecipeData> {
+  async getRecipe(recipeId: string): Promise<RecipeData> {
     return this.get(`/cookbook/${recipeId}`);
   }
 

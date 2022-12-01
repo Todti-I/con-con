@@ -96,6 +96,7 @@ const ProductCard = ({ item, onCheck, onRemove }: Props) => {
                 color="text.900"
                 fontWeight={500}
                 fontSize="md"
+                numberOfLines={1}
                 children={item.name}
               />
               <Text
