@@ -2,6 +2,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import HighActivityIcon from 'con-con/icons/HighActivityIcon';
 import LowActivityIcon from 'con-con/icons/LowActivityIcon';
 import MediumActivityIcon from 'con-con/icons/MediumActivityIcon';
+import { ActivityType } from 'con-con/types/wizard-data';
 import { ChevronRightIcon, Text, VStack } from 'native-base';
 import { useState } from 'react';
 import { WizardStackParamList } from '../types';
@@ -10,15 +11,20 @@ import WizardLayout from '../WizardLayout';
 import ActivityButton from './ActivityButton';
 
 const activityTypes = [
-  { id: 'low', name: 'Низкая', Icon: LowActivityIcon, colorScheme: 'pink' },
   {
-    id: 'medium',
+    id: 'low' as const,
+    name: 'Низкая',
+    Icon: LowActivityIcon,
+    colorScheme: 'pink',
+  },
+  {
+    id: 'medium' as const,
     name: 'Средняя',
     Icon: MediumActivityIcon,
     colorScheme: 'cyan',
   },
   {
-    id: 'high',
+    id: 'high' as const,
     name: 'Высокая',
     Icon: HighActivityIcon,
     colorScheme: 'tertiary',
@@ -30,11 +36,13 @@ const ActivityTypeScreen = ({
 }: NativeStackScreenProps<WizardStackParamList, 'ActivityType'>) => {
   useProgressUpdates(6);
   const { data, update } = useDataUpdates();
-  const [chosenTypeId, setChosenTypeId] = useState(data.activityType);
+  const [chosenActivityType, setChosenActivityType] = useState(
+    data.activityType
+  );
 
-  const handleChange = (typeId: string) => () => {
-    update({ activityType: typeId });
-    setChosenTypeId(typeId);
+  const handleChange = (activityType: ActivityType) => () => {
+    update({ activityType });
+    setChosenActivityType(activityType);
   };
 
   return (
@@ -44,7 +52,7 @@ const ActivityTypeScreen = ({
         rightIcon: <ChevronRightIcon />,
         _icon: { ml: 5 },
         children: 'Далее',
-        isDisabled: !chosenTypeId,
+        isDisabled: !chosenActivityType,
         onPress: () => navigation.navigate('Preferences'),
       }}
       subButtonProps={{
@@ -61,7 +69,7 @@ const ActivityTypeScreen = ({
           <ActivityButton
             key={type.id}
             Icon={type.Icon}
-            isActive={chosenTypeId === type.id}
+            isActive={chosenActivityType === type.id}
             colorScheme={type.colorScheme}
             onPress={handleChange(type.id)}
             children={type.name}

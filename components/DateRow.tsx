@@ -1,12 +1,12 @@
 import EmptyCalendarIcon from 'con-con/icons/EmptyCalendarIcon';
 import dayjs from 'dayjs';
-import { HStack, Text } from 'native-base';
+import { HStack, IStackProps, Text } from 'native-base';
 import { memo } from 'react';
 
 require('dayjs/locale/ru');
 
-const BasketHeader = () => (
-  <HStack space={3}>
+const DateRow = (props: IStackProps) => (
+  <HStack space={3} justifyContent="center" {...props}>
     <EmptyCalendarIcon size={4} color="text.500" />
     <Text
       color="text.500"
@@ -18,4 +18,4 @@ const BasketHeader = () => (
   </HStack>
 );
 
-export default memo(BasketHeader);
+export default memo(DateRow);

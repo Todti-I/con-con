@@ -2,6 +2,7 @@ import { useValue } from 'con-con/hooks';
 import BasketMinusIcon from 'con-con/icons/BasketMinusIcon';
 import BasketPlusIcon from 'con-con/icons/BasketPlusIcon';
 import TrashIcon from 'con-con/icons/TrashIcon';
+import BasketProductData from 'con-con/types/basket-product-data';
 import { Box, Center, CheckIcon, HStack, Text, VStack } from 'native-base';
 import { memo, useState } from 'react';
 import { Animated, Easing } from 'react-native';
@@ -9,12 +10,11 @@ import {
   Swipeable,
   TouchableNativeFeedback,
 } from 'react-native-gesture-handler';
-import { ProductData } from './types';
 
 type Props = {
-  item: ProductData;
-  onCheck?: (id: number, isChecked: boolean) => void;
-  onRemove?: (id: number) => void;
+  item: BasketProductData;
+  onCheck?: (id: string, isChecked: boolean) => void;
+  onRemove?: (id: string) => void;
 };
 
 const ProductCard = ({ item, onCheck, onRemove }: Props) => {
@@ -70,7 +70,7 @@ const ProductCard = ({ item, onCheck, onRemove }: Props) => {
         onSwipeableWillOpen={handleRemove}
       >
         <TouchableNativeFeedback
-          background={TouchableNativeFeedback.Ripple('#C4B5FD', true)}
+          background={TouchableNativeFeedback.Ripple('#C4B5FD', false)}
           onPress={handleCheck}
         >
           <HStack

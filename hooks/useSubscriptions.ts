@@ -1,34 +1,36 @@
-import { useMemo } from 'react';
-import useValue from './useValue';
+import { useMemo, useRef } from 'react';
 
-const useSubscriptions = () => {
-  const subscriptions = useValue(new Map<string, () => void>());
+const useSubscriptions = <TKey = string>(): UseSubscriptions<TKey> => {
+  const generateId = useRef(0);
+  const subscriptions = useRef(new Map<TKey, Map<number, () => void>>());
 
   return useMemo(() => {
-    const subscribe = (key: string, action: () => void) => {
-      if (subscriptions.get.has(key)) {
-        console.warn(`The key '${key}' already has a subscription`);
+    const subscribe = (key: TKey, action: () => void) => {
+      if (!subscriptions.current.has(key)) {
+        subscriptions.current.set(key, new Map());
       }
-      subscriptions.get.set(key, action);
-      return key;
+      const subscribeId = generateId.current++;
+      subscriptions.current.get(key)?.set(subscribeId, action);
+
+      return () => {
+        subscriptions.current.get(key)?.delete(subscribeId);
+      };
     };
 
-    const unsubscribe = (key: string) => {
-      subscriptions.get.delete(key);
-    };
-
-    const ping = (key: string) => {
-      subscriptions.get.get(key)?.();
+    const ping = (key: TKey) => {
+      subscriptions.current.get(key)?.forEach((action) => action());
     };
 
     return {
       subscribe,
-      unsubscribe,
       ping,
     };
   }, []);
 };
 
-export type UseSubscriptions = ReturnType<typeof useSubscriptions>;
+export type UseSubscriptions<TKey = string> = {
+  subscribe: (key: TKey, action: () => void) => () => void;
+  ping: (key: TKey) => void;
+};
 
 export default useSubscriptions;

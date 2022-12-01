@@ -1,8 +1,8 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { UseSubscriptions } from 'con-con/hooks/useSubscriptions';
 import { ValueRef } from 'con-con/hooks/useValue';
+import { WizardData } from 'con-con/types/wizard-data';
 import { createContext, DependencyList, useContext, useEffect } from 'react';
-import { WizardData } from './types';
 
 type WizardContent = {
   pageNumber: ValueRef<number>;
@@ -14,7 +14,7 @@ type WizardContent = {
 const WizardContext = createContext<WizardContent>({
   pageNumber: { get: 0, set: () => {} },
   data: { get: {}, set: () => {} },
-  subscriptions: { subscribe: () => '', unsubscribe: () => {}, ping: () => {} },
+  subscriptions: { subscribe: () => () => {}, ping: () => {} },
   onComplete: () => {},
 });
 

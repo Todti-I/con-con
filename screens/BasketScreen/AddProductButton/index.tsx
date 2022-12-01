@@ -1,10 +1,11 @@
+import BasketProductData from 'con-con/types/basket-product-data';
 import { AddIcon, IconButton } from 'native-base';
 import { memo, useRef, useState } from 'react';
-import { ProductData } from '../types';
+
 import AddProductWindow from './AddProductWindow';
 
 type Props = {
-  onAdd?: (product: ProductData) => Promise<void>;
+  onAdd?: (product: BasketProductData) => Promise<void>;
 };
 
 const AddProductButton = ({ onAdd }: Props) => {

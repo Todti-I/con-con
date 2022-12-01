@@ -20,8 +20,9 @@ export const headerOptions = ({
   },
   headerTitleAlign: 'left',
   headerTitleStyle: {
-    fontWeight: '600',
     fontSize: 20,
+    fontWeight: '600',
+    fontFamily: 'Montserrat-SemiBold',
   },
   headerTitleContainerStyle: {
     marginLeft: 32,

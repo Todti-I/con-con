@@ -35,7 +35,13 @@ const Window = ({
   ...props
 }: WindowProps<Props>) => {
   return (
-    <Modal size="xl" isOpen={isOpen} onClose={onClose} {...modalProps}>
+    <Modal
+      avoidKeyboard
+      size="xl"
+      isOpen={isOpen}
+      onClose={onClose}
+      {...modalProps}
+    >
       <Modal.Content borderRadius={20} {...props}>
         {heading && (
           <Modal.Header
