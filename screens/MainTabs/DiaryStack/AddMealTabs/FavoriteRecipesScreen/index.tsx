@@ -30,8 +30,8 @@ const FavoriteRecipesScreen = ({
     return () => unsubscribe();
   }, []);
 
-  const handleAdd = (recipe: RecipeData) => () => {
-    const newRecipes = [...mealsData.get.meals[mealType], recipe];
+  const handleAdd = (recipe: RecipeData) => (mass: number) => {
+    const newRecipes = [...mealsData.get.meals[mealType], { ...recipe, mass }];
     const newMealsData = {
       ...mealsData.get,
       meals: { ...mealsData.get.meals, [mealType]: newRecipes },
@@ -45,6 +45,7 @@ const FavoriteRecipesScreen = ({
     <RecipeCard
       mb={4}
       flex={0.48}
+      mealType={mealType}
       recipe={item}
       onAdd={handleAdd(item)}
       goToRecipe={console.log}

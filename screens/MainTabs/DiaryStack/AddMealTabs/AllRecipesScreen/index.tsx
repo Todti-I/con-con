@@ -41,8 +41,8 @@ const AllRecipesScreen = ({
     next: recipes.set,
   });
 
-  const handleAdd = (recipe: RecipeData) => () => {
-    const newRecipes = [...mealsData.get.meals[mealType], recipe];
+  const handleAdd = (recipe: RecipeData) => (mass: number) => {
+    const newRecipes = [...mealsData.get.meals[mealType], { ...recipe, mass }];
     const newMealsData = {
       ...mealsData.get,
       meals: { ...mealsData.get.meals, [mealType]: newRecipes },
@@ -69,6 +69,7 @@ const AllRecipesScreen = ({
     <RecipeCard
       mb={4}
       recipe={item}
+      mealType={mealType}
       onAdd={handleAdd(item)}
       goToRecipe={console.log}
     />

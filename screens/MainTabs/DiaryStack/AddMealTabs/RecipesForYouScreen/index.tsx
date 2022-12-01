@@ -48,9 +48,12 @@ const RecipesForYouScreen = ({
   const currentRecipe = recipes.get[pos];
   const nextRecipe = recipes.get[getNextPos(pos)];
 
-  const handleAdd = () => {
+  const handleAdd = (mass: number) => {
     if (lockControl.get) return;
-    const newRecipes = [...mealsData.get.meals[mealType], currentRecipe];
+    const newRecipes = [
+      ...mealsData.get.meals[mealType],
+      { ...currentRecipe, mass },
+    ];
     const newMealsData = {
       ...mealsData.get,
       meals: { ...mealsData.get.meals, [mealType]: newRecipes },
@@ -97,10 +100,10 @@ const RecipesForYouScreen = ({
           children={<RecipeCard recipe={currentRecipe} />}
         />
       </Skeleton>
-
       <ControlButtons
         isDisabled={isLoading}
         recipe={currentRecipe}
+        mealType={mealType}
         onAdd={handleAdd}
         onNext={handleNext}
       />
