@@ -1,9 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import FemaleIcon from 'con-con/icons/FemaleIcon';
 import MaleIcon from 'con-con/icons/MaleIcon';
+import { WizardStackParamList } from 'con-con/types/navigation';
 import { ChevronRightIcon, HStack, Text } from 'native-base';
 import { useState } from 'react';
-import { WizardStackParamList } from '../types';
 import { useDataUpdates, useProgressUpdates } from '../wizard-context';
 import WizardLayout from '../WizardLayout';
 import GenderCard from './GenderCard';

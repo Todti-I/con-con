@@ -3,12 +3,14 @@ import {
   NativeStackNavigationOptions,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
-import { DiaryStackParamList } from '../types';
+import {
+  AddMealTabParamList,
+  DiaryStackParamList,
+} from 'con-con/types/navigation';
 import AllRecipesScreen from './AllRecipesScreen';
 import FavoriteRecipesScreen from './FavoriteRecipesScreen';
 import { tabBarOptions } from './options';
 import RecipesForYouScreen from './RecipesForYouScreen';
-import { AddMealTabParamList } from './types';
 
 const Tab = createMaterialTopTabNavigator<AddMealTabParamList>();
 

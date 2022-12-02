@@ -1,15 +1,15 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import BasketButton from 'con-con/components/BasketButton';
-import BasketIcon from 'con-con/icons/BasketIcon';
 import DiaryIcon from 'con-con/icons/DiaryIcon';
-import { Box, IconButton } from 'native-base';
-import { MainTabParamList } from '../types';
+import {
+  DiaryStackParamList,
+  MainTabParamList,
+} from 'con-con/types/navigation';
 import AddMealTabs from './AddMealTabs';
 import { DiaryProvider } from './context';
 import MealScreen from './MealScreen';
 import MealsScreen from './MealsScreen';
-import { DiaryStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<DiaryStackParamList>();
 

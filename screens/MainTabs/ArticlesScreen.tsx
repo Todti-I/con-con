@@ -1,7 +1,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import ArticlesIcon from 'con-con/icons/ArticlesIcon';
+import { MainTabParamList } from 'con-con/types/navigation';
 import { Box, Text } from 'native-base';
-import { MainTabParamList } from './types';
 
 const ArticlesScreen = (
   props: BottomTabScreenProps<MainTabParamList, 'Articles'>

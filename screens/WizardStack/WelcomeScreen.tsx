@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useAppContext } from 'con-con/hooks';
+import { WizardStackParamList } from 'con-con/types/navigation';
 import { Text } from 'native-base';
-import { WizardStackParamList } from './types';
 import { useProgressUpdates, useWizardContext } from './wizard-context';
 import WizardLayout from './WizardLayout';
 

@@ -1,7 +1,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import ProfileIcon from 'con-con/icons/ProfileIcon';
+import { MainTabParamList } from 'con-con/types/navigation';
 import { Box, Text } from 'native-base';
-import { MainTabParamList } from './types';
 
 const ProfileScreen = (
   props: BottomTabScreenProps<MainTabParamList, 'Profile'>

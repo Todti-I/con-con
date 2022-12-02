@@ -3,10 +3,13 @@ import {
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
 import { useSubscriptions, useValue } from 'con-con/hooks';
+import {
+  RootStackParamList,
+  WizardStackParamList,
+} from 'con-con/types/navigation';
 import { WizardData } from 'con-con/types/wizard-data';
 import { KeyboardAvoidingView } from 'native-base';
 import { useMemo } from 'react';
-import { RootStackParamList } from '../types';
 import ActivityTypeScreen from './ActivityTypeScreen';
 import BirthdayScreen from './BirthdayScreen';
 import DesiredWeightScreen from './DesiredWeightScreen';
@@ -14,7 +17,6 @@ import EmailScreen from './EmailScreen';
 import GenderScreen from './GenderScreen';
 import GrowthScreen from './GrowthScreen';
 import PreferencesScreen from './PreferencesScreen';
-import { WizardStackParamList } from './types';
 import WeightScreen from './WeightScreen';
 import WelcomeScreen from './WelcomeScreen';
 import { WizardProvider } from './wizard-context';

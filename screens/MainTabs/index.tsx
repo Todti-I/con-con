@@ -1,12 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../types';
+import { MainTabParamList, RootStackParamList } from 'con-con/types/navigation';
 import ArticlesScreen from './ArticlesScreen';
 import DiaryStack from './DiaryStack';
 import { headerOptions, tabBarOptions } from './options';
 import ProfileScreen from './ProfileScreen';
 import RecipesStack from './RecipesStack';
-import { MainTabParamList } from './types';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 

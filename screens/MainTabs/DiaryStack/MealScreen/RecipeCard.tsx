@@ -7,10 +7,11 @@ import { Animated, Easing, TouchableNativeFeedback } from 'react-native';
 
 type Props = {
   recipe: RecipeData;
+  goToRecipeScreen?: (recipeId: string) => void;
   onRemove?: (recipeId: string) => void;
 };
 
-const RecipeCard = ({ recipe, onRemove }: Props) => {
+const RecipeCard = ({ recipe, goToRecipeScreen, onRemove }: Props) => {
   const removalAnimation = useValue(new Animated.Value(0));
   const totalKilocalories = Math.round(
     recipe.kilocalories * (recipe.mass / 100)
@@ -50,7 +51,7 @@ const RecipeCard = ({ recipe, onRemove }: Props) => {
       <Box position="relative" h="64px" bg="white">
         <TouchableNativeFeedback
           background={TouchableNativeFeedback.Ripple('#C4B5FD', false)}
-          // onPress={goToMealScreen} // TODO редирект на рецепт
+          onPress={() => goToRecipeScreen?.(recipe.id)}
         >
           <Box pl={4} pr={16} py="11px" flex={1}>
             <Text

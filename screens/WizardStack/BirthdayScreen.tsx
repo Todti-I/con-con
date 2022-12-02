@@ -1,8 +1,8 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import DatePicker from 'con-con/components/DatePicker';
+import { WizardStackParamList } from 'con-con/types/navigation';
 import { Center, ChevronRightIcon, Text } from 'native-base';
 import { useState } from 'react';
-import { WizardStackParamList } from './types';
 import { useDataUpdates, useProgressUpdates } from './wizard-context';
 import WizardLayout from './WizardLayout';
 

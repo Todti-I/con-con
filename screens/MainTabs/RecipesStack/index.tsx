@@ -1,18 +1,18 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import BasketButton from 'con-con/components/BasketButton';
 import RecipesIcon from 'con-con/icons/RecipesIcon';
-import { MainTabParamList } from '../types';
+import {
+  MainTabParamList,
+  RecipesStackParamList,
+} from 'con-con/types/navigation';
 import CookBookScreen from './CookBookScreen';
 import RecipeScreen from './RecipeScreen';
-import { RecipesStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RecipesStackParamList>();
 
-const RecipesStack = ({
-  navigation,
-}: BottomTabScreenProps<MainTabParamList, 'Recipes'>) => (
+const RecipesStack = (_: BottomTabScreenProps<MainTabParamList, 'Recipes'>) => (
   <Stack.Navigator
+    initialRouteName="CookBook"
     screenOptions={{
       headerTitle: 'Рецепты',
       headerTitleStyle: {

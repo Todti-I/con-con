@@ -1,10 +1,10 @@
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import BasketButton from 'con-con/components/BasketButton';
 import FavoriteRecipesButton from 'con-con/components/FavoriteRecipesButton';
+import { RecipesStackParamList } from 'con-con/types/navigation';
 import { RecipeData } from 'con-con/types/recipes';
 import { HStack } from 'native-base';
 import { useLayoutEffect } from 'react';
-import { RecipesStackParamList } from '../types';
 
 const useRecipeHeader = (
   navigation: NativeStackNavigationProp<RecipesStackParamList, 'Recipe'>,
@@ -15,7 +15,7 @@ const useRecipeHeader = (
       headerTitle: 'Рецепты',
       headerRight: () => (
         <HStack>
-          {recipe && <FavoriteRecipesButton recipe={recipe} />}
+          {recipe && <FavoriteRecipesButton key={recipe.id} recipe={recipe} />}
           <BasketButton navigateToBasket={navigation.navigate} />
         </HStack>
       ),

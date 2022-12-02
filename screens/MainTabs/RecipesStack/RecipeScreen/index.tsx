@@ -2,9 +2,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import api from 'con-con/api';
 import { useLoadingState, useMethodAfterMount, useValue } from 'con-con/hooks';
 import ClockIcon from 'con-con/icons/ClockIcon';
+import { RecipesStackParamList } from 'con-con/types/navigation';
 import { RecipeData } from 'con-con/types/recipes';
 import {
-  Box,
   Center,
   Heading,
   HStack,
@@ -14,7 +14,6 @@ import {
   Text,
   VStack,
 } from 'native-base';
-import { RecipesStackParamList } from '../types';
 import BJUBlock from './BJUBlock';
 import CookingStepsBlock from './CookingStepsBlock';
 import IngredientBlock from './IngredientBlock';
@@ -34,6 +33,7 @@ const RecipeScreen = ({
     onStartLoading: () => setIsLoading(true),
     onEndLoading: () => setIsLoading(false),
     next: recipe.set,
+    deps: [recipeId],
   });
 
   if (isLoading || !recipe.get)

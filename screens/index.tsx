@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAppContext } from 'con-con/hooks';
+import { RootStackParamList } from 'con-con/types/navigation';
 import BasketScreen from './BasketScreen';
 import MainTabs from './MainTabs';
-import { RootStackParamList } from './types';
 import WizardStack from './WizardStack';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();

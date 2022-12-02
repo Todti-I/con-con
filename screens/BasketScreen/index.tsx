@@ -5,9 +5,9 @@ import {
 import DateRow from 'con-con/components/DateRow';
 import { useAppContext, useForceUpdate } from 'con-con/hooks';
 import BasketProductData from 'con-con/types/basket-product-data';
+import { RootStackParamList } from 'con-con/types/navigation';
 import { Box, FlatList, Skeleton } from 'native-base';
 import { ListRenderItemInfo } from 'react-native';
-import { RootStackParamList } from '../types';
 import AddProductButton from './AddProductButton';
 import BasketEmpty from './BasketEmpty';
 import ProductCard from './ProductCard';

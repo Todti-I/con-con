@@ -4,12 +4,12 @@ import {
 } from '@react-navigation/native-stack';
 import api from 'con-con/api';
 import { useForceUpdate, useMethodAfterMount, useValue } from 'con-con/hooks';
+import { RecipesStackParamList } from 'con-con/types/navigation';
 import { RecipeData } from 'con-con/types/recipes';
 import { Box, FlatList } from 'native-base';
 import { useMemo } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { SearchBar } from 'react-native-screens';
-import { RecipesStackParamList } from '../types';
 import NotFoundRecipes from './NotFoundRecipes';
 import RecipeCard from './RecipeCard';
 import SkeletonCard from './SkeletonCard';

@@ -1,5 +1,11 @@
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useAppContext } from 'con-con/hooks';
+import {
+  DiaryStackParamList,
+  MainTabParamList,
+} from 'con-con/types/navigation';
 import { RecipeData } from 'con-con/types/recipes';
 import { FlatList } from 'native-base';
 import { useEffect } from 'react';
@@ -7,14 +13,15 @@ import { ListRenderItemInfo } from 'react-native';
 import { useDiaryContext } from '../context';
 import DiaryWidget from '../DiaryWidget';
 import mealTypeData from '../meal-type-data';
-import { DiaryStackParamList } from '../types';
 import AddMealButton from './AddMealButton';
 import RecipeCard from './RecipeCard';
 
-const MealScreen = ({
-  navigation,
-  route,
-}: NativeStackScreenProps<DiaryStackParamList, 'Meal'>) => {
+type Props = CompositeScreenProps<
+  NativeStackScreenProps<DiaryStackParamList, 'Meal'>,
+  BottomTabScreenProps<MainTabParamList>
+>;
+
+const MealScreen = ({ navigation, route }: Props) => {
   const { mealsData } = useAppContext();
   const { subscriptions } = useDiaryContext();
   const mealType = route.params.mealType;
@@ -47,7 +54,17 @@ const MealScreen = ({
   );
 
   const renderItem = ({ item }: ListRenderItemInfo<RecipeData>) => (
-    <RecipeCard recipe={item} onRemove={handleRemove} />
+    <RecipeCard
+      recipe={item}
+      onRemove={handleRemove}
+      goToRecipeScreen={(recipeId) =>
+        navigation.navigate('Recipes', {
+          screen: 'Recipe',
+          params: { recipeId },
+          initial: false,
+        })
+      }
+    />
   );
 
   return (

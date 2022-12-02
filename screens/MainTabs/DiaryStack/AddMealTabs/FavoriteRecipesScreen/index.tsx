@@ -1,18 +1,29 @@
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
-import { useAppContext, useForceUpdate } from 'con-con/hooks';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useAppContext } from 'con-con/hooks';
+import {
+  AddMealTabParamList,
+  DiaryStackParamList,
+  MainTabParamList,
+} from 'con-con/types/navigation';
 import { RecipeData } from 'con-con/types/recipes';
 import { FlatList } from 'native-base';
-import { useEffect } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { useDiaryContext } from '../../context';
-import { AddMealTabParamList } from '../types';
 import FavoriteEmpty from './FavoriteEmpty';
 import RecipeCard from './RecipeCard';
 
-const FavoriteRecipesScreen = ({
-  navigation,
-  route,
-}: MaterialTopTabScreenProps<AddMealTabParamList, 'FavoriteRecipes'>) => {
+type Props = CompositeScreenProps<
+  CompositeScreenProps<
+    MaterialTopTabScreenProps<AddMealTabParamList, 'FavoriteRecipes'>,
+    NativeStackScreenProps<DiaryStackParamList>
+  >,
+  BottomTabScreenProps<MainTabParamList>
+>;
+
+const FavoriteRecipesScreen = ({ navigation, route }: Props) => {
   const { favoriteRecipes, mealsData } = useAppContext();
   const { subscriptions } = useDiaryContext();
   const mealType = route.params.mealType;
@@ -35,7 +46,13 @@ const FavoriteRecipesScreen = ({
       mealType={mealType}
       recipe={item}
       onAdd={handleAdd(item)}
-      goToRecipe={console.log}
+      goToRecipe={() =>
+        navigation.navigate('Recipes', {
+          screen: 'Recipe',
+          params: { recipeId: item.id },
+          initial: false,
+        })
+      }
     />
   );
 

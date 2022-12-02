@@ -1,4 +1,7 @@
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import api from 'con-con/api';
 import {
   useAppContext,
@@ -6,21 +9,29 @@ import {
   useMethodAfterMount,
   useValue,
 } from 'con-con/hooks';
+import {
+  AddMealTabParamList,
+  DiaryStackParamList,
+  MainTabParamList,
+} from 'con-con/types/navigation';
 import { RecipeData } from 'con-con/types/recipes';
 import { Box, Skeleton } from 'native-base';
 import { useState } from 'react';
 import { Animated } from 'react-native';
 import { useDiaryContext } from '../../context';
-
-import { AddMealTabParamList } from '../types';
 import ControlButtons from './ControlButtons';
 import RecipeCard from './RecipeCard';
 import useCardsAnimation from './useCardsAnimation';
 
-const RecipesForYouScreen = ({
-  navigation,
-  route,
-}: MaterialTopTabScreenProps<AddMealTabParamList, 'RecipesForYou'>) => {
+type Props = CompositeScreenProps<
+  CompositeScreenProps<
+    MaterialTopTabScreenProps<AddMealTabParamList, 'RecipesForYou'>,
+    NativeStackScreenProps<DiaryStackParamList>
+  >,
+  BottomTabScreenProps<MainTabParamList>
+>;
+
+const RecipesForYouScreen = ({ navigation, route }: Props) => {
   const { mealsData } = useAppContext();
   const { subscriptions } = useDiaryContext();
   const [pos, setPos] = useState(0);
@@ -97,7 +108,18 @@ const RecipesForYouScreen = ({
             height: '80%',
             ...topCardAnimationStyles,
           }}
-          children={<RecipeCard recipe={currentRecipe} />}
+          children={
+            <RecipeCard
+              recipe={currentRecipe}
+              goToRecipe={() =>
+                navigation.navigate('Recipes', {
+                  screen: 'Recipe',
+                  params: { recipeId: currentRecipe.id },
+                  initial: false,
+                })
+              }
+            />
+          }
         />
       </Skeleton>
       <ControlButtons
