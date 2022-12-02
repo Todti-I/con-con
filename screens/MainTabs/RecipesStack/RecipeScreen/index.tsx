@@ -17,6 +17,7 @@ import {
 import BJUBlock from './BJUBlock';
 import CookingStepsBlock from './CookingStepsBlock';
 import IngredientBlock from './IngredientBlock';
+import SkeletonScreen from './SkeletonScreen';
 import useRecipeHeader from './useRecipeHeader';
 
 const RecipeScreen = ({
@@ -36,12 +37,7 @@ const RecipeScreen = ({
     deps: [recipeId],
   });
 
-  if (isLoading || !recipe.get)
-    return (
-      <Center>
-        <Text children="Загрузка..." />
-      </Center>
-    );
+  if (isLoading || !recipe.get) return <SkeletonScreen />;
 
   const normalizedTitle =
     recipe.get.title[0].toUpperCase() + recipe.get.title.slice(1).toLowerCase();
