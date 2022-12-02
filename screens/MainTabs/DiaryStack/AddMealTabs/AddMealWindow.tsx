@@ -37,7 +37,7 @@ const AddMealWindow = ({
       <NumberInput
         px={4}
         py={2}
-        label="Масс порции"
+        label="Масса порции"
         variant="outline"
         color="text.900"
         fontSize="md"
