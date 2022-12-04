@@ -57,7 +57,7 @@ FavoriteRecipesScreen.screenOptions = (props: {
         borderRadius="full"
         icon={<MultiHeartsIcon />}
         colorScheme="red"
-        onPress={() => props.navigation.navigate('CookBook')}
+        onPress={() => props.navigation.goBack()}
       />
       <BasketButton navigateToBasket={props.navigation.navigate} />
     </HStack>

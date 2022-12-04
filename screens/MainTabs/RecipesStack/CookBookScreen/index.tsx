@@ -1,73 +1,74 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { CompositeScreenProps } from '@react-navigation/native';
+import {
+  NativeStackNavigationOptions,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import api from 'con-con/api';
+import BasketButton from 'con-con/components/BasketButton';
 import { useForceUpdate, useMethodAfterMount, useValue } from 'con-con/hooks';
-import { RecipesStackParamList } from 'con-con/types/navigation';
-import { RecipeData } from 'con-con/types/recipes';
-import { Box, FlatList } from 'native-base';
-import { useCallback, useMemo, useState } from 'react';
+import MultiHeartsIcon from 'con-con/icons/MultiHeartsIcon';
+import {
+  RecipesStackParamList,
+  RootStackParamList,
+} from 'con-con/types/navigation';
+import { RecipeData, SearchRecipesData } from 'con-con/types/recipes';
+import { Box, FlatList, HStack, IconButton, SearchIcon } from 'native-base';
+import { useMemo } from 'react';
 import { ListRenderItemInfo } from 'react-native';
-import CookBookHeader from './CookBookHeader';
 import NotFoundRecipes from './NotFoundRecipes';
 import RecipeCard from './RecipeCard';
 import SkeletonCard from './SkeletonCard';
+
+type Props = CompositeScreenProps<
+  NativeStackScreenProps<RecipesStackParamList, 'CookBook'>,
+  NativeStackScreenProps<RootStackParamList>
+>;
 
 const pageSize = 50;
 const skeletonData = [...Array(10)].map(
   (_, i) => ({ id: i.toString() } as RecipeData)
 );
 
-const CookBookScreen = ({
-  navigation,
-}: NativeStackScreenProps<RecipesStackParamList, 'CookBook'>) => {
+const CookBookScreen = ({ navigation, route }: Props) => {
+  const searchData = { ...route.params } as SearchRecipesData;
+
   const forceUpdate = useForceUpdate();
   const recipes = useValue<RecipeData[]>([]);
-  const isLoading = useValue(true);
+  const isLoading = useValue(true, { onUpdate: forceUpdate });
   const offset = useValue(0);
   const hasNext = useValue(true);
-  const [searchValue, setSearchValue] = useState('');
 
   useMethodAfterMount(
     () =>
       api.cookBook.getRecipesWithSearch({
         offset: offset.get,
         limit: pageSize,
-        title: searchValue,
+        title: searchData.title,
       }),
     {
       onStartLoading: () => isLoading.set(true),
-      onEndLoading: () => {
-        isLoading.set(false);
+      onEndLoading: () => isLoading.set(false),
+      next: (result) => {
         offset.set(0);
-        hasNext.set(true);
-        forceUpdate();
+        hasNext.set(result.length === pageSize);
+        recipes.set(result);
       },
-      next: recipes.set,
-      deps: [searchValue],
+      deps: [searchData.title],
     }
   );
 
-  const handleSearch = (value: string) => {
-    if (isLoading.get) return;
-    setSearchValue((oldValue) => {
-      if (oldValue === value) return value;
-      isLoading.set(true);
-      return value;
-    });
-  };
-
   const handleLoadNext = async () => {
     if (isLoading.get || !hasNext.get) return;
-    isLoading.set(true);
+    isLoading.set(true, true);
     offset.set(offset.get + pageSize);
     const newRecipes = await api.cookBook.getRecipesWithSearch({
       offset: offset.get,
       limit: pageSize,
-      title: searchValue,
+      title: searchData.title,
     });
     hasNext.set(newRecipes.length === pageSize);
     recipes.set([...recipes.get, ...newRecipes]);
     isLoading.set(false);
-    forceUpdate();
   };
 
   const renderSkeletonItem = () => <SkeletonCard mb={4} />;
@@ -80,10 +81,6 @@ const CookBookScreen = ({
       goToRecipe={() => navigation.navigate('Recipe', { recipeId: item.id })}
     />
   );
-
-  const Header = useMemo(() => {
-    return <CookBookHeader navigation={navigation} onSearch={handleSearch} />;
-  }, []);
 
   const Footer = useMemo(() => {
     return (
@@ -102,7 +99,6 @@ const CookBookScreen = ({
       keyExtractor={(r) => r.id}
       data={isLoading.get ? skeletonData : recipes.get}
       renderItem={isLoading.get ? renderSkeletonItem : renderItem}
-      ListHeaderComponent={Header}
       ListEmptyComponent={NotFoundRecipes}
       ListFooterComponent={
         hasNext.get && recipes.get.length > 0 ? Footer : undefined
@@ -113,5 +109,37 @@ const CookBookScreen = ({
 };
 
 CookBookScreen.screenName = 'CookBook' as const;
+CookBookScreen.screenOptions = ({
+  navigation,
+  route,
+}: CompositeScreenProps<
+  NativeStackScreenProps<RecipesStackParamList, 'CookBook'>,
+  NativeStackScreenProps<RootStackParamList>
+>): NativeStackNavigationOptions => ({
+  headerTitle: 'Рецепты',
+  headerLeft: () => <Box ml={4} />,
+  headerRight: () => (
+    <HStack space={2}>
+      <IconButton
+        borderRadius="full"
+        icon={<SearchIcon />}
+        colorScheme="light"
+        onPress={() =>
+          navigation.navigate('SearchRecipes', {
+            screen: 'Filters',
+            params: route.params,
+          })
+        }
+      />
+      <IconButton
+        borderRadius="full"
+        icon={<MultiHeartsIcon />}
+        colorScheme="light"
+        onPress={() => navigation.navigate('FavoriteRecipes')}
+      />
+      <BasketButton navigateToBasket={navigation.navigate} />
+    </HStack>
+  ),
+});
 
 export default CookBookScreen;

@@ -1,14 +1,12 @@
 import { useAppContext } from 'con-con/hooks';
 import BasketProductData from 'con-con/types/basket-product-data';
-import { RecipeData } from 'con-con/types/recipes';
+import { IngredientData, RecipeData } from 'con-con/types/recipes';
 import { AddIcon, Button, CheckIcon, IButtonProps } from 'native-base';
 import { useState } from 'react';
 import uuid from 'react-native-uuid';
 
-type Ingredient = RecipeData['ingredients'][0];
-
 type Props = {
-  ingredients: Ingredient[];
+  ingredients: IngredientData[];
 } & IButtonProps;
 
 const AddIngredientsToBucketButton = ({ ingredients, ...props }: Props) => {

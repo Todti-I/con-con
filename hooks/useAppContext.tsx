@@ -1,7 +1,12 @@
 import api from 'con-con/api';
 import LoadingScreen from 'con-con/screens/LoadingScreen';
 import BasketProductData from 'con-con/types/basket-product-data';
-import { defaultMealsData, MealsData, RecipeData } from 'con-con/types/recipes';
+import {
+  defaultMealsData,
+  IngredientData,
+  MealsData,
+  RecipeData,
+} from 'con-con/types/recipes';
 import { defaultUserData, UserData } from 'con-con/types/user';
 import { WizardData } from 'con-con/types/wizard-data';
 import calculateUserParams from 'con-con/utils/calculate-user-params';
@@ -24,6 +29,7 @@ type AppContent = {
   favoriteRecipes: ValueRef<RecipeData[]>;
   mealsData: ValueRef<MealsData>;
   userData: ValueRef<UserData>;
+  ingredients: ValueRef<IngredientData[]>;
 };
 
 type AppProviderProps = {
@@ -37,6 +43,7 @@ const AppContext = createContext<AppContent>({
   favoriteRecipes: { get: [], set: () => {} },
   mealsData: { get: defaultMealsData(), set: () => {} },
   userData: { get: defaultUserData(), set: () => {} },
+  ingredients: { get: [], set: () => {} },
 });
 
 const fetchData = async () => {
@@ -45,14 +52,22 @@ const fetchData = async () => {
     basketProducts = [],
     favoriteRecipes = [],
     mealsData = defaultMealsData(),
+    ingredients = [],
   ] = await Promise.all([
     storage.getItem('wizard-data'),
     storage.getItem('basket-products'),
     storage.getItem('favorite-recipes'),
     storage.getItem('meals-data'),
+    api.ingredients.getIngredients(),
   ]);
 
-  return { wizardData, basketProducts, favoriteRecipes, mealsData };
+  return {
+    wizardData,
+    basketProducts,
+    favoriteRecipes,
+    mealsData,
+    ingredients,
+  };
 };
 
 const updateMealsIfNeeded = async (
@@ -133,6 +148,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
   });
 
   const userData = useValue(defaultUserData());
+  const ingredients = useValue<IngredientData[]>([]);
 
   useMethodAfterMount(fetchData, {
     onStartLoading: () => setIsLoading(true),
@@ -165,6 +181,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
           favoriteRecipes,
           mealsData,
           userData,
+          ingredients,
         };
       }, [isLoading])}
     />

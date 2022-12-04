@@ -1,13 +1,11 @@
-import { RecipeData } from 'con-con/types/recipes';
+import { IngredientData, RecipeData } from 'con-con/types/recipes';
 import { Box, Heading, VStack } from 'native-base';
 import { Fragment } from 'react';
 import AddIngredientsToBucketButton from './AddIngredientsToBucketButton';
 import IngredientRow from './IngredientRow';
 
-type Ingredient = RecipeData['ingredients'][0];
-
 type Props = {
-  ingredients: Ingredient[];
+  ingredients: IngredientData[];
 };
 
 const IngredientBlock = ({ ingredients }: Props) => (

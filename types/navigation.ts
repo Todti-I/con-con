@@ -1,9 +1,10 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
-import { MealType } from './recipes';
+import { MealType, SearchRecipesData } from './recipes';
 
 export type RootStackParamList = {
   Wizard?: NavigatorScreenParams<WizardStackParamList>;
   MainTabs?: NavigatorScreenParams<MainTabParamList>;
+  SearchRecipes: NavigatorScreenParams<SearchRecipesStackParamList>;
   Basket: undefined;
 };
 
@@ -49,9 +50,14 @@ export type AddMealTabParamList = {
 };
 
 export type RecipesStackParamList = {
-  CookBook: undefined;
+  CookBook?: SearchRecipesData;
   FavoriteRecipes: undefined;
   Recipe: {
     recipeId: string;
   };
+};
+
+export type SearchRecipesStackParamList = {
+  Filters?: SearchRecipesData;
+  Ingredients?: SearchRecipesData;
 };

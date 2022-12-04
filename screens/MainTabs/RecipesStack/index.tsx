@@ -22,7 +22,11 @@ const RecipesStack = (_: BottomTabScreenProps<MainTabParamList, 'Recipes'>) => (
       },
     }}
   >
-    <Stack.Screen name={CookBookScreen.screenName} component={CookBookScreen} />
+    <Stack.Screen
+      name={CookBookScreen.screenName}
+      component={CookBookScreen}
+      options={CookBookScreen.screenOptions}
+    />
     <Stack.Screen
       name={FavoriteRecipesScreen.screenName}
       component={FavoriteRecipesScreen}

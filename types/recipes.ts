@@ -12,14 +12,16 @@ export type RecipeData = {
     step: number;
     description: string;
   }[];
-  ingredients: {
-    id: string;
-    name: string;
-    mass: number;
-  }[];
+  ingredients: IngredientData[];
   cookingTime: number;
   mealType: number;
   vegeterian: number;
+  mass: number;
+};
+
+export type IngredientData = {
+  id: string;
+  name: string;
   mass: number;
 };
 
@@ -37,3 +39,11 @@ export const defaultMealsData = (): MealsData => ({
     supper: [],
   },
 });
+
+export type SearchRecipesData = {
+  title?: string;
+  mealTypeId?: number;
+  kilocaloriesId?: number;
+  cookingTimeId?: number;
+  ingredientIds?: string[];
+};

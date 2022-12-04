@@ -5,7 +5,7 @@ import {
   Input,
   SearchIcon,
 } from 'native-base';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Dimensions } from 'react-native';
 
 const width = Dimensions.get('window').width;
@@ -14,9 +14,10 @@ type Props = {
   defaultValue?: string;
   onSearch?: (value: string) => void;
   onBack?: () => void;
+  extraButtons?: ReactNode;
 };
 
-const SearchBar = ({ defaultValue, onSearch, onBack }: Props) => {
+const SearchBar = ({ defaultValue, onSearch, onBack, extraButtons }: Props) => {
   const [value, setValue] = useState(defaultValue || '');
 
   const handleSearch = () => {
@@ -43,6 +44,7 @@ const SearchBar = ({ defaultValue, onSearch, onBack }: Props) => {
         onBlur={handleSearch}
         onChangeText={setValue}
       />
+      {extraButtons}
     </HStack>
   );
 };

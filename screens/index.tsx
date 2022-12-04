@@ -3,6 +3,7 @@ import { useAppContext } from 'con-con/hooks';
 import { RootStackParamList } from 'con-con/types/navigation';
 import BasketScreen from './BasketScreen';
 import MainTabs from './MainTabs';
+import SearchRecipesStack from './SearchRecipesStack';
 import WizardStack from './WizardStack';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -17,6 +18,11 @@ const Screens = () => {
     >
       <Stack.Screen name={WizardStack.screenName} component={WizardStack} />
       <Stack.Screen name={MainTabs.screenName} component={MainTabs} />
+      <Stack.Screen
+        name={SearchRecipesStack.screenName}
+        options={SearchRecipesStack.screenOptions}
+        component={SearchRecipesStack}
+      />
       <Stack.Screen
         name={BasketScreen.screenName}
         options={BasketScreen.screenOptions}
