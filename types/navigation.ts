@@ -50,6 +50,7 @@ export type AddMealTabParamList = {
 
 export type RecipesStackParamList = {
   CookBook: undefined;
+  FavoriteRecipes: undefined;
   Recipe: {
     recipeId: string;
   };

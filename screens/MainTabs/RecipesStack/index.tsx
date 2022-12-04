@@ -6,6 +6,7 @@ import {
   RecipesStackParamList,
 } from 'con-con/types/navigation';
 import CookBookScreen from './CookBookScreen';
+import FavoriteRecipesScreen from './FavoriteRecipesScreen';
 import RecipeScreen from './RecipeScreen';
 
 const Stack = createNativeStackNavigator<RecipesStackParamList>();
@@ -21,10 +22,11 @@ const RecipesStack = (_: BottomTabScreenProps<MainTabParamList, 'Recipes'>) => (
       },
     }}
   >
+    <Stack.Screen name={CookBookScreen.screenName} component={CookBookScreen} />
     <Stack.Screen
-      name={CookBookScreen.screenName}
-      component={CookBookScreen}
-      options={CookBookScreen.screenOptions}
+      name={FavoriteRecipesScreen.screenName}
+      component={FavoriteRecipesScreen}
+      options={FavoriteRecipesScreen.screenOptions}
     />
     <Stack.Screen name={RecipeScreen.screenName} component={RecipeScreen} />
   </Stack.Navigator>

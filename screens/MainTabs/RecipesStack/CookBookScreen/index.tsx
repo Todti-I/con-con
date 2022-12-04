@@ -1,24 +1,15 @@
-import {
-  NativeStackNavigationOptions,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import api from 'con-con/api';
-import {
-  useAppContext,
-  useForceUpdate,
-  useMethodAfterMount,
-  useValue,
-} from 'con-con/hooks';
+import { useForceUpdate, useMethodAfterMount, useValue } from 'con-con/hooks';
 import { RecipesStackParamList } from 'con-con/types/navigation';
 import { RecipeData } from 'con-con/types/recipes';
 import { Box, FlatList } from 'native-base';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { ListRenderItemInfo } from 'react-native';
-import FavoriteEmpty from '../../DiaryStack/AddMealTabs/FavoriteRecipesScreen/FavoriteEmpty';
+import CookBookHeader from './CookBookHeader';
 import NotFoundRecipes from './NotFoundRecipes';
 import RecipeCard from './RecipeCard';
 import SkeletonCard from './SkeletonCard';
-import useCookBookHeader from './useCookBookHeader';
 
 const pageSize = 50;
 const skeletonData = [...Array(10)].map(
@@ -28,7 +19,6 @@ const skeletonData = [...Array(10)].map(
 const CookBookScreen = ({
   navigation,
 }: NativeStackScreenProps<RecipesStackParamList, 'CookBook'>) => {
-  const { favoriteRecipes } = useAppContext();
   const forceUpdate = useForceUpdate();
   const recipes = useValue<RecipeData[]>([]);
   const isLoading = useValue(true);
@@ -47,6 +37,8 @@ const CookBookScreen = ({
       onStartLoading: () => isLoading.set(true),
       onEndLoading: () => {
         isLoading.set(false);
+        offset.set(0);
+        hasNext.set(true);
         forceUpdate();
       },
       next: recipes.set,
@@ -59,13 +51,12 @@ const CookBookScreen = ({
     setSearchValue((oldValue) => {
       if (oldValue === value) return value;
       isLoading.set(true);
-      offset.set(0);
       return value;
     });
   };
 
   const handleLoadNext = async () => {
-    if (isLoading.get) return;
+    if (isLoading.get || !hasNext.get) return;
     isLoading.set(true);
     offset.set(offset.get + pageSize);
     const newRecipes = await api.cookBook.getRecipesWithSearch({
@@ -90,10 +81,9 @@ const CookBookScreen = ({
     />
   );
 
-  const { isOnlyFavorites } = useCookBookHeader({
-    navigation,
-    onSearch: handleSearch,
-  });
+  const Header = useMemo(() => {
+    return <CookBookHeader navigation={navigation} onSearch={handleSearch} />;
+  }, []);
 
   const Footer = useMemo(() => {
     return (
@@ -104,20 +94,6 @@ const CookBookScreen = ({
     );
   }, []);
 
-  if (isOnlyFavorites) {
-    return (
-      <FlatList
-        numColumns={2}
-        contentContainerStyle={{ padding: 16 }}
-        columnWrapperStyle={{ flex: 1, justifyContent: 'space-between' }}
-        keyExtractor={(r) => r.id}
-        data={favoriteRecipes.get}
-        renderItem={renderItem}
-        ListEmptyComponent={FavoriteEmpty}
-      />
-    );
-  }
-
   return (
     <FlatList
       numColumns={2}
@@ -126,6 +102,7 @@ const CookBookScreen = ({
       keyExtractor={(r) => r.id}
       data={isLoading.get ? skeletonData : recipes.get}
       renderItem={isLoading.get ? renderSkeletonItem : renderItem}
+      ListHeaderComponent={Header}
       ListEmptyComponent={NotFoundRecipes}
       ListFooterComponent={
         hasNext.get && recipes.get.length > 0 ? Footer : undefined
@@ -136,6 +113,5 @@ const CookBookScreen = ({
 };
 
 CookBookScreen.screenName = 'CookBook' as const;
-CookBookScreen.screenOptions = {} as NativeStackNavigationOptions;
 
 export default CookBookScreen;

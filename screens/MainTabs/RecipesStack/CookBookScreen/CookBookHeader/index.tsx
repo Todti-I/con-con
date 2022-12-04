@@ -4,17 +4,16 @@ import { useValue } from 'con-con/hooks';
 import MultiHeartsIcon from 'con-con/icons/MultiHeartsIcon';
 import { RecipesStackParamList } from 'con-con/types/navigation';
 import { Box, HStack, IconButton, SearchIcon } from 'native-base';
-import { useLayoutEffect, useState } from 'react';
+import { memo, useLayoutEffect, useState } from 'react';
 import SearchBar from './SearchBar';
 
-type UseCookBookHeader = {
+type Props = {
   navigation: NativeStackNavigationProp<RecipesStackParamList, 'CookBook'>;
   onSearch?: (value: string) => void;
 };
 
-const useCookBookHeader = ({ navigation, onSearch }: UseCookBookHeader) => {
+const CookBookHeader = ({ navigation, onSearch }: Props) => {
   const [isActivitySearch, setIsActivitySearch] = useState(false);
-  const [isOnlyFavorites, setIsOnlyFavorites] = useState(false);
   const searchValue = useValue<string>('', { onUpdate: onSearch });
 
   useLayoutEffect(() => {
@@ -36,28 +35,26 @@ const useCookBookHeader = ({ navigation, onSearch }: UseCookBookHeader) => {
         headerLeft: () => <Box ml={4} />,
         headerRight: () => (
           <HStack space={2}>
-            {!isOnlyFavorites && (
-              <IconButton
-                borderRadius="full"
-                icon={<SearchIcon />}
-                colorScheme={isOnlyFavorites ? 'red' : 'light'}
-                onPress={() => setIsActivitySearch((isActivity) => !isActivity)}
-              />
-            )}
+            <IconButton
+              borderRadius="full"
+              icon={<SearchIcon />}
+              colorScheme="light"
+              onPress={() => setIsActivitySearch((isActivity) => !isActivity)}
+            />
             <IconButton
               borderRadius="full"
               icon={<MultiHeartsIcon />}
-              colorScheme={isOnlyFavorites ? 'red' : 'light'}
-              onPress={() => setIsOnlyFavorites((isOnly) => !isOnly)}
+              colorScheme="light"
+              onPress={() => navigation.navigate('FavoriteRecipes')}
             />
             <BasketButton navigateToBasket={navigation.navigate} />
           </HStack>
         ),
       });
     }
-  }, [navigation, isOnlyFavorites, isActivitySearch]);
+  }, [navigation.getId(), isActivitySearch]);
 
-  return { isOnlyFavorites, isActivitySearch };
+  return null;
 };
 
-export default useCookBookHeader;
+export default CookBookHeader;
