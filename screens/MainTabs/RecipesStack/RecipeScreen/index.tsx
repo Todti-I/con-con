@@ -77,7 +77,7 @@ const RecipeScreen = ({
           <BJUBlock name="Белки" value={calcOnMass(recipe.get.protein)} />
           <BJUBlock name="Жиры" value={calcOnMass(recipe.get.fat)} />
         </HStack>
-        <Text children={`Пищевая ценность на ${mass}г`} />
+        <Text children={`Пищевая ценность на ${Math.round(mass)}г`} />
         <IngredientBlock
           ingredients={recipe.get.ingredients.map((i) => ({
             ...i,
