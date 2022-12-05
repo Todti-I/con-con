@@ -3,15 +3,17 @@ import shuffleArray from 'con-con/utils/shuffle-array';
 import BaseController from './BaseController';
 
 export default class RecipesController extends BaseController {
-  private cachedRecipes: RecipeData[] = [];
+  private cachedRecipes: Map<number, RecipeData[]> = new Map();
 
-  async getRecipes(): Promise<RecipeData[]> {
-    if (this.cachedRecipes.length > 0) {
-      return shuffleArray(this.cachedRecipes);
+  async getRecipes(mealTypeId: number): Promise<RecipeData[]> {
+    if (this.cachedRecipes.has(mealTypeId)) {
+      return shuffleArray(this.cachedRecipes.get(mealTypeId) || []);
     }
 
-    const recipes = await this.get<RecipeData[]>('/recipes');
-    this.cachedRecipes = recipes;
+    const recipes = await this.get<RecipeData[]>('/recipes', {
+      mealType: mealTypeId,
+    });
+    this.cachedRecipes.set(mealTypeId, recipes);
 
     return shuffleArray(recipes);
   }

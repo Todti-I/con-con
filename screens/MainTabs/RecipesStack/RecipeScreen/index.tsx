@@ -1,5 +1,6 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import api from 'con-con/api';
+import ImageFallback from 'con-con/api/ImageFallback';
 import { useLoadingState, useMethodAfterMount, useValue } from 'con-con/hooks';
 import ClockIcon from 'con-con/icons/ClockIcon';
 import { RecipesStackParamList } from 'con-con/types/navigation';
@@ -29,6 +30,7 @@ const RecipeScreen = ({
   useRecipeHeader(navigation, recipe.get);
 
   const recipeId = route.params.recipeId;
+  const mass = route.params.mass || 100;
 
   useMethodAfterMount(() => api.cookBook.getRecipe(recipeId), {
     onStartLoading: () => setIsLoading(true),
@@ -42,6 +44,8 @@ const RecipeScreen = ({
   const normalizedTitle =
     recipe.get.title[0].toUpperCase() + recipe.get.title.slice(1).toLowerCase();
 
+  const calcOnMass = (value: number) => Math.round((value * mass) / 100);
+
   return (
     <ScrollView>
       <Image
@@ -49,6 +53,7 @@ const RecipeScreen = ({
         w="full"
         h="280px"
         source={{ uri: recipe.get.cover }}
+        fallbackElement={<ImageFallback />}
         alt={recipe.get.title || 'рецепт'}
       />
       <VStack p={4} space={4}>
@@ -60,17 +65,25 @@ const RecipeScreen = ({
           <Text
             fontSize="md"
             fontWeight="500"
-            children={`${recipe.get.kilocalories} ккал`}
+            children={`${calcOnMass(recipe.get.kilocalories)} ккал`}
           />
         </HStack>
         <Heading fontSize="lg" children="Данные о питательных веществах" />
         <HStack space={2} justifyContent="space-between">
-          <BJUBlock name="Углеводы" value={recipe.get.carbohydrate} />
-          <BJUBlock name="Белки" value={recipe.get.protein} />
-          <BJUBlock name="Жиры" value={recipe.get.fat} />
+          <BJUBlock
+            name="Углеводы"
+            value={calcOnMass(recipe.get.carbohydrate)}
+          />
+          <BJUBlock name="Белки" value={calcOnMass(recipe.get.protein)} />
+          <BJUBlock name="Жиры" value={calcOnMass(recipe.get.fat)} />
         </HStack>
-        <Text children="Пищевая ценность на 100г" />
-        <IngredientBlock ingredients={recipe.get.ingredients} />
+        <Text children={`Пищевая ценность на ${mass}г`} />
+        <IngredientBlock
+          ingredients={recipe.get.ingredients.map((i) => ({
+            ...i,
+            mass: calcOnMass(i.mass),
+          }))}
+        />
         <CookingStepsBlock steps={recipe.get.process} />
       </VStack>
     </ScrollView>

@@ -47,7 +47,6 @@ const ControlButtons = ({
         variant="solid"
         borderRadius="full"
         colorScheme="violet"
-        // onPress={onAdd}
         onPress={() => setIsOpen(true)}
         isDisabled={isDisabled}
         icon={<AddIcon size="45px" />}
@@ -65,12 +64,15 @@ const ControlButtons = ({
         _pressed={{ bg: 'text.200' }}
         iconProps={{ size: '28px', color: 'fuchsia.500' }}
       />
-      <AddMealWindow
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        mealType={mealType}
-        onSubmit={onAdd}
-      />
+      {recipe && (
+        <AddMealWindow
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          mealType={mealType}
+          recipe={recipe}
+          onSubmit={onAdd}
+        />
+      )}
     </HStack>
   );
 };

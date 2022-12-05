@@ -7,8 +7,8 @@ import { Animated, Easing, TouchableNativeFeedback } from 'react-native';
 
 type Props = {
   recipe: RecipeData;
-  goToRecipeScreen?: (recipeId: string) => void;
-  onRemove?: (recipeId: string) => void;
+  goToRecipeScreen?: () => void;
+  onRemove?: () => void;
 };
 
 const RecipeCard = ({ recipe, goToRecipeScreen, onRemove }: Props) => {
@@ -26,7 +26,7 @@ const RecipeCard = ({ recipe, goToRecipeScreen, onRemove }: Props) => {
       delay: 50,
     }).start();
 
-    setTimeout(() => onRemove?.(recipe.id), 300);
+    setTimeout(() => onRemove?.(), 300);
   };
 
   const maxHeightAnimation = removalAnimation.get.interpolate({
@@ -51,7 +51,7 @@ const RecipeCard = ({ recipe, goToRecipeScreen, onRemove }: Props) => {
       <Box position="relative" h="64px" bg="white">
         <TouchableNativeFeedback
           background={TouchableNativeFeedback.Ripple('#C4B5FD', false)}
-          onPress={() => goToRecipeScreen?.(recipe.id)}
+          onPress={goToRecipeScreen}
         >
           <Box pl={4} pr={16} py="11px" flex={1}>
             <Text

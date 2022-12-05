@@ -33,7 +33,7 @@ const MealScreen = ({ navigation, route }: Props) => {
     };
   }, []);
 
-  const handleRemove = (id: string) => {
+  const handleRemove = (id: string) => () => {
     const newRecipes = mealsData.get.meals[mealType].filter((r) => r.id !== id);
     const newMealsData = {
       ...mealsData.get,
@@ -56,11 +56,11 @@ const MealScreen = ({ navigation, route }: Props) => {
   const renderItem = ({ item }: ListRenderItemInfo<RecipeData>) => (
     <RecipeCard
       recipe={item}
-      onRemove={handleRemove}
-      goToRecipeScreen={(recipeId) =>
+      onRemove={handleRemove(item.id)}
+      goToRecipeScreen={() =>
         navigation.navigate('Recipes', {
           screen: 'Recipe',
-          params: { recipeId },
+          params: { recipeId: item.id, mass: item.mass },
           initial: false,
         })
       }

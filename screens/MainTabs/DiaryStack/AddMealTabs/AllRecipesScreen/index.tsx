@@ -122,7 +122,7 @@ const AllRecipesScreen = ({ navigation, route }: Props) => {
   );
 
   return (
-    <Box position="relative">
+    <Box flex={1} position="relative">
       <FlatList
         contentContainerStyle={{ padding: 16 }}
         data={isLoading.get ? skeletonData : recipes.get}

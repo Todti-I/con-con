@@ -54,6 +54,7 @@ export type RecipesStackParamList = {
   FavoriteRecipes: undefined;
   Recipe: {
     recipeId: string;
+    mass?: number;
   };
 };
 

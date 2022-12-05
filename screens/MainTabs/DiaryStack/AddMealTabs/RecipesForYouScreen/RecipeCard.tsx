@@ -1,6 +1,8 @@
+import ImageFallback from 'con-con/api/ImageFallback';
 import ClockIcon from 'con-con/icons/ClockIcon';
+import EmptyIcon from 'con-con/icons/EmptyIcon';
 import { RecipeData } from 'con-con/types/recipes';
-import { Box, Heading, HStack, Image, Text } from 'native-base';
+import { Box, Center, Heading, HStack, Image, Text } from 'native-base';
 import { memo } from 'react';
 import { TouchableNativeFeedback } from 'react-native-gesture-handler';
 
@@ -26,6 +28,7 @@ const RecipeCard = ({ recipe, goToRecipe }: Props) => (
         flex={1}
         resizeMode="cover"
         source={{ uri: recipe.cover }}
+        fallbackElement={<ImageFallback />}
         alt={recipe.title || 'карточка рецепта'}
       />
       <Box

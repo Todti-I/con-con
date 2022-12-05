@@ -19,6 +19,7 @@ import { Box, Skeleton } from 'native-base';
 import { useState } from 'react';
 import { Animated } from 'react-native';
 import { useDiaryContext } from '../../context';
+import mealTypeData from '../../meal-type-data';
 import ControlButtons from './ControlButtons';
 import RecipeCard from './RecipeCard';
 import useCardsAnimation from './useCardsAnimation';
@@ -32,6 +33,8 @@ type Props = CompositeScreenProps<
 >;
 
 const RecipesForYouScreen = ({ navigation, route }: Props) => {
+  const mealType = route.params.mealType;
+
   const { mealsData } = useAppContext();
   const { subscriptions } = useDiaryContext();
   const [pos, setPos] = useState(0);
@@ -45,17 +48,20 @@ const RecipesForYouScreen = ({ navigation, route }: Props) => {
     topCardAnimationStyles,
   } = useCardsAnimation();
 
-  useMethodAfterMount(() => api.recipes.getRecipes(), {
-    onStartLoading: () => setIsLoading(true),
-    onEndLoading: () => setIsLoading(false),
-    next: recipes.set,
-  });
+  useMethodAfterMount(
+    () => api.recipes.getRecipes(mealTypeData[mealType].typeId),
+    {
+      onStartLoading: () => setIsLoading(true),
+      onEndLoading: () => setIsLoading(false),
+      next: recipes.set,
+      deps: [mealType],
+    }
+  );
 
   const getNextPos = (pos: number): number => {
     return pos + 1 > recipes.get.length - 1 ? 0 : pos + 1;
   };
 
-  const mealType = route.params.mealType;
   const currentRecipe = recipes.get[pos];
   const nextRecipe = recipes.get[getNextPos(pos)];
 

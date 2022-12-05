@@ -1,3 +1,4 @@
+import ImageFallback from 'con-con/api/ImageFallback';
 import FavoriteRecipesButton from 'con-con/components/FavoriteRecipesButton';
 import { MealType, RecipeData } from 'con-con/types/recipes';
 import isDefined from 'con-con/utils/is-defined';
@@ -74,6 +75,7 @@ const RecipeCard = ({
           boxSize="128px"
           resizeMode="cover"
           source={{ uri: recipe.cover }}
+          fallbackElement={<ImageFallback />}
           alt={recipe.title || 'карточка рецепта'}
         />
       </TouchableNativeFeedback>
@@ -87,6 +89,7 @@ const RecipeCard = ({
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         mealType={mealType}
+        recipe={recipe}
         onSubmit={onAdd}
       />
     </Box>

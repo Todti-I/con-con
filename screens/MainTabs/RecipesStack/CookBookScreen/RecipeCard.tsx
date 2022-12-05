@@ -1,3 +1,4 @@
+import ImageFallback from 'con-con/api/ImageFallback';
 import FavoriteRecipesButton from 'con-con/components/FavoriteRecipesButton';
 import { MealType, RecipeData } from 'con-con/types/recipes';
 import { Box, IBoxProps, Image, Text } from 'native-base';
@@ -23,6 +24,7 @@ const RecipeCard = ({ recipe, goToRecipe, ...props }: Props) => (
         h="156px"
         resizeMode="cover"
         source={{ uri: recipe.cover }}
+        fallbackElement={<ImageFallback />}
         alt={recipe.title || 'карточка рецепта'}
       />
       <Box px={2} py={4} flex={1} justifyContent="space-between">
