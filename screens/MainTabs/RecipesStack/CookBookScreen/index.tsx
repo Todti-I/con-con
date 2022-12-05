@@ -44,7 +44,8 @@ const CookBookScreen = ({ navigation, route }: Props) => {
         offset: offset.get,
         limit: pageSize,
         title: searchData.title,
-        includeIngredients: searchData.ingredientIds,
+        includeIngredients: searchData.includeIngredientIds,
+        excludeIngredients: searchData.excludeIngredientIds,
       }),
     {
       onStartLoading: () => isLoading.set(true),
@@ -66,7 +67,8 @@ const CookBookScreen = ({ navigation, route }: Props) => {
       offset: offset.get,
       limit: pageSize,
       title: searchData.title,
-      includeIngredients: searchData.ingredientIds,
+      includeIngredients: searchData.includeIngredientIds,
+      excludeIngredients: searchData.excludeIngredientIds,
     });
     hasNext.set(newRecipes.length === pageSize);
     recipes.set([...recipes.get, ...newRecipes]);
@@ -101,11 +103,11 @@ const CookBookScreen = ({ navigation, route }: Props) => {
       keyExtractor={(r) => r.id}
       data={isLoading.get ? skeletonData : recipes.get}
       renderItem={isLoading.get ? renderSkeletonItem : renderItem}
+      onEndReached={handleLoadNext}
       ListEmptyComponent={NotFoundRecipes}
       ListFooterComponent={
         hasNext.get && recipes.get.length > 0 ? Footer : undefined
       }
-      onEndReached={handleLoadNext}
     />
   );
 };
@@ -129,7 +131,7 @@ CookBookScreen.screenOptions = ({
         onPress={() =>
           navigation.navigate('SearchRecipes', {
             screen: 'Filters',
-            params: route.params,
+            params: { ...route.params, forScreen: 'CookBook' },
           })
         }
       />

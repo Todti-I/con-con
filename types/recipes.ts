@@ -45,5 +45,6 @@ export type SearchRecipesData = {
   mealTypeId?: number;
   kilocaloriesId?: number;
   cookingTimeId?: number;
-  ingredientIds?: string[];
+  includeIngredientIds?: string[];
+  excludeIngredientIds?: string[];
 };

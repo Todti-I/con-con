@@ -1,6 +1,6 @@
 import { Box, Flex, Heading } from 'native-base';
 import { memo, useEffect, useState } from 'react';
-import FilterTag from './FilterTag';
+import FilterTag from '../FilterTag';
 
 type Props<T> = {
   name: string;

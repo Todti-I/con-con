@@ -11,13 +11,18 @@ import NotFoundIngredients from './NotFoundIngredients';
 
 const IngredientsScreen = ({
   navigation,
-  route,
+  route: {
+    params: { type, forScreen, ...defaultParams },
+  },
 }: NativeStackScreenProps<SearchRecipesStackParamList, 'Ingredients'>) => {
   const { ingredients } = useAppContext();
   const [filteredIngredients, setFilteredIngredients] = useState(
     () => ingredients.get
   );
-  const data = useValue({ ...route.params });
+
+  const key =
+    type == 'include' ? 'includeIngredientIds' : 'excludeIngredientIds';
+  const data = useValue({ ...defaultParams });
 
   const handlerFiltersIngredients = (value: string) => {
     const normalizeValue = value.trim().toLocaleLowerCase();
@@ -28,14 +33,12 @@ const IngredientsScreen = ({
     );
   };
 
-  const handleChooseIngredient = (id: string) => (isChosen: boolean) => {
-    const newIngredientIds =
-      data.get.ingredientIds?.filter((i) => i !== id) || [];
-
+  const handleChooseIncludeIngredient = (id: string) => (isChosen: boolean) => {
+    const newIngredientIds = data.get[key]?.filter((i) => i !== id) || [];
     if (isChosen) {
-      data.set({ ...data.get, ingredientIds: [...newIngredientIds, id] });
+      data.set({ ...data.get, [key]: [...newIngredientIds, id] });
     } else {
-      data.set({ ...data.get, ingredientIds: newIngredientIds });
+      data.set({ ...data.get, [key]: newIngredientIds });
     }
   };
 
@@ -48,7 +51,9 @@ const IngredientsScreen = ({
           withDebounce
           placeholder="Поиск по ингредиентам"
           onChange={handlerFiltersIngredients}
-          onBack={() => navigation.navigate('Filters', data.get)}
+          onBack={() =>
+            navigation.navigate('Filters', { forScreen, ...data.get })
+          }
         />
       ),
     });
@@ -58,8 +63,8 @@ const IngredientsScreen = ({
     <IngredientCard
       mb={4}
       name={item.name}
-      defaultChosen={data.get.ingredientIds?.includes(item.id)}
-      onChoose={handleChooseIngredient(item.id)}
+      defaultChosen={data.get[key]?.includes(item.id)}
+      onChoose={handleChooseIncludeIngredient(item.id)}
     />
   );
 

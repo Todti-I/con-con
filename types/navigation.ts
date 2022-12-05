@@ -43,7 +43,7 @@ export type AddMealTabParamList = {
   };
   AllRecipes: {
     mealType: MealType;
-  };
+  } & SearchRecipesData;
   FavoriteRecipes: {
     mealType: MealType;
   };
@@ -58,6 +58,9 @@ export type RecipesStackParamList = {
 };
 
 export type SearchRecipesStackParamList = {
-  Filters?: SearchRecipesData;
-  Ingredients?: SearchRecipesData;
+  Filters: { forScreen: 'CookBook' | 'AllRecipes' } & SearchRecipesData;
+  Ingredients: {
+    forScreen: 'CookBook' | 'AllRecipes';
+    type: 'include' | 'exclude';
+  } & SearchRecipesData;
 };

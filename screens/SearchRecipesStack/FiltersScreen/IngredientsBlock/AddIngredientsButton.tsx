@@ -3,13 +3,13 @@ import { AddIcon, Button, IButtonProps } from 'native-base';
 const AddIngredientsButton = (props: IButtonProps) => (
   <Button
     mx={4}
-    w="180px"
+    px={4}
+    alignSelf="flex-start"
     variant="ghost"
     colorScheme="tertiary"
     borderRadius={8}
     rightIcon={<AddIcon />}
     _text={{ fontWeight: '500' }}
-    children="Добавить продукт"
     {...props}
   />
 );

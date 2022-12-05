@@ -30,7 +30,7 @@ const SearchBar = ({
   extraButtons,
   placeholder,
 }: Props) => {
-  const debounce = useDebounce(300);
+  const debounce = useDebounce(250);
   const [value, setValue] = useState(defaultValue || '');
 
   const handleChange = (value: string) => {

@@ -1,23 +1,13 @@
-import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useAppContext, useValue } from 'con-con/hooks';
+import { useValue } from 'con-con/hooks';
 import SearchBar from 'con-con/screens/SearchRecipesStack/SearchBar';
-import {
-  RecipesStackParamList,
-  SearchRecipesStackParamList,
-} from 'con-con/types/navigation';
+import { SearchRecipesStackParamList } from 'con-con/types/navigation';
 import { SearchRecipesData } from 'con-con/types/recipes';
-import { Box, Button, HStack, ScrollView } from 'native-base';
+import { Box, ScrollView } from 'native-base';
 import { useLayoutEffect, useMemo, useState } from 'react';
-import AddIngredientsButton from './AddIngredientsButton';
 import ControlButtons from './ControlButtons';
-import MultipleSelectionBlock from './MultipleSelectionBlock';
+import IngredientsBlock from './IngredientsBlock';
 import SelectionBlock from './SelectionBlock';
-
-type Props = CompositeScreenProps<
-  NativeStackScreenProps<SearchRecipesStackParamList, 'Filters'>,
-  NativeStackScreenProps<RecipesStackParamList>
->;
 
 const mealTypeFilters = [
   { id: 0, name: 'Завтрак' },
@@ -42,29 +32,32 @@ const cookingTimeFilters = [
   { id: 4, name: 'Более часа' },
 ];
 
-const FiltersScreen = ({ navigation, route }: Props) => {
-  const { ingredients } = useAppContext();
-  const data = useValue({ ...route.params });
+const FiltersScreen = ({
+  navigation,
+  route: {
+    params: { forScreen, ...defaultData },
+  },
+}: NativeStackScreenProps<SearchRecipesStackParamList, 'Filters'>) => {
+  const data = useValue(defaultData);
   const [resetKey, setResetKey] = useState(0);
+
+  useMemo(
+    () => data.set(defaultData),
+    [forScreen, JSON.stringify(defaultData)]
+  );
 
   const handleChange = (dataPart: Partial<SearchRecipesData>) => {
     data.set({ ...data.get, ...dataPart });
   };
 
   const handleSubmit = () => {
-    navigation.navigate('CookBook', data.get);
+    navigation.navigate(forScreen as any, data.get);
   };
 
   const handleReset = () => {
     data.set({});
     setResetKey(resetKey + 1);
   };
-
-  const ingredientsData = useMemo(() => {
-    data.set({ ...route.params });
-    const ids = new Set(route.params?.ingredientIds || []);
-    return ingredients.get.filter((i) => ids.has(i.id));
-  }, [route.params?.ingredientIds?.join(',')]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -79,11 +72,23 @@ const FiltersScreen = ({ navigation, route }: Props) => {
         />
       ),
     });
-  }, [navigation.getId(), resetKey]);
+  }, [navigation.getId(), resetKey, forScreen]);
+
+  const goToIngredients = (type: 'include' | 'exclude') => () =>
+    navigation.navigate('Ingredients', {
+      forScreen,
+      type,
+      ...data.get,
+    });
 
   return (
     <Box flex={1} bg="white">
-      <ScrollView key={resetKey} flex={1} bg="#F7F7F7">
+      <ScrollView
+        key={resetKey}
+        flex={1}
+        bg="#F7F7F7"
+        contentContainerStyle={{ paddingBottom: 8 }}
+      >
         <SelectionBlock
           defaultId={data.get.mealTypeId}
           name="Тип приема пищи"
@@ -102,15 +107,21 @@ const FiltersScreen = ({ navigation, route }: Props) => {
           filters={cookingTimeFilters}
           onChoose={(cookingTimeId) => handleChange({ cookingTimeId })}
         />
-        <MultipleSelectionBlock
-          defaultIds={data.get.ingredientIds}
+        <IngredientsBlock
           name="Добавить продукт"
-          filters={ingredientsData}
-          onChoose={(ingredientIds) => handleChange({ ingredientIds })}
+          defaultIngredientIds={data.get.includeIngredientIds}
+          onChoose={(includeIngredientIds) =>
+            handleChange({ includeIngredientIds })
+          }
+          goToIngredients={goToIngredients('include')}
         />
-        <AddIngredientsButton
-          mb={4}
-          onPress={() => navigation.navigate('Ingredients', data.get)}
+        <IngredientsBlock
+          name="Исключить продукт"
+          defaultIngredientIds={data.get.excludeIngredientIds}
+          onChoose={(excludeIngredientIds) =>
+            handleChange({ excludeIngredientIds })
+          }
+          goToIngredients={goToIngredients('exclude')}
         />
       </ScrollView>
       <ControlButtons onSubmit={handleSubmit} onReset={handleReset} />
