@@ -17,7 +17,7 @@ const FilterTag = ({ isActive, text, onPress }: Props) => (
     borderColor="tertiary.200"
     borderRadius="full"
     overflow="hidden"
-    shadow="3"
+    shadow="1"
   >
     <TouchableNativeFeedback
       background={TouchableNativeFeedback.Ripple('#34D399', false)}

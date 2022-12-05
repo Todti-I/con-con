@@ -1,3 +1,4 @@
+import { useDebounce } from 'con-con/hooks';
 import {
   ArrowBackIcon,
   HStack,
@@ -11,27 +12,51 @@ import { Dimensions } from 'react-native';
 const width = Dimensions.get('window').width;
 
 type Props = {
+  withDebounce?: boolean;
   defaultValue?: string;
-  onSearch?: (value: string) => void;
+  onChange?: (value: string) => void;
+  onBlur?: (value: string) => void;
   onBack?: () => void;
   extraButtons?: ReactNode;
+  placeholder?: string;
 };
 
-const SearchBar = ({ defaultValue, onSearch, onBack, extraButtons }: Props) => {
+const SearchBar = ({
+  withDebounce,
+  defaultValue,
+  onChange,
+  onBlur,
+  onBack,
+  extraButtons,
+  placeholder,
+}: Props) => {
+  const debounce = useDebounce(300);
   const [value, setValue] = useState(defaultValue || '');
 
-  const handleSearch = () => {
-    onSearch?.(value);
+  const handleChange = (value: string) => {
+    if (withDebounce) {
+      debounce.set(() => onChange?.(value));
+    } else {
+      onChange?.(value);
+    }
+
+    setValue(value);
+  };
+
+  const handleBlur = () => {
+    onBlur?.(value);
   };
 
   return (
     <HStack w={width - 32} space={2} alignItems="center">
-      <IconButton
-        borderRadius="full"
-        icon={<ArrowBackIcon />}
-        colorScheme="light"
-        onPress={onBack}
-      />
+      {onBack && (
+        <IconButton
+          borderRadius="full"
+          icon={<ArrowBackIcon />}
+          colorScheme="light"
+          onPress={onBack}
+        />
+      )}
       <Input
         h="36px"
         flex={1}
@@ -39,10 +64,10 @@ const SearchBar = ({ defaultValue, onSearch, onBack, extraButtons }: Props) => {
         leftElement={<SearchIcon ml={4} size={4} />}
         borderRadius="full"
         fontSize="md"
-        placeholder="Поиск по рецептам"
+        placeholder={placeholder}
         defaultValue={defaultValue}
-        onBlur={handleSearch}
-        onChangeText={setValue}
+        onBlur={handleBlur}
+        onChangeText={handleChange}
       />
       {extraButtons}
     </HStack>

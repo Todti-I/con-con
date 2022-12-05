@@ -1,5 +1,5 @@
 import { Box, Flex, Heading } from 'native-base';
-import { memo, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import FilterTag from './FilterTag';
 
 type Props<T> = {
@@ -16,6 +16,10 @@ const MultipleSelectionBlock = <T,>({
   onChoose,
 }: Props<T>) => {
   const [chosenIds, setChosenIds] = useState(defaultIds || []);
+
+  useEffect(() => {
+    defaultIds && setChosenIds(defaultIds);
+  }, [defaultIds]);
 
   const handleChoose = (id: T, isChosen: boolean) => () => {
     const newIds = chosenIds.filter((i) => i !== id);

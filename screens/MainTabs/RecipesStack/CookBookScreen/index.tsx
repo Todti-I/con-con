@@ -44,6 +44,7 @@ const CookBookScreen = ({ navigation, route }: Props) => {
         offset: offset.get,
         limit: pageSize,
         title: searchData.title,
+        includeIngredients: searchData.ingredientIds,
       }),
     {
       onStartLoading: () => isLoading.set(true),
@@ -53,7 +54,7 @@ const CookBookScreen = ({ navigation, route }: Props) => {
         hasNext.set(result.length === pageSize);
         recipes.set(result);
       },
-      deps: [searchData.title],
+      deps: [JSON.stringify(route.params)],
     }
   );
 
@@ -65,6 +66,7 @@ const CookBookScreen = ({ navigation, route }: Props) => {
       offset: offset.get,
       limit: pageSize,
       title: searchData.title,
+      includeIngredients: searchData.ingredientIds,
     });
     hasNext.set(newRecipes.length === pageSize);
     recipes.set([...recipes.get, ...newRecipes]);

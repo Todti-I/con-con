@@ -166,6 +166,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         basketProducts.set(data.basketProducts, true);
         favoriteRecipes.set(data.favoriteRecipes, true);
         mealsData.set(updatedMeals.data, !updatedMeals.isUpdated);
+        ingredients.set(data.ingredients);
       }
     },
   });

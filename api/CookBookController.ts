@@ -28,9 +28,18 @@ export default class CookBookController extends BaseController {
     offset: number;
     limit: number;
     title?: string;
+    includeIngredients?: string[];
   }): Promise<RecipeData[]> {
-    if (params.title) {
-      return this.get('/cookbook/search', params);
+    if (params.title || params.includeIngredients) {
+      const url =
+        `/cookbook/search?offset=${params.offset}&limit=${params.limit}` +
+        (params.includeIngredients || []).reduce(
+          (r, id, i) => `${r}&includeIngredients[${i}]=${id}`,
+          ''
+        ) +
+        (params.title ? `&title=${params.title}` : '');
+
+      return this.get(url);
     }
 
     return this.getRecipes(params.offset, params.limit);

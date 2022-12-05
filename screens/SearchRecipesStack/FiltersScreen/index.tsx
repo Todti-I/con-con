@@ -7,9 +7,10 @@ import {
   SearchRecipesStackParamList,
 } from 'con-con/types/navigation';
 import { SearchRecipesData } from 'con-con/types/recipes';
-import { ScrollView } from 'native-base';
-import { useLayoutEffect, useMemo } from 'react';
+import { Box, Button, HStack, ScrollView } from 'native-base';
+import { useLayoutEffect, useMemo, useState } from 'react';
 import AddIngredientsButton from './AddIngredientsButton';
+import ControlButtons from './ControlButtons';
 import MultipleSelectionBlock from './MultipleSelectionBlock';
 import SelectionBlock from './SelectionBlock';
 
@@ -21,8 +22,8 @@ type Props = CompositeScreenProps<
 const mealTypeFilters = [
   { id: 0, name: 'Завтрак' },
   { id: 1, name: 'Обед' },
-  { id: 1, name: 'Ужин' },
-  { id: 2, name: 'Перекус' },
+  { id: 2, name: 'Ужин' },
+  { id: 3, name: 'Перекус' },
 ];
 
 const kilocaloriesFilters = [
@@ -44,12 +45,23 @@ const cookingTimeFilters = [
 const FiltersScreen = ({ navigation, route }: Props) => {
   const { ingredients } = useAppContext();
   const data = useValue({ ...route.params });
+  const [resetKey, setResetKey] = useState(0);
 
   const handleChange = (dataPart: Partial<SearchRecipesData>) => {
     data.set({ ...data.get, ...dataPart });
   };
 
+  const handleSubmit = () => {
+    navigation.navigate('CookBook', data.get);
+  };
+
+  const handleReset = () => {
+    data.set({});
+    setResetKey(resetKey + 1);
+  };
+
   const ingredientsData = useMemo(() => {
+    data.set({ ...route.params });
     const ids = new Set(route.params?.ingredientIds || []);
     return ingredients.get.filter((i) => ids.has(i.id));
   }, [route.params?.ingredientIds?.length]);
@@ -59,44 +71,50 @@ const FiltersScreen = ({ navigation, route }: Props) => {
       headerBackVisible: false,
       headerTitle: () => (
         <SearchBar
+          key={resetKey}
+          placeholder="Поиск по рецептам"
           defaultValue={data.get.title}
-          onSearch={(title) => handleChange({ title })}
-          onBack={() => navigation.navigate('CookBook', data.get)}
+          onChange={(title) => handleChange({ title })}
+          onBack={handleSubmit}
         />
       ),
     });
-  }, [navigation.getId()]);
+  }, [navigation.getId(), resetKey]);
 
   return (
-    <ScrollView py={2} flex={1} bg="#F7F7F7">
-      <SelectionBlock
-        defaultId={data.get.mealTypeId}
-        name="Тип приема пищи"
-        filters={mealTypeFilters}
-        onChoose={(mealTypeId) => handleChange({ mealTypeId })}
-      />
-      <SelectionBlock
-        defaultId={data.get.kilocaloriesId}
-        name="Калорийность на 100г"
-        filters={kilocaloriesFilters}
-        onChoose={(kilocaloriesId) => handleChange({ kilocaloriesId })}
-      />
-      <SelectionBlock
-        defaultId={data.get.cookingTimeId}
-        name="Время приготовления"
-        filters={cookingTimeFilters}
-        onChoose={(cookingTimeId) => handleChange({ cookingTimeId })}
-      />
-      <MultipleSelectionBlock
-        defaultIds={data.get.ingredientIds}
-        name="Время приготовления"
-        filters={ingredientsData}
-        onChoose={(ingredientIds) => handleChange({ ingredientIds })}
-      />
-      <AddIngredientsButton
-        onPress={() => navigation.navigate('Ingredients', data.get)}
-      />
-    </ScrollView>
+    <Box flex={1} bg="white">
+      <ScrollView key={resetKey} flex={1} bg="#F7F7F7">
+        <SelectionBlock
+          defaultId={data.get.mealTypeId}
+          name="Тип приема пищи"
+          filters={mealTypeFilters}
+          onChoose={(mealTypeId) => handleChange({ mealTypeId })}
+        />
+        <SelectionBlock
+          defaultId={data.get.kilocaloriesId}
+          name="Калорийность на 100г"
+          filters={kilocaloriesFilters}
+          onChoose={(kilocaloriesId) => handleChange({ kilocaloriesId })}
+        />
+        <SelectionBlock
+          defaultId={data.get.cookingTimeId}
+          name="Время приготовления"
+          filters={cookingTimeFilters}
+          onChoose={(cookingTimeId) => handleChange({ cookingTimeId })}
+        />
+        <MultipleSelectionBlock
+          defaultIds={data.get.ingredientIds}
+          name="Добавить продукт"
+          filters={ingredientsData}
+          onChoose={(ingredientIds) => handleChange({ ingredientIds })}
+        />
+        <AddIngredientsButton
+          mb={4}
+          onPress={() => navigation.navigate('Ingredients', data.get)}
+        />
+      </ScrollView>
+      <ControlButtons onSubmit={handleSubmit} onReset={handleReset} />
+    </Box>
   );
 };
 
