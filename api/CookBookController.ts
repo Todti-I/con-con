@@ -30,7 +30,7 @@ export default class CookBookController extends BaseController {
     title?: string;
     includeIngredients?: string[];
   }): Promise<RecipeData[]> {
-    if (params.title || params.includeIngredients) {
+    if (params.title || params.includeIngredients?.length) {
       const url =
         `/cookbook/search?offset=${params.offset}&limit=${params.limit}` +
         (params.includeIngredients || []).reduce(

@@ -64,7 +64,7 @@ const FiltersScreen = ({ navigation, route }: Props) => {
     data.set({ ...route.params });
     const ids = new Set(route.params?.ingredientIds || []);
     return ingredients.get.filter((i) => ids.has(i.id));
-  }, [route.params?.ingredientIds?.length]);
+  }, [route.params?.ingredientIds?.join(',')]);
 
   useLayoutEffect(() => {
     navigation.setOptions({

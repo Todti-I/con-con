@@ -53,5 +53,7 @@ const MultipleSelectionBlock = <T,>({
 };
 
 export default memo(MultipleSelectionBlock, (prevProps, nextProps) => {
-  return prevProps.filters.length === nextProps.filters.length;
+  return (
+    JSON.stringify(prevProps.filters) === JSON.stringify(nextProps.filters)
+  );
 });
