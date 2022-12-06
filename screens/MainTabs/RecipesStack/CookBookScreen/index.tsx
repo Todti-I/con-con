@@ -55,7 +55,7 @@ const CookBookScreen = ({ navigation, route }: Props) => {
         hasNext.set(result.length === pageSize);
         recipes.set(result);
       },
-      deps: [JSON.stringify(route.params)],
+      deps: [JSON.stringify(route.params || {})],
     }
   );
 

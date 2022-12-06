@@ -1,6 +1,7 @@
 import { useDebounce } from 'con-con/hooks';
 import {
   ArrowBackIcon,
+  CloseIcon,
   HStack,
   IconButton,
   Input,
@@ -43,8 +44,9 @@ const SearchBar = ({
     setValue(value);
   };
 
-  const handleBlur = () => {
-    onBlur?.(value);
+  const handleClear = () => {
+    onChange?.('');
+    setValue('');
   };
 
   return (
@@ -62,11 +64,20 @@ const SearchBar = ({
         flex={1}
         bg="text.50"
         leftElement={<SearchIcon ml={4} size={4} />}
+        rightElement={
+          value ? (
+            <IconButton
+              borderRadius="full"
+              colorScheme="gray"
+              onPress={handleClear}
+              icon={<CloseIcon color="text.500" size={4} />}
+            />
+          ) : undefined
+        }
         borderRadius="full"
         fontSize="md"
         placeholder={placeholder}
-        defaultValue={defaultValue}
-        onBlur={handleBlur}
+        value={value}
         onChangeText={handleChange}
       />
       {extraButtons}

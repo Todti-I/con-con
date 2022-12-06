@@ -9,7 +9,7 @@ const NotFoundIngredients = () => (
       color="text.500"
       textAlign="center"
       fontSize="xl"
-      children="Ингредиенты не найдено"
+      children="Ингредиенты не найдены"
     />
   </VStack>
 );

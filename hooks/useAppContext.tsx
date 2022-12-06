@@ -80,7 +80,7 @@ const updateMealsIfNeeded = async (
     !mealsData.date ||
     dayjs(mealsData.date).startOf('day').isBefore(currentDay)
   ) {
-    console.warn('Update meals' + mealsData.date);
+    console.warn('Update meals, old date: ' + mealsData.date);
     const diets = await api.diet.getDiet(kilocalories);
 
     return {
