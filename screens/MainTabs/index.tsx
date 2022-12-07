@@ -1,12 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../types';
+import { MainTabParamList, RootStackParamList } from 'con-con/types/navigation';
 import ArticlesScreen from './ArticlesScreen';
 import DiaryStack from './DiaryStack';
 import { headerOptions, tabBarOptions } from './options';
 import ProfileScreen from './ProfileScreen';
-import RecipesScreen from './RecipesScreen';
-import { MainTabParamList } from './types';
+import RecipesStack from './RecipesStack';
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 
@@ -33,12 +32,13 @@ const MainTabs = ({
       }}
     />
     <Tab.Screen
-      name={RecipesScreen.screenName}
-      component={RecipesScreen}
+      name={RecipesStack.screenName}
+      component={RecipesStack}
       options={{
-        headerTitle: RecipesScreen.title,
-        tabBarLabel: RecipesScreen.title,
-        tabBarIcon: RecipesScreen.Icon,
+        headerShown: false,
+        headerTitle: RecipesStack.title,
+        tabBarLabel: RecipesStack.title,
+        tabBarIcon: RecipesStack.Icon,
       }}
     />
     <Tab.Screen

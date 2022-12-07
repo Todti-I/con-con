@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { WizardStackParamList } from 'con-con/types/navigation';
 import { Checkbox, ChevronRightIcon, Divider, Text, VStack } from 'native-base';
 import { LogBox } from 'react-native';
-import { WizardStackParamList } from './types';
 import { useDataUpdates, useProgressUpdates } from './wizard-context';
 import WizardLayout from './WizardLayout';
 

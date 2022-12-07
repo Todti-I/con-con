@@ -3,19 +3,30 @@ import {
   NativeStackNavigationOptions,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
-import { DiaryStackParamList } from '../types';
+import {
+  AddMealTabParamList,
+  DiaryStackParamList,
+} from 'con-con/types/navigation';
+import { useLayoutEffect } from 'react';
+import mealTypeData from '../meal-type-data';
 import AllRecipesScreen from './AllRecipesScreen';
 import FavoriteRecipesScreen from './FavoriteRecipesScreen';
 import { tabBarOptions } from './options';
 import RecipesForYouScreen from './RecipesForYouScreen';
-import { AddMealTabParamList } from './types';
 
 const Tab = createMaterialTopTabNavigator<AddMealTabParamList>();
 
 const AddMealTabs = ({
+  navigation,
   route,
 }: NativeStackScreenProps<DiaryStackParamList, 'AddMeal'>) => {
   const mealType = route.params.mealType;
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: `Добавить ${mealTypeData[mealType].name.toLowerCase()}`,
+    });
+  }, [mealType]);
 
   return (
     <Tab.Navigator screenOptions={{ ...tabBarOptions }}>
@@ -44,7 +55,6 @@ const AddMealTabs = ({
 AddMealTabs.screenName = 'AddMeal' as const;
 AddMealTabs.screenOptions = {
   animation: 'default',
-  headerTitle: 'Добавить прием пищи',
   headerShadowVisible: false,
 } as NativeStackNavigationOptions;
 

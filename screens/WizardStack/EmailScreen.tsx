@@ -1,9 +1,9 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useAppContext } from 'con-con/hooks';
+import { WizardStackParamList } from 'con-con/types/navigation';
 import { WizardData } from 'con-con/types/wizard-data';
 import { Input, Text } from 'native-base';
 import { useEffect, useState } from 'react';
-import { WizardStackParamList } from './types';
 import {
   useDataUpdates,
   useProgressUpdates,

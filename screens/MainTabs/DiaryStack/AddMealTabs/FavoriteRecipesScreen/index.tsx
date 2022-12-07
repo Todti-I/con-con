@@ -1,34 +1,32 @@
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
-import { useAppContext, useForceUpdate } from 'con-con/hooks';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useAppContext } from 'con-con/hooks';
+import {
+  AddMealTabParamList,
+  DiaryStackParamList,
+  MainTabParamList,
+} from 'con-con/types/navigation';
 import { RecipeData } from 'con-con/types/recipes';
 import { FlatList } from 'native-base';
-import { useEffect } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { useDiaryContext } from '../../context';
-import { AddMealTabParamList } from '../types';
 import FavoriteEmpty from './FavoriteEmpty';
 import RecipeCard from './RecipeCard';
 
-const FavoriteRecipesScreen = ({
-  navigation,
-  route,
-}: MaterialTopTabScreenProps<AddMealTabParamList, 'FavoriteRecipes'>) => {
-  const forceUpdate = useForceUpdate();
-  const {
-    favoriteRecipes,
-    mealsData,
-    subscriptions: appSubscriptions,
-  } = useAppContext();
+type Props = CompositeScreenProps<
+  CompositeScreenProps<
+    MaterialTopTabScreenProps<AddMealTabParamList, 'FavoriteRecipes'>,
+    NativeStackScreenProps<DiaryStackParamList>
+  >,
+  BottomTabScreenProps<MainTabParamList>
+>;
+
+const FavoriteRecipesScreen = ({ navigation, route }: Props) => {
+  const { favoriteRecipes, mealsData } = useAppContext();
   const { subscriptions } = useDiaryContext();
   const mealType = route.params.mealType;
-
-  useEffect(() => {
-    const unsubscribe = appSubscriptions.subscribe(
-      'favorite-recipes',
-      forceUpdate
-    );
-    return () => unsubscribe();
-  }, []);
 
   const handleAdd = (recipe: RecipeData) => (mass: number) => {
     const newRecipes = [...mealsData.get.meals[mealType], { ...recipe, mass }];
@@ -48,7 +46,13 @@ const FavoriteRecipesScreen = ({
       mealType={mealType}
       recipe={item}
       onAdd={handleAdd(item)}
-      goToRecipe={console.log}
+      goToRecipe={() =>
+        navigation.navigate('Recipes', {
+          screen: 'Recipe',
+          params: { recipeId: item.id },
+          initial: false,
+        })
+      }
     />
   );
 
@@ -60,7 +64,7 @@ const FavoriteRecipesScreen = ({
       ListEmptyComponent={FavoriteEmpty}
       data={favoriteRecipes.get}
       renderItem={renderItem}
-      keyExtractor={(r) => r.id.toString()}
+      keyExtractor={(r) => r.id}
     />
   );
 };

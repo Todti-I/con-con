@@ -12,14 +12,16 @@ export type RecipeData = {
     step: number;
     description: string;
   }[];
-  ingredients: {
-    id: string;
-    name: string;
-    mass: number;
-  }[];
+  ingredients: IngredientData[];
   cookingTime: number;
   mealType: number;
   vegeterian: number;
+  mass: number;
+};
+
+export type IngredientData = {
+  id: string;
+  name: string;
   mass: number;
 };
 
@@ -37,3 +39,32 @@ export const defaultMealsData = (): MealsData => ({
     supper: [],
   },
 });
+
+export enum MealTypeFilter {
+  Breakfast = 1,
+  Dinner = 2,
+  Supper = 3,
+}
+
+export enum KilocaloriesFilter {
+  To200,
+  From200To400,
+  From400,
+}
+
+export enum CookingTimeFilter {
+  To15,
+  To30,
+  To45,
+  To60,
+  From60,
+}
+
+export type SearchRecipesData = {
+  title?: string;
+  mealTypeFilter?: MealTypeFilter;
+  kilocaloriesFilter?: KilocaloriesFilter;
+  cookingTimeFilter?: CookingTimeFilter;
+  includeIngredientIds?: string[];
+  excludeIngredientIds?: string[];
+};
