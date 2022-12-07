@@ -10,6 +10,7 @@ import { Box, FlatList } from 'native-base';
 import { ListRenderItemInfo } from 'react-native';
 import AddProductButton from './AddProductButton';
 import BasketEmpty from './BasketEmpty';
+import ClearBasketButton from './ClearBasketButton';
 import ProductCard from './ProductCard';
 
 const BasketScreen = (
@@ -36,6 +37,11 @@ const BasketScreen = (
     newData.length === 0 && forceUpdate();
   };
 
+  const handleClear = () => {
+    basketProducts.set([]);
+    forceUpdate();
+  };
+
   const renderItem = ({ item }: ListRenderItemInfo<BasketProductData>) => (
     <ProductCard item={item} onCheck={handleCheck} onRemove={handleRemove} />
   );
@@ -51,6 +57,9 @@ const BasketScreen = (
         keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
       />
+      {basketProducts.get.length > 0 && (
+        <ClearBasketButton onClear={handleClear} />
+      )}
       <AddProductButton onAdd={handleAdd} />
     </Box>
   );
