@@ -60,7 +60,7 @@ const MealScreen = ({ navigation, route }: Props) => {
       goToRecipeScreen={() =>
         navigation.navigate('Recipes', {
           screen: 'Recipe',
-          params: { recipeId: item.id, mass: item.mass },
+          params: { recipeId: item.id },
           initial: false,
         })
       }

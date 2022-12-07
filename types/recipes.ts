@@ -40,11 +40,31 @@ export const defaultMealsData = (): MealsData => ({
   },
 });
 
+export enum MealTypeFilter {
+  Breakfast = 1,
+  Dinner = 2,
+  Supper = 3,
+}
+
+export enum KilocaloriesFilter {
+  To200,
+  From200To400,
+  From400,
+}
+
+export enum CookingTimeFilter {
+  To15,
+  To30,
+  To45,
+  To60,
+  From60,
+}
+
 export type SearchRecipesData = {
   title?: string;
-  mealTypeId?: number;
-  kilocaloriesId?: number;
-  cookingTimeId?: number;
+  mealTypeFilter?: MealTypeFilter;
+  kilocaloriesFilter?: KilocaloriesFilter;
+  cookingTimeFilter?: CookingTimeFilter;
   includeIngredientIds?: string[];
   excludeIngredientIds?: string[];
 };

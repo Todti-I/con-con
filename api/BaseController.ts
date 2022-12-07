@@ -3,6 +3,9 @@ import isDev from 'con-con/utils/is-dev';
 
 const axios = axiosStatic.create({
   baseURL: 'http://88.210.6.3:5000',
+  paramsSerializer: {
+    indexes: true,
+  },
 });
 
 axios.interceptors.request.use(

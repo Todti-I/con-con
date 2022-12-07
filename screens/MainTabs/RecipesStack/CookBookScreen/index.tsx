@@ -39,14 +39,7 @@ const CookBookScreen = ({ navigation, route }: Props) => {
   const hasNext = useValue(true);
 
   useMethodAfterMount(
-    () =>
-      api.cookBook.getRecipesWithSearch({
-        offset: offset.get,
-        limit: pageSize,
-        title: searchData.title,
-        includeIngredients: searchData.includeIngredientIds,
-        excludeIngredients: searchData.excludeIngredientIds,
-      }),
+    () => api.cookBook.getRecipesWithSearch(offset.get, pageSize, searchData),
     {
       onStartLoading: () => isLoading.set(true),
       onEndLoading: () => isLoading.set(false),
@@ -63,13 +56,11 @@ const CookBookScreen = ({ navigation, route }: Props) => {
     if (isLoading.get || !hasNext.get) return;
     isLoading.set(true, true);
     offset.set(offset.get + pageSize);
-    const newRecipes = await api.cookBook.getRecipesWithSearch({
-      offset: offset.get,
-      limit: pageSize,
-      title: searchData.title,
-      includeIngredients: searchData.includeIngredientIds,
-      excludeIngredients: searchData.excludeIngredientIds,
-    });
+    const newRecipes = await api.cookBook.getRecipesWithSearch(
+      offset.get,
+      pageSize,
+      searchData
+    );
     hasNext.set(newRecipes.length === pageSize);
     recipes.set([...recipes.get, ...newRecipes]);
     isLoading.set(false);

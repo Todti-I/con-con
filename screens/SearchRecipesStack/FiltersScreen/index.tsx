@@ -2,7 +2,12 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useValue } from 'con-con/hooks';
 import SearchBar from 'con-con/screens/SearchRecipesStack/SearchBar';
 import { SearchRecipesStackParamList } from 'con-con/types/navigation';
-import { SearchRecipesData } from 'con-con/types/recipes';
+import {
+  CookingTimeFilter,
+  KilocaloriesFilter,
+  MealTypeFilter,
+  SearchRecipesData,
+} from 'con-con/types/recipes';
 import { Box, ScrollView } from 'native-base';
 import { useLayoutEffect, useMemo, useState } from 'react';
 import ControlButtons from './ControlButtons';
@@ -10,26 +15,23 @@ import IngredientsBlock from './IngredientsBlock';
 import SelectionBlock from './SelectionBlock';
 
 const mealTypeFilters = [
-  { id: 0, name: 'Завтрак' },
-  { id: 1, name: 'Обед' },
-  { id: 2, name: 'Ужин' },
-  { id: 3, name: 'Перекус' },
+  { id: MealTypeFilter.Breakfast, name: 'Завтрак' },
+  { id: MealTypeFilter.Dinner, name: 'Обед/Ужин' },
+  { id: MealTypeFilter.Supper, name: 'Перекус' },
 ];
 
 const kilocaloriesFilters = [
-  { id: 0, name: 'До 200 ккал' },
-  { id: 1, name: '200-400 ккал' },
-  { id: 2, name: '400-600 ккал' },
-  { id: 3, name: '600-800 ккал' },
-  { id: 4, name: 'Более 800 ккал' },
+  { id: KilocaloriesFilter.To200, name: 'До 200 ккал' },
+  { id: KilocaloriesFilter.From200To400, name: '200-400 ккал' },
+  { id: KilocaloriesFilter.From400, name: 'Более 400 ккал' },
 ];
 
 const cookingTimeFilters = [
-  { id: 0, name: 'До 15 минут' },
-  { id: 1, name: 'До 30 минут' },
-  { id: 2, name: 'До 45 минут' },
-  { id: 3, name: 'До часа' },
-  { id: 4, name: 'Более часа' },
+  { id: CookingTimeFilter.To15, name: 'До 15 минут' },
+  { id: CookingTimeFilter.To30, name: 'До 30 минут' },
+  { id: CookingTimeFilter.To45, name: 'До 45 минут' },
+  { id: CookingTimeFilter.To60, name: 'До часа' },
+  { id: CookingTimeFilter.From60, name: 'Более часа' },
 ];
 
 const FiltersScreen = ({
@@ -90,22 +92,28 @@ const FiltersScreen = ({
         contentContainerStyle={{ paddingBottom: 8 }}
       >
         <SelectionBlock
-          defaultId={data.get.mealTypeId}
+          defaultId={data.get.mealTypeFilter}
           name="Тип приема пищи"
           filters={mealTypeFilters}
-          onChoose={(mealTypeId) => handleChange({ mealTypeId })}
+          onChoose={(mealTypeId) =>
+            handleChange({ mealTypeFilter: mealTypeId })
+          }
         />
         <SelectionBlock
-          defaultId={data.get.kilocaloriesId}
+          defaultId={data.get.kilocaloriesFilter}
           name="Калорийность на 100г"
           filters={kilocaloriesFilters}
-          onChoose={(kilocaloriesId) => handleChange({ kilocaloriesId })}
+          onChoose={(kilocaloriesId) =>
+            handleChange({ kilocaloriesFilter: kilocaloriesId })
+          }
         />
         <SelectionBlock
-          defaultId={data.get.cookingTimeId}
+          defaultId={data.get.cookingTimeFilter}
           name="Время приготовления"
           filters={cookingTimeFilters}
-          onChoose={(cookingTimeId) => handleChange({ cookingTimeId })}
+          onChoose={(cookingTimeId) =>
+            handleChange({ cookingTimeFilter: cookingTimeId })
+          }
         />
         <IngredientsBlock
           name="Добавить продукт"

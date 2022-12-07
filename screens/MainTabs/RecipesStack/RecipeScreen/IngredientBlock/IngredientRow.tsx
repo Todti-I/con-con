@@ -8,8 +8,8 @@ type Props = {
 
 const IngredientRow = ({ name, value }: Props) => (
   <HStack p={4} space={2} alignItems="center" justifyContent="space-between">
-    <Text children={name} />
-    <Text color="text.500" children={`${value} г`} />
+    <Text flex={1} children={name} />
+    <Text color="text.500" children={value ? `${value} г` : ''} />
   </HStack>
 );
 
