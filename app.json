@@ -3,7 +3,7 @@
     "name": "ConCon",
     "slug": "con-con",
     "owner": "todti",
-    "version": "0.4.3",
+    "version": "0.4.4",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
