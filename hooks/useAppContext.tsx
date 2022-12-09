@@ -158,6 +158,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     onEndLoading: () => setIsLoading(false),
     next: async (data) => {
       wizardData.set(data.wizardData, true);
+      ingredients.set(data.ingredients);
 
       if (data.wizardData) {
         userData.set(calculateUserParams(data.wizardData));
@@ -170,7 +171,6 @@ export const AppProvider = ({ children }: AppProviderProps) => {
         basketProducts.set(data.basketProducts, true);
         favoriteRecipes.set(data.favoriteRecipes, true);
         mealsData.set(updatedMeals.data, !updatedMeals.isUpdated);
-        ingredients.set(data.ingredients);
       }
     },
   });
