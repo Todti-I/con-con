@@ -1,7 +1,7 @@
 import FavoriteRecipesButton from 'con-con/components/FavoriteRecipesButton';
 import ThumbUpIcon from 'con-con/icons/ThumbUpIcon';
 import { MealType, RecipeData } from 'con-con/types/recipes';
-import { AddIcon, HStack, IconButton } from 'native-base';
+import { AddIcon, Flex, IconButton } from 'native-base';
 import { useState } from 'react';
 import AddMealWindow from '../AddMealWindow';
 
@@ -23,7 +23,7 @@ const ControlButtons = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <HStack mt={4} space={5} justifyContent="center" alignItems="center">
+    <Flex mt={4} flexDir="row" justifyContent="center" alignItems="center">
       <IconButton
         shadow="0"
         bg="text.50"
@@ -42,6 +42,7 @@ const ControlButtons = ({
         }
       />
       <IconButton
+        mx={5}
         shadow="0"
         boxSize="80px"
         variant="solid"
@@ -66,6 +67,7 @@ const ControlButtons = ({
       />
       {recipe && (
         <AddMealWindow
+          key={`w-${recipe.id}`}
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
           mealType={mealType}
@@ -73,7 +75,7 @@ const ControlButtons = ({
           onSubmit={onAdd}
         />
       )}
-    </HStack>
+    </Flex>
   );
 };
 
