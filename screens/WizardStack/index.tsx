@@ -12,8 +12,6 @@ import { KeyboardAvoidingView } from 'native-base';
 import { useMemo } from 'react';
 import ActivityTypeScreen from './ActivityTypeScreen';
 import BirthdayScreen from './BirthdayScreen';
-import DesiredWeightScreen from './DesiredWeightScreen';
-import EmailScreen from './EmailScreen';
 import GenderScreen from './GenderScreen';
 import GrowthScreen from './GrowthScreen';
 import PreferencesScreen from './PreferencesScreen';
@@ -73,10 +71,6 @@ const WizardStack = ({
             component={WeightScreen}
           />
           <Stack.Screen
-            name={DesiredWeightScreen.screenName}
-            component={DesiredWeightScreen}
-          />
-          <Stack.Screen
             name={ActivityTypeScreen.screenName}
             component={ActivityTypeScreen}
           />
@@ -84,7 +78,6 @@ const WizardStack = ({
             name={PreferencesScreen.screenName}
             component={PreferencesScreen}
           />
-          <Stack.Screen name={EmailScreen.screenName} component={EmailScreen} />
         </Stack.Navigator>
         <WizardProgress />
       </KeyboardAvoidingView>

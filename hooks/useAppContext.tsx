@@ -54,7 +54,7 @@ const fetchData = async () => {
     mealsData = defaultMealsData(),
     ingredients = [],
   ] = await Promise.all([
-    storage.getItem('wizard-data'),
+    storage.getItem('wizard-data-v2'),
     storage.getItem('basket-products'),
     storage.getItem('favorite-recipes'),
     storage.getItem('meals-data'),
@@ -72,7 +72,8 @@ const fetchData = async () => {
 
 const updateMealsIfNeeded = async (
   mealsData: MealsData,
-  kilocalories: number
+  kilocalories: number,
+  isVegetarian?: boolean
 ) => {
   const currentDay = dayjs().startOf('day');
 
@@ -81,7 +82,7 @@ const updateMealsIfNeeded = async (
     dayjs(mealsData.date).startOf('day').isBefore(currentDay)
   ) {
     console.warn('Update meals, old date: ' + mealsData.date);
-    const diets = await api.diet.getDiet(kilocalories);
+    const diets = await api.diet.getDiet(kilocalories, isVegetarian);
 
     return {
       isUpdated: true,
@@ -109,16 +110,18 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     onUpdate: (newValue) => {
       const key = 'wizard-data';
       if (newValue) {
-        storage.setItem(key, newValue);
+        storage.setItem(`${key}-v2`, newValue);
         userData.set(calculateUserParams(newValue));
-        updateMealsIfNeeded(mealsData.get, userData.get.kilocalories).then(
-          (updatedMeals) => {
-            mealsData.set(updatedMeals.data, !updatedMeals.isUpdated);
-            subscriptions.ping(key);
-          }
-        );
+        updateMealsIfNeeded(
+          mealsData.get,
+          userData.get.kilocalories,
+          newValue.preferences.includes('vegetarian')
+        ).then((updatedMeals) => {
+          mealsData.set(updatedMeals.data, !updatedMeals.isUpdated);
+          subscriptions.ping(key);
+        });
       } else {
-        storage.removeItem(key);
+        storage.removeItem(`${key}-v2`);
         subscriptions.ping(key);
       }
     },
@@ -161,7 +164,8 @@ export const AppProvider = ({ children }: AppProviderProps) => {
 
         const updatedMeals = await updateMealsIfNeeded(
           data.mealsData,
-          userData.get.kilocalories
+          userData.get.kilocalories,
+          data.wizardData.preferences.includes('vegetarian')
         );
         basketProducts.set(data.basketProducts, true);
         favoriteRecipes.set(data.favoriteRecipes, true);

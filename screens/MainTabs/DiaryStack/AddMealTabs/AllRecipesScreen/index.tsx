@@ -33,7 +33,7 @@ const skeletonData = [...Array(10)].map(
 
 const AllRecipesScreen = ({ navigation, route }: Props) => {
   const forceUpdate = useForceUpdate();
-  const { mealsData } = useAppContext();
+  const { mealsData, wizardData } = useAppContext();
   const { subscriptions } = useDiaryContext();
   const recipes = useValue<RecipeData[]>([]);
   const isLoading = useValue(true, { onUpdate: forceUpdate });
@@ -43,7 +43,13 @@ const AllRecipesScreen = ({ navigation, route }: Props) => {
   const { mealType, ...searchData } = route.params;
 
   useMethodAfterMount(
-    () => api.cookBook.getRecipesWithSearch(offset.get, pageSize, searchData),
+    () =>
+      api.cookBook.getRecipesWithSearch(
+        offset.get,
+        pageSize,
+        searchData,
+        wizardData.get?.preferences.includes('vegetarian')
+      ),
     {
       onStartLoading: () => isLoading.set(true),
       onEndLoading: () => isLoading.set(false),
@@ -77,7 +83,8 @@ const AllRecipesScreen = ({ navigation, route }: Props) => {
     const newRecipes = await api.cookBook.getRecipesWithSearch(
       offset.get,
       pageSize,
-      searchData
+      searchData,
+      wizardData.get?.preferences.includes('vegetarian')
     );
     hasNext.set(newRecipes.length === pageSize);
     recipes.set([...recipes.get, ...newRecipes]);

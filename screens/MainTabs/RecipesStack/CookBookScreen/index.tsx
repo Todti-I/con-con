@@ -5,7 +5,12 @@ import {
 } from '@react-navigation/native-stack';
 import api from 'con-con/api';
 import BasketButton from 'con-con/components/BasketButton';
-import { useForceUpdate, useMethodAfterMount, useValue } from 'con-con/hooks';
+import {
+  useAppContext,
+  useForceUpdate,
+  useMethodAfterMount,
+  useValue,
+} from 'con-con/hooks';
 import MultiHeartsIcon from 'con-con/icons/MultiHeartsIcon';
 import {
   RecipesStackParamList,
@@ -32,6 +37,7 @@ const skeletonData = [...Array(10)].map(
 const CookBookScreen = ({ navigation, route }: Props) => {
   const searchData = { ...route.params } as SearchRecipesData;
 
+  const { wizardData } = useAppContext();
   const forceUpdate = useForceUpdate();
   const recipes = useValue<RecipeData[]>([]);
   const isLoading = useValue(true, { onUpdate: forceUpdate });
@@ -39,7 +45,13 @@ const CookBookScreen = ({ navigation, route }: Props) => {
   const hasNext = useValue(true);
 
   useMethodAfterMount(
-    () => api.cookBook.getRecipesWithSearch(offset.get, pageSize, searchData),
+    () =>
+      api.cookBook.getRecipesWithSearch(
+        offset.get,
+        pageSize,
+        searchData,
+        wizardData.get?.preferences.includes('vegetarian')
+      ),
     {
       onStartLoading: () => isLoading.set(true),
       onEndLoading: () => isLoading.set(false),
@@ -59,7 +71,8 @@ const CookBookScreen = ({ navigation, route }: Props) => {
     const newRecipes = await api.cookBook.getRecipesWithSearch(
       offset.get,
       pageSize,
-      searchData
+      searchData,
+      wizardData.get?.preferences.includes('vegetarian')
     );
     hasNext.set(newRecipes.length === pageSize);
     recipes.set([...recipes.get, ...newRecipes]);

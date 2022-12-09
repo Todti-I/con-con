@@ -35,7 +35,7 @@ type Props = CompositeScreenProps<
 const RecipesForYouScreen = ({ navigation, route }: Props) => {
   const mealType = route.params.mealType;
 
-  const { mealsData } = useAppContext();
+  const { mealsData, wizardData } = useAppContext();
   const { subscriptions } = useDiaryContext();
   const [pos, setPos] = useState(0);
   const recipes = useValue<RecipeData[]>([]);
@@ -49,7 +49,11 @@ const RecipesForYouScreen = ({ navigation, route }: Props) => {
   } = useCardsAnimation();
 
   useMethodAfterMount(
-    () => api.recipes.getRecipes(mealTypeData[mealType].typeId),
+    () =>
+      api.recipes.getRecipes(
+        mealTypeData[mealType].typeId,
+        wizardData.get?.preferences.includes('vegetarian')
+      ),
     {
       onStartLoading: () => setIsLoading(true),
       onEndLoading: () => setIsLoading(false),

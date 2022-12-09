@@ -34,7 +34,7 @@ const activityTypes = [
 const ActivityTypeScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'ActivityType'>) => {
-  useProgressUpdates(6);
+  useProgressUpdates(5);
   const { data, update } = useDataUpdates();
   const [chosenActivityType, setChosenActivityType] = useState(
     data.activityType

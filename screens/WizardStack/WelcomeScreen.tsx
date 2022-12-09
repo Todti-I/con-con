@@ -27,11 +27,11 @@ const WelcomeScreen = ({
         children: 'Уже зарегистрированы? Войти',
       }}
     >
-      <Text
-        fontSize="xl"
-        fontWeight={500}
-        children="Давайте определим вашу индивидуальную диету!"
-      />
+      <Text fontSize="xl" fontWeight={500}>
+        Давайте определим вашу индивидуальную диету!{'\n\n'}Для расчетов нам
+        понадобятся данные Вашего организма, и их заполнение займет не более
+        <Text fontWeight="bold"> одной минуты!</Text>
+      </Text>
     </WizardLayout>
   );
 };

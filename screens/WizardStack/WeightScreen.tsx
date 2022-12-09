@@ -23,7 +23,7 @@ const WeightScreen = ({
         rightIcon: <ChevronRightIcon />,
         _icon: { ml: 5 },
         children: 'Далее',
-        onPress: () => navigation.navigate('DesiredWeight'),
+        onPress: () => navigation.navigate('ActivityType'),
       }}
       subButtonProps={{
         onPress: () => navigation.goBack(),

@@ -32,7 +32,8 @@ export default class CookBookController extends BaseController {
   async getRecipesWithSearch(
     offset: number,
     limit: number,
-    params: SearchRecipesData
+    params: SearchRecipesData,
+    isVegetarian?: boolean
   ): Promise<RecipeData[]> {
     const {
       title,
@@ -54,6 +55,7 @@ export default class CookBookController extends BaseController {
       kilocaloriesLessThan: convertFilter(kilocaloriesFilter, 'calories')?.max,
       timeMoreThan: convertFilter(cookingTimeFilter, 'cookingTime')?.min,
       timeLessThan: convertFilter(cookingTimeFilter, 'cookingTime')?.max,
+      isVegetarian: isVegetarian || undefined,
     });
   }
 }

@@ -4,7 +4,7 @@ import { MealsData, RecipeData } from 'con-con/types/recipes';
 import { WizardData } from 'con-con/types/wizard-data';
 
 type StorageData = {
-  'wizard-data': WizardData;
+  'wizard-data-v2': WizardData;
   'basket-products': BasketProductData[];
   'favorite-recipes': RecipeData[];
   'meals-data': MealsData;

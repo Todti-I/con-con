@@ -14,10 +14,8 @@ export type WizardStackParamList = {
   Birthday: undefined;
   Growth: undefined;
   Weight: undefined;
-  DesiredWeight: undefined;
   ActivityType: undefined;
   Preferences: undefined;
-  Email: undefined;
 };
 
 export type MainTabParamList = {

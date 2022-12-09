@@ -22,7 +22,7 @@ const WizardProgress = () => {
       w="full"
       opacity={pageNumber.get === 0 ? 0 : 1}
     >
-      <Progress h="20px" value={pageNumber.get} max={8} />
+      <Progress h="20px" value={pageNumber.get} max={6} />
     </Box>
   );
 };
