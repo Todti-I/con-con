@@ -53,7 +53,7 @@ export const tabBarOptions: BottomTabNavigationOptions = {
     <TouchableNativeFeedback
       {...props}
       background={TouchableNativeFeedback.Ripple('#BFDBFE', false, 40)}
-      style={[...(props.style as any), { width: 100 }]}
+      style={[...(props.style as any), { width: 130 }]}
     />
   ),
   tabBarStyle: {

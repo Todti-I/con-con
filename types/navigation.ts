@@ -22,7 +22,7 @@ export type MainTabParamList = {
   Diary?: NavigatorScreenParams<DiaryStackParamList>;
   Recipes?: NavigatorScreenParams<RecipesStackParamList>;
   Articles: undefined;
-  Profile: undefined;
+  Profile: NavigatorScreenParams<ProfileStackParamList>;
 };
 
 export type DiaryStackParamList = {
@@ -54,6 +54,11 @@ export type RecipesStackParamList = {
     recipeId: string;
     mass?: number;
   };
+};
+
+export type ProfileStackParamList = {
+  General: undefined;
+  Personal: undefined;
 };
 
 export type SearchRecipesStackParamList = {
