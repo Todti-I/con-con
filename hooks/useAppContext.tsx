@@ -20,7 +20,11 @@ import useMethodAfterMount from './useMethodAfterMount';
 import useSubscriptions, { UseSubscriptions } from './useSubscriptions';
 import useValue, { ValueRef } from './useValue';
 
-type SubscribeKey = 'favorite-recipes' | 'meals-data' | 'wizard-data';
+type SubscribeKey =
+  | 'favorite-recipes'
+  | 'meals-data'
+  | 'wizard-data'
+  | 'is-wizard-complete';
 
 type AppContent = {
   subscriptions: UseSubscriptions<SubscribeKey>;
@@ -30,6 +34,7 @@ type AppContent = {
   mealsData: ValueRef<MealsData>;
   userData: ValueRef<UserData>;
   ingredients: ValueRef<IngredientData[]>;
+  isWizardComplete: ValueRef<boolean>;
 };
 
 type AppProviderProps = {
@@ -44,6 +49,7 @@ const AppContext = createContext<AppContent>({
   mealsData: { get: defaultMealsData(), set: () => {} },
   userData: { get: defaultUserData(), set: () => {} },
   ingredients: { get: [], set: () => {} },
+  isWizardComplete: { get: false, set: () => {} },
 });
 
 const fetchData = async () => {
@@ -110,18 +116,30 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     onUpdate: (newValue) => {
       const key = 'wizard-data';
       if (newValue) {
-        storage.setItem(`${key}-v2`, newValue);
         userData.set(calculateUserParams(newValue));
+        debounce.set(() => storage.setItem(`${key}-v2`, newValue), key);
+      } else {
+        debounce.set(() => storage.removeItem(`${key}-v2`), key);
+      }
+      subscriptions.ping(key);
+    },
+  });
+
+  const isWizardComplete = useValue(false, {
+    onUpdate: (isComplete) => {
+      const key = 'is-wizard-complete';
+      const data = wizardData.get;
+      if (isComplete && data) {
+        userData.set(calculateUserParams(data));
         updateMealsIfNeeded(
           mealsData.get,
           userData.get.kilocalories,
-          newValue.preferences.includes('vegetarian')
+          data.preferences.includes('vegetarian')
         ).then((updatedMeals) => {
           mealsData.set(updatedMeals.data, !updatedMeals.isUpdated);
           subscriptions.ping(key);
         });
       } else {
-        storage.removeItem(`${key}-v2`);
         subscriptions.ping(key);
       }
     },
@@ -159,6 +177,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
     next: async (data) => {
       wizardData.set(data.wizardData, true);
       ingredients.set(data.ingredients);
+      isWizardComplete.set(Boolean(data.wizardData), true);
 
       if (data.wizardData) {
         userData.set(calculateUserParams(data.wizardData));
@@ -187,6 +206,7 @@ export const AppProvider = ({ children }: AppProviderProps) => {
           mealsData,
           userData,
           ingredients,
+          isWizardComplete,
         };
       }, [isLoading])}
     />

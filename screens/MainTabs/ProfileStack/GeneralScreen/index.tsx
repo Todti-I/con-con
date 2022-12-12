@@ -13,7 +13,7 @@ import {
   ProfileStackParamList,
 } from 'con-con/types/navigation';
 import { Box, Divider } from 'native-base';
-import ProfileDataRow from './ProfileDataRow';
+import ProfileDataRow from '../ProfileDataRow';
 
 const GeneralScreen = ({
   navigation,

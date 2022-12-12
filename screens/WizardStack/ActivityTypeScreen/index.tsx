@@ -10,7 +10,7 @@ import { useDataUpdates, useProgressUpdates } from '../wizard-context';
 import WizardLayout from '../WizardLayout';
 import ActivityButton from './ActivityButton';
 
-const activityTypes = [
+export const activityTypes = [
   {
     id: 'low' as const,
     name: 'Низкая',
