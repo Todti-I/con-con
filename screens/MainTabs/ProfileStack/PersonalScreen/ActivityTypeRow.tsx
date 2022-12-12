@@ -20,7 +20,11 @@ const ActivityTypeRow = () => {
 
   const handleSubmit = () => {
     if (wizardData.get && activityType) {
-      wizardData.set({ ...wizardData.get, activityType });
+      wizardData.set({
+        ...wizardData.get,
+        activityType,
+        customKilocalories: undefined,
+      });
       setIsOpen(false);
     }
   };

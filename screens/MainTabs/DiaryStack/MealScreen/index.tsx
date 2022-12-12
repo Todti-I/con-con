@@ -1,7 +1,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { useAppContext } from 'con-con/hooks';
+import { useAppContext, useForceUpdate } from 'con-con/hooks';
 import {
   DiaryStackParamList,
   MainTabParamList,
@@ -22,13 +22,20 @@ type Props = CompositeScreenProps<
 >;
 
 const MealScreen = ({ navigation, route }: Props) => {
-  const { mealsData } = useAppContext();
+  const forceUpdate = useForceUpdate();
+  const { mealsData, subscriptions: globalSubscriptions } = useAppContext();
   const { subscriptions } = useDiaryContext();
   const mealType = route.params.mealType;
 
   useEffect(() => {
     navigation.setOptions({ headerTitle: mealTypeData[mealType].name });
+    const unsubscribe = globalSubscriptions.subscribe(
+      'is-wizard-complete',
+      forceUpdate
+    );
+
     return () => {
+      unsubscribe();
       subscriptions.ping(`meal-card-${mealType}`);
     };
   }, []);

@@ -14,7 +14,11 @@ const WeightRow = () => {
 
   const handleSubmit = () => {
     if (wizardData.get && weight) {
-      wizardData.set({ ...wizardData.get, weight });
+      wizardData.set({
+        ...wizardData.get,
+        weight,
+        customKilocalories: undefined,
+      });
       setIsOpen(false);
     }
   };
@@ -36,7 +40,7 @@ const WeightRow = () => {
         heading="Укажите Ваш вес"
         isOpen={isOpen}
         onClose={handleClose}
-        submitProps={{ onPress: handleSubmit }}
+        submitProps={{ isDisabled: !weight, onPress: handleSubmit }}
       >
         <NumberInput
           isFloat

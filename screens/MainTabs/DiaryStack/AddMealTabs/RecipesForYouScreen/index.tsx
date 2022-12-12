@@ -16,7 +16,7 @@ import {
 } from 'con-con/types/navigation';
 import { RecipeData } from 'con-con/types/recipes';
 import { Box, Skeleton } from 'native-base';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Animated } from 'react-native';
 import { useDiaryContext } from '../../context';
 import mealTypeData from '../../meal-type-data';
@@ -35,7 +35,11 @@ type Props = CompositeScreenProps<
 const RecipesForYouScreen = ({ navigation, route }: Props) => {
   const mealType = route.params.mealType;
 
-  const { mealsData, wizardData } = useAppContext();
+  const {
+    mealsData,
+    wizardData,
+    subscriptions: globalSubscriptions,
+  } = useAppContext();
   const { subscriptions } = useDiaryContext();
   const [pos, setPos] = useState(0);
   const recipes = useValue<RecipeData[]>([]);
@@ -48,17 +52,25 @@ const RecipesForYouScreen = ({ navigation, route }: Props) => {
     topCardAnimationStyles,
   } = useCardsAnimation();
 
+  const [isVegetarian, setIsVegetarian] = useState(() =>
+    wizardData.get?.preferences.includes('vegetarian')
+  );
+
+  useEffect(() => {
+    const unsubscribe = globalSubscriptions.subscribe('wizard-data', () => {
+      setIsVegetarian(wizardData.get?.preferences.includes('vegetarian'));
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   useMethodAfterMount(
-    () =>
-      api.recipes.getRecipes(
-        mealTypeData[mealType].typeId,
-        wizardData.get?.preferences.includes('vegetarian')
-      ),
+    () => api.recipes.getRecipes(mealTypeData[mealType].typeId, isVegetarian),
     {
       onStartLoading: () => setIsLoading(true),
       onEndLoading: () => setIsLoading(false),
       next: recipes.set,
-      deps: [mealType],
+      deps: [mealType, isVegetarian],
     }
   );
 

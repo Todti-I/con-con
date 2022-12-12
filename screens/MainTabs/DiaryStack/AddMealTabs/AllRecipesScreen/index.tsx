@@ -14,6 +14,7 @@ import {
 } from 'con-con/types/navigation';
 import { RecipeData } from 'con-con/types/recipes';
 import { Box, FlatList } from 'native-base';
+import { useEffect, useState } from 'react';
 import { ListRenderItemInfo } from 'react-native';
 import { useDiaryContext } from '../../context';
 import NotFoundRecipes from './NotFoundRecipes';
@@ -32,8 +33,12 @@ const skeletonData = [...Array(10)].map(
 );
 
 const AllRecipesScreen = ({ navigation, route }: Props) => {
+  const {
+    mealsData,
+    wizardData,
+    subscriptions: globalSubscriptions,
+  } = useAppContext();
   const forceUpdate = useForceUpdate();
-  const { mealsData, wizardData } = useAppContext();
   const { subscriptions } = useDiaryContext();
   const recipes = useValue<RecipeData[]>([]);
   const isLoading = useValue(true, { onUpdate: forceUpdate });
@@ -42,13 +47,25 @@ const AllRecipesScreen = ({ navigation, route }: Props) => {
 
   const { mealType, ...searchData } = route.params;
 
+  const [isVegetarian, setIsVegetarian] = useState(() =>
+    wizardData.get?.preferences.includes('vegetarian')
+  );
+
+  useEffect(() => {
+    const unsubscribe = globalSubscriptions.subscribe('wizard-data', () => {
+      setIsVegetarian(wizardData.get?.preferences.includes('vegetarian'));
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   useMethodAfterMount(
     () =>
       api.cookBook.getRecipesWithSearch(
         offset.get,
         pageSize,
         searchData,
-        wizardData.get?.preferences.includes('vegetarian')
+        isVegetarian
       ),
     {
       onStartLoading: () => isLoading.set(true),
@@ -58,7 +75,7 @@ const AllRecipesScreen = ({ navigation, route }: Props) => {
         hasNext.set(result.length === pageSize);
         recipes.set(result);
       },
-      deps: [JSON.stringify(route.params)],
+      deps: [JSON.stringify(route.params), isVegetarian],
     }
   );
 
@@ -84,7 +101,7 @@ const AllRecipesScreen = ({ navigation, route }: Props) => {
       offset.get,
       pageSize,
       searchData,
-      wizardData.get?.preferences.includes('vegetarian')
+      isVegetarian
     );
     hasNext.set(newRecipes.length === pageSize);
     recipes.set([...recipes.get, ...newRecipes]);

@@ -13,11 +13,16 @@ const GenderRow = () => {
 
   const [gender, setGender] = useState(wizardData.get?.gender);
 
-  const genderLabel = gender === 'female' ? 'Женский' : 'Мужской';
+  const genderLabel =
+    wizardData.get?.gender === 'female' ? 'Женский' : 'Мужской';
 
   const handleSubmit = () => {
     if (wizardData.get && gender) {
-      wizardData.set({ ...wizardData.get, gender });
+      wizardData.set({
+        ...wizardData.get,
+        gender,
+        customKilocalories: undefined,
+      });
       setIsOpen(false);
     }
   };

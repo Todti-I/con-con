@@ -14,7 +14,11 @@ const GrowthRow = () => {
 
   const handleSubmit = () => {
     if (wizardData.get && growth) {
-      wizardData.set({ ...wizardData.get, growth });
+      wizardData.set({
+        ...wizardData.get,
+        growth,
+        customKilocalories: undefined,
+      });
       setIsOpen(false);
     }
   };
@@ -36,7 +40,7 @@ const GrowthRow = () => {
         heading="Укажите Ваш рост"
         isOpen={isOpen}
         onClose={handleClose}
-        submitProps={{ onPress: handleSubmit }}
+        submitProps={{ isDisabled: !growth, onPress: handleSubmit }}
       >
         <NumberInput
           maxLength={3}

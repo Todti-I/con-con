@@ -21,7 +21,11 @@ const AgeRow = () => {
 
   const handleChange = (event: DateTimePickerEvent, newDate?: Date) => {
     if (event.type === 'set' && wizardData.get && newDate) {
-      wizardData.set({ ...wizardData.get, birthday: newDate });
+      wizardData.set({
+        ...wizardData.get,
+        birthday: newDate,
+        customKilocalories: undefined,
+      });
       setBirthday(newDate);
     }
 

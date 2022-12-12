@@ -14,17 +14,24 @@ type Props = {
 };
 
 const MealCard = ({ mealType, goToMealScreen, goToAddMealScreen }: Props) => {
-  const { mealsData } = useAppContext();
+  const { mealsData, subscriptions: globalSubscriptions } = useAppContext();
   const { subscriptions } = useDiaryContext();
   const forceUpdate = useForceUpdate();
 
   useEffect(() => {
-    const unsubscribe = subscriptions.subscribe(
+    const unsubscribe1 = subscriptions.subscribe(
       `meal-card-${mealType}`,
       forceUpdate
     );
+    const unsubscribe2 = globalSubscriptions.subscribe(
+      'is-wizard-complete',
+      forceUpdate
+    );
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribe1();
+      unsubscribe2();
+    };
   }, []);
 
   const recipes = mealsData.get.meals[mealType];

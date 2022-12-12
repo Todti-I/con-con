@@ -5,6 +5,7 @@ export type WizardData = {
   weight: number;
   activityType: ActivityType;
   preferences: Preference[];
+  customKilocalories?: number;
 };
 
 export type Gender = 'male' | 'female';

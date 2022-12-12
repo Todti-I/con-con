@@ -26,7 +26,7 @@ const calculateUserParams = (data: WizardData): UserData => {
       genderParams[data.gender]);
 
   return {
-    kilocalories: Math.round(kilocalories),
+    kilocalories: data.customKilocalories || Math.round(kilocalories),
     carbohydrate: Math.round(2 * data.weight),
     protein: Math.round(1.5 * data.weight),
     fat: Math.round(0.8 * data.weight),
