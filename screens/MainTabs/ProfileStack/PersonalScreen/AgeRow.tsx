@@ -20,6 +20,7 @@ const AgeRow = () => {
   ).toString();
 
   const handleChange = (event: DateTimePickerEvent, newDate?: Date) => {
+    setIsOpen(false);
     if (event.type === 'set' && wizardData.get && newDate) {
       wizardData.set({
         ...wizardData.get,
@@ -28,8 +29,6 @@ const AgeRow = () => {
       });
       setBirthday(newDate);
     }
-
-    setIsOpen(false);
   };
 
   return (
