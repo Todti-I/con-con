@@ -93,7 +93,7 @@ const updateMealsIfNeeded = async (
     return {
       isUpdated: true,
       data: {
-        date: currentDay.toISOString(),
+        date: diets.length > 0 ? currentDay.toISOString() : '',
         meals: {
           breakfast: [diets[0]].filter(isDefined),
           dinner: [diets[2]].filter(isDefined),
