@@ -38,7 +38,10 @@ const PreferencesScreen = ({
 
   const handleComplete = async () => {
     setIsLoading(true);
-    wizardData.set(data.get as WizardData);
+    wizardData.set({
+      ...data.get,
+      preferences: data.get.preferences || [],
+    } as WizardData);
     isWizardComplete.set(true);
   };
 
