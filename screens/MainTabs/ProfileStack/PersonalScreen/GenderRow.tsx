@@ -49,8 +49,8 @@ const GenderRow = () => {
       >
         <HStack space={4}>
           <GenderCard
+            size="sm"
             isGesture={false}
-            iconSize="75px"
             isActive={gender === 'male'}
             color="rgba(8, 145, 178, 0.2)"
             activeColor="rgba(8, 145, 178, 0.6)"
@@ -59,8 +59,8 @@ const GenderRow = () => {
             onPress={() => setGender('male')}
           />
           <GenderCard
+            size="sm"
             isGesture={false}
-            iconSize="75px"
             isActive={gender === 'female'}
             color="rgba(219, 39, 119, 0.2)"
             activeColor="rgba(219, 39, 119, 0.6)"

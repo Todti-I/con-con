@@ -10,7 +10,7 @@ type Props = {
   isActive?: boolean;
   onPress?: () => void;
   isGesture?: boolean;
-  iconSize?: string;
+  size?: 'lg' | 'sm';
 };
 
 const GenderCard = ({
@@ -21,7 +21,7 @@ const GenderCard = ({
   isActive,
   onPress,
   isGesture = true,
-  iconSize = '100px',
+  size = 'lg',
 }: Props) => {
   const TouchableOpacity = isGesture
     ? TouchableOpacityGesture
@@ -39,8 +39,8 @@ const GenderCard = ({
           borderRadius={8}
           alignItems="center"
         >
-          <Icon color="text.900" size={iconSize} />
-          <Text fontSize="2xl" children={text} />
+          <Icon color="text.900" size={size === 'lg' ? '100px' : '75px'} />
+          <Text fontSize={size === 'lg' ? '2xl' : 'xl'} children={text} />
         </Box>
       </TouchableOpacity>
     </Box>

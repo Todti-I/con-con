@@ -27,7 +27,7 @@ const UpdateDietRow = () => {
         isOpen={isOpen}
         onClose={handleClose}
         onSubmit={handleSubmit}
-        children="Вам будет предложено новое меню, а существующее будет удаленно безвозвратно"
+        children="Вам будет предложено новое меню, а существующее будет удалено безвозвратно"
       />
     </>
   );
