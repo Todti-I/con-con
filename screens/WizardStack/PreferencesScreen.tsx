@@ -21,21 +21,28 @@ const PreferencesScreen = ({
   navigation,
 }: NativeStackScreenProps<WizardStackParamList, 'Preferences'>) => {
   useProgressUpdates(6);
-  const { wizardData, subscriptions } = useAppContext();
+  const { isWizardComplete, wizardData, subscriptions } = useAppContext();
   const { data, onComplete } = useWizardContext();
   const { update } = useDataUpdates();
 
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = subscriptions.subscribe('wizard-data', onComplete);
+    const unsubscribe = subscriptions.subscribe(
+      'is-wizard-complete',
+      onComplete
+    );
 
     return () => unsubscribe();
   }, []);
 
   const handleComplete = async () => {
     setIsLoading(true);
-    wizardData.set(data.get as WizardData);
+    wizardData.set({
+      ...data.get,
+      preferences: data.get.preferences || [],
+    } as WizardData);
+    isWizardComplete.set(true);
   };
 
   return (

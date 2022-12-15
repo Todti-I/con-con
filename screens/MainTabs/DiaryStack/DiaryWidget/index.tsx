@@ -9,9 +9,13 @@ const DiaryWidget = () => {
   const { mealsData, userData, subscriptions } = useAppContext();
 
   useEffect(() => {
-    const unsubscribe = subscriptions.subscribe('meals-data', forceUpdate);
+    const unsubscribe1 = subscriptions.subscribe('meals-data', forceUpdate);
+    const unsubscribe2 = subscriptions.subscribe('wizard-data', forceUpdate);
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribe1();
+      unsubscribe2();
+    };
   }, []);
 
   const allRecipes = Object.values(mealsData.get.meals).flatMap((r) => r);
